@@ -28,7 +28,7 @@ texture = ExtResource("3_jdja1")
 
 [node name="Heading Indicator" type="Node2D" parent="Display"]
 script = ExtResource("3_qqyrn")
-color = Color(0.431373, 0.941176, 0.662745, 1)
+Color = Color(0.431373, 0.941176, 0.662745, 1)
 
 [node name="Control" type="Control" parent="Display"]
 visible = false
@@ -36,6 +36,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Value Selector" type="PanelContainer" parent="Display/Control"]
+layout_mode = 0
 offset_left = 99.0
 offset_top = -14.0
 offset_right = 168.0
@@ -43,6 +44,7 @@ offset_bottom = 159.0
 theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector"]
+layout_mode = 2
 offset_right = 69.0
 offset_bottom = 173.0
 theme_override_constants/margin_left = 3
@@ -51,12 +53,14 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer"]
+layout_mode = 2
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 66.0
 offset_bottom = 170.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
+layout_mode = 2
 offset_right = 63.0
 offset_bottom = 167.0
 size_flags_vertical = 3
@@ -64,12 +68,14 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer"]
+layout_mode = 2
 offset_right = 50.0
 offset_bottom = 236.0
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_right = 50.0
 offset_bottom = 20.0
 text = "240"
@@ -77,6 +83,7 @@ text = "240"
 [node name="Heading4" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 24.0
 offset_right = 50.0
 offset_bottom = 44.0
@@ -85,6 +92,7 @@ text = "230"
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 48.0
 offset_right = 50.0
 offset_bottom = 68.0
@@ -93,6 +101,7 @@ text = "220"
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 72.0
 offset_right = 50.0
 offset_bottom = 92.0
@@ -102,6 +111,7 @@ text = "210"
 [node name="Heading" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 96.0
 offset_right = 50.0
 offset_bottom = 116.0
@@ -111,6 +121,7 @@ text = "200"
 [node name="Heading6" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 120.0
 offset_right = 50.0
 offset_bottom = 140.0
@@ -121,6 +132,7 @@ text = "190"
 [node name="Heading7" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 144.0
 offset_right = 50.0
 offset_bottom = 164.0
@@ -129,6 +141,7 @@ text = "180"
 [node name="Heading8" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 168.0
 offset_right = 50.0
 offset_bottom = 188.0
@@ -137,6 +150,7 @@ text = "170"
 [node name="Heading9" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 192.0
 offset_right = 50.0
 offset_bottom = 212.0
@@ -145,6 +159,7 @@ text = "160"
 [node name="Heading10" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(50, 0)
+layout_mode = 2
 offset_top = 216.0
 offset_right = 50.0
 offset_bottom = 236.0
@@ -152,16 +167,19 @@ text = "150"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
 visible = false
+layout_mode = 2
 offset_top = 171.0
 offset_right = 77.0
 offset_bottom = 195.0
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
+layout_mode = 2
 offset_right = 57.0
 offset_bottom = 24.0
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2i(16, 0)
+layout_mode = 2
 offset_left = 61.0
 offset_right = 77.0
 offset_bottom = 24.0
@@ -170,6 +188,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
 [node name="Value Selector2" type="PanelContainer" parent="Display/Control"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 94.0
@@ -180,6 +199,7 @@ theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector2"]
 custom_minimum_size = Vector2i(70, 0)
+layout_mode = 2
 offset_right = 83.0
 offset_bottom = 89.0
 theme_override_constants/margin_left = 3
@@ -188,18 +208,21 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer"]
+layout_mode = 2
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 80.0
 offset_bottom = 86.0
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
+layout_mode = 2
 offset_right = 77.0
 offset_bottom = 83.0
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(0, 25)
+layout_mode = 2
 offset_right = 77.0
 offset_bottom = 25.0
 text = "heading"
@@ -207,6 +230,7 @@ text = "heading"
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(0, 25)
+layout_mode = 2
 offset_top = 29.0
 offset_right = 77.0
 offset_bottom = 54.0
@@ -215,6 +239,7 @@ text = "altitude"
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2i(0, 25)
+layout_mode = 2
 offset_top = 58.0
 offset_right = 77.0
 offset_bottom = 83.0
@@ -222,16 +247,19 @@ text = "speed"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
 visible = false
+layout_mode = 2
 offset_top = 120.0
 offset_right = 77.0
 offset_bottom = 144.0
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
+layout_mode = 2
 offset_right = 57.0
 offset_bottom = 24.0
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2i(16, 0)
+layout_mode = 2
 offset_left = 61.0
 offset_right = 77.0
 offset_bottom = 24.0
