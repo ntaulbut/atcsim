@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dsirfvx5k0wea"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1"]
+
+[resource]
+resource_name = "LIMES"
+script = ExtResource("1")
+Basis = 0
+LatLon = Vector2(22.107, 113.776)

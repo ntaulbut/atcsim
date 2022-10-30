@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://v2ak1betvsvm"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1"]
+
+[resource]
+resource_name = "TD"
+script = ExtResource("1")
+Basis = 2
+LatLon = Vector2(22.248, 114.293)

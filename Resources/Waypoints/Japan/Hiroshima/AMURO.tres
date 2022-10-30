@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d1savjm7ch8xb"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1"]
+
+[resource]
+resource_name = "AMURO"
+script = ExtResource("1")
+Basis = 0
+LatLon = Vector2(34.692, 133.341)

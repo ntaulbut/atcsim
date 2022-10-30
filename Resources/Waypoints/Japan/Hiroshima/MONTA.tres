@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://di6j1beniixba"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_8k4ut"]
+
+[resource]
+resource_name = "MONTA"
+script = ExtResource("1_8k4ut")
+Basis = 0
+LatLon = Vector2(34.531, 133.139)

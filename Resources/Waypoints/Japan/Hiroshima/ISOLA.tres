@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bnxavpliw5ayr"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_urn7u"]
+
+[resource]
+resource_name = "ISOLA"
+script = ExtResource("1_urn7u")
+Basis = 0
+LatLon = Vector2(34.341, 133.139)

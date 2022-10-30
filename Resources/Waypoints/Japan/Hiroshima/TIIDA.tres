@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b55r0vg04aur2"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1"]
+
+[resource]
+resource_name = "TIIDA"
+script = ExtResource("1")
+Basis = 0
+LatLon = Vector2(34.516, 133.202)

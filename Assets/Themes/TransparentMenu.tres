@@ -1,0 +1,69 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://btud8rm3f1fmk"]
+
+[ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="1_foai4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt100"]
+bg_color = Color(0.937255, 0.937255, 0.937255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b72en"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.439216, 0.439216, 0.439216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsk5s"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myp5c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5njj"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdchg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87451, 0.87451, 0.87451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11hwu"]
+bg_color = Color(0.101961, 0.113725, 0.121569, 0.74902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6kr2"]
+bg_color = Color(0.937255, 0.937255, 0.937255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kglqc"]
+bg_color = Color(0.827451, 0.827451, 0.827451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5rcv"]
+bg_color = Color(0.678431, 0.678431, 0.678431, 1)
+
+[resource]
+Button/colors/font_color = Color(0.937255, 0.937255, 0.937255, 1)
+Button/colors/font_disabled_color = Color(0.101961, 0.113725, 0.121569, 1)
+Button/font_sizes/font_size = 14
+Button/fonts/font = ExtResource("1_foai4")
+Button/styles/disabled = SubResource("StyleBoxFlat_mt100")
+Button/styles/focus = SubResource("StyleBoxFlat_b72en")
+Button/styles/hover = SubResource("StyleBoxFlat_gsk5s")
+Button/styles/normal = SubResource("StyleBoxEmpty_myp5c")
+Button/styles/pressed = SubResource("StyleBoxFlat_x5njj")
+LineEdit/font_sizes/font_size = 15
+LineEdit/fonts/font = null
+LineEdit/styles/normal = SubResource("StyleBoxFlat_xdchg")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_11hwu")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_i6kr2")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_kglqc")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_c5rcv")

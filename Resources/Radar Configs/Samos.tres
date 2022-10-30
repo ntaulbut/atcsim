@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dp0v87njxy6jv"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/RadarConfig.cs" id="1"]
+[ext_resource type="Resource" uid="uid://84kjkhpaud17" path="res://Resources/Geo Data/SamosCoast.tres" id="1_ljq65"]
+[ext_resource type="Resource" uid="uid://sw8wyjrpelk7" path="res://Resources/Radar Styles/Japan.tres" id="3"]
+
+[resource]
+resource_name = "Hiroshima"
+script = ExtResource("1")
+Style = ExtResource("3")
+WidthNm = 110
+HeightNm = 50
+FixedBy = 1
+LatLon = Vector2(37.689, 26.912)
+GeoLines = ExtResource("1_ljq65")
+Waypoints = null

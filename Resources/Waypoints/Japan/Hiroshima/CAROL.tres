@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cljfhqt530s0c"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1"]
+
+[resource]
+resource_name = "CAROL"
+script = ExtResource("1")
+Basis = 0
+LatLon = Vector2(34.599, 133.267)

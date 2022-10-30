@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://c415e65kyqrbc"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/RadarConfig.cs" id="1"]
+[ext_resource type="Resource" uid="uid://baki220lp52um" path="res://Resources/Geo Data/HongKongCoast.tres" id="1_v0s4l"]
+[ext_resource type="Resource" uid="uid://sw8wyjrpelk7" path="res://Resources/Radar Styles/Japan.tres" id="3"]
+[ext_resource type="Resource" uid="uid://v2ak1betvsvm" path="res://Resources/Waypoints/Hong Kong/TD.tres" id="3_fuhvh"]
+[ext_resource type="Resource" uid="uid://dsirfvx5k0wea" path="res://Resources/Waypoints/Hong Kong/LIMES.tres" id="4_7f85l"]
+
+[resource]
+resource_name = "Hiroshima"
+script = ExtResource("1")
+Style = ExtResource("3")
+WidthNm = 60
+HeightNm = 300
+FixedBy = 1
+LatLon = Vector2(22.309, 113.915)
+GeoLines = ExtResource("1_v0s4l")
+Waypoints = [ExtResource("3_fuhvh"), ExtResource("4_7f85l")]

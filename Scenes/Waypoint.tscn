@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciscvqtfauscw"]
+
+[ext_resource type="Texture2D" uid="uid://b0eftoa6fvdst" path="res://Assets/Icons/alternativehollowtriangle.png" id="1_hs4tt"]
+[ext_resource type="Script" path="res://Scripts/Waypoints/Waypoint.cs" id="2_qqnqd"]
+
+[node name="Sprite2d" type="Sprite2D"]
+modulate = Color(0.87451, 0.87451, 0.87451, 1)
+texture = ExtResource("1_hs4tt")
+script = ExtResource("2_qqnqd")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 10.0
+offset_top = -8.0
+offset_right = 40.0
+offset_bottom = 6.0
+theme_override_font_sizes/font_size = 11
+text = "YOSHI"

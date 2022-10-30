@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://pi5eqi2q08ft"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_7gmk5"]
+
+[resource]
+resource_name = "BINGO"
+script = ExtResource("1_7gmk5")
+Basis = 0
+LatLon = Vector2(34.407, 133.178)
