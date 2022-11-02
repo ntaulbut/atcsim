@@ -47,7 +47,7 @@ bg_color = Color(0.101961, 0.113725, 0.121569, 0.74902)
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="Node2d" type="Node2D"]
+[node name="Root" type="Node2D"]
 
 [node name="Camera2d" type="Camera2D" parent="."]
 current = true

@@ -14,8 +14,8 @@ public partial class DebugMenu : PanelContainer
 		Session.WindSpeed = (int)((Slider)FindChild("WindSpeed")).Value;
 		((Label)FindChild("WindSpeedLabel")).Text = Session.WindSpeed.ToString();
 
-		GetNode<Aeroplane>("/root/Node2d/Aeroplanes/Aeroplane").TrueHeading = (int)((Slider)FindChild("Heading")).Value;
-		((Label)FindChild("HeadingLabel")).Text = GetNode<Aeroplane>("/root/Node2d/Aeroplanes/Aeroplane").TrueHeading.ToString();
+		GetNode<Aeroplane>("/root/Root/Aeroplanes/Aeroplane").TrueHeading = (int)((Slider)FindChild("Heading")).Value;
+		((Label)FindChild("HeadingLabel")).Text = GetNode<Aeroplane>("/root/Root/Aeroplanes/Aeroplane").TrueHeading.ToString();
 
 		Session.WindDirection = (int)((Slider)FindChild("WindDirection")).Value;
 		((Label)FindChild("WindDirectionLabel")).Text = Session.WindDirection.ToString();
