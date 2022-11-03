@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8qrhd64nffg7"]
+[gd_scene load_steps=15 format=3 uid="uid://c8lvi1vsldlno"]
 
 [ext_resource type="PackedScene" uid="uid://654vow41w50u" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
+[ext_resource type="Script" path="res://Scripts/Simulator.cs" id="1_kh82g"]
 [ext_resource type="PackedScene" uid="uid://ciscvqtfauscw" path="res://Scenes/Waypoint.tscn" id="2_xognt"]
+[ext_resource type="Resource" uid="uid://cysmq5rno6g2x" path="res://Resources/Radar Configs/Hiroshima.tres" id="2_ys0oh"]
 [ext_resource type="Script" path="res://Scripts/RangeRings.cs" id="3_x4lhn"]
 [ext_resource type="Script" path="res://Scripts/DrawGeography.cs" id="5_6dijo"]
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
-[ext_resource type="Script" path="res://Scripts/TimeDisplay.cs" id="6_6qxon"]
 [ext_resource type="Texture2D" uid="uid://dhyfattnrqyt7" path="res://Assets/Icons/play.png" id="7_bdl1e"]
 [ext_resource type="Script" path="res://Scripts/DebugMenu.cs" id="8_gkmg3"]
 
@@ -47,7 +48,9 @@ bg_color = Color(0.101961, 0.113725, 0.121569, 0.74902)
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[node name="Root" type="Node2D"]
+[node name="Simulator" type="Node2D"]
+script = ExtResource("1_kh82g")
+RadarConfig = ExtResource("2_ys0oh")
 
 [node name="Camera2d" type="Camera2D" parent="."]
 current = true
@@ -84,22 +87,26 @@ theme = SubResource("Theme_nax5k")
 theme_override_styles/panel = SubResource("StyleBoxFlat_y0cw7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Top Bar"]
+layout_mode = 2
 offset_right = 1152.0
 offset_bottom = 27.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="Time" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+layout_mode = 2
 offset_right = 83.0
 offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Time"]
+layout_mode = 2
 offset_right = 82.0
 offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Time/MarginContainer"]
+layout_mode = 2
 offset_left = 7.0
 offset_right = 75.0
 offset_bottom = 27.0
@@ -107,20 +114,22 @@ size_flags_vertical = 1
 text = "21:40:09"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("6_6qxon")
 
 [node name="View Name" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+layout_mode = 2
 offset_left = 83.0
 offset_right = 250.0
 offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/View Name"]
+layout_mode = 2
 offset_right = 166.0
 offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/View Name/MarginContainer"]
+layout_mode = 2
 offset_left = 7.0
 offset_right = 159.0
 offset_bottom = 27.0
@@ -130,17 +139,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Pause3" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+layout_mode = 2
 offset_left = 250.0
 offset_right = 585.0
 offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3"]
+layout_mode = 2
 offset_right = 334.0
 offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3/MarginContainer"]
+layout_mode = 2
 offset_left = 7.0
 offset_right = 327.0
 offset_bottom = 27.0
@@ -149,12 +161,14 @@ text = "RJOA 151300Z 05003KT CAVOK 18/14 Q1019"
 vertical_alignment = 1
 
 [node name="Pause2" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+layout_mode = 2
 offset_left = 585.0
 offset_right = 615.0
 offset_bottom = 27.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Top Bar/HBoxContainer/Pause2"]
 custom_minimum_size = Vector2i(29, 0)
+layout_mode = 2
 offset_right = 29.0
 offset_bottom = 27.0
 focus_mode = 0
@@ -170,15 +184,18 @@ offset_bottom = 128.0
 script = ExtResource("8_gkmg3")
 
 [node name="Container" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
 offset_right = 232.0
 offset_bottom = 112.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
+layout_mode = 2
 offset_right = 232.0
 offset_bottom = 26.0
 
 [node name="WindDirection" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer"]
 custom_minimum_size = Vector2i(200, 0)
+layout_mode = 2
 offset_right = 200.0
 offset_bottom = 16.0
 max_value = 360.0
@@ -186,18 +203,21 @@ tick_count = 5
 ticks_on_borders = true
 
 [node name="WindDirectionLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer"]
+layout_mode = 2
 offset_left = 204.0
 offset_right = 232.0
 offset_bottom = 26.0
 text = "000"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
+layout_mode = 2
 offset_top = 30.0
 offset_right = 232.0
 offset_bottom = 56.0
 
 [node name="WindSpeed" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer2"]
 custom_minimum_size = Vector2i(200, 0)
+layout_mode = 2
 offset_right = 200.0
 offset_bottom = 16.0
 max_value = 50.0
@@ -205,18 +225,21 @@ tick_count = 6
 ticks_on_borders = true
 
 [node name="WindSpeedLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer2"]
+layout_mode = 2
 offset_left = 204.0
 offset_right = 232.0
 offset_bottom = 26.0
 text = "000"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
+layout_mode = 2
 offset_top = 60.0
 offset_right = 232.0
 offset_bottom = 86.0
 
 [node name="Heading" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer3"]
 custom_minimum_size = Vector2i(200, 0)
+layout_mode = 2
 offset_right = 200.0
 offset_bottom = 16.0
 max_value = 360.0
@@ -224,7 +247,12 @@ tick_count = 5
 ticks_on_borders = true
 
 [node name="HeadingLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer3"]
+layout_mode = 2
 offset_left = 204.0
 offset_right = 232.0
 offset_bottom = 26.0
 text = "000"
+
+[connection signal="Start" from="." to="Waypoints" method="InstantiateWaypoints"]
+[connection signal="Start" from="." to="Range Rings" method="OnStart"]
+[connection signal="Start" from="." to="Geography Drawing" method="GenerateTerrain"]

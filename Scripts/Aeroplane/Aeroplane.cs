@@ -16,11 +16,7 @@ public partial class Aeroplane : Node
 
     [Export] public Vector2 PositionNm;
     [Export] public Vector2 Velocity;
-
-    public override void _Ready()
-    {
-
-    }
+    private Simulator _simulator;
 
     private Vector2 HeadingToVector(float heading)
     {
@@ -42,13 +38,18 @@ public partial class Aeroplane : Node
             theta = 180 - heading;
             quadrant = new Vector2(1, -1);
         }
-        return new Vector2(Mathf.Sin(Mathf.DegToRad(theta)), Mathf.Sin(Mathf.DegToRad(90 - theta))).Normalized()*quadrant;
+        return new Vector2(Mathf.Sin(Mathf.DegToRad(theta)), Mathf.Sin(Mathf.DegToRad(90 - theta))).Normalized() * quadrant;
+    }
+
+    public override void _Ready()
+    {
+        _simulator = GetTree().Root.GetChild<Simulator>(0);
     }
 
     public override void _PhysicsProcess(double delta)
     {
         Vector2 airVector = HeadingToVector(TrueHeading) * TrueAirspeed;
-        Vector2 windVector = HeadingToVector(Session.WindDirection) * Session.WindSpeed;
+        Vector2 windVector = HeadingToVector(_simulator.WindDirection) * _simulator.WindSpeed;
         Velocity = (airVector + windVector) / SecondsInAnHour * (float)delta;
         PositionNm += Velocity;
     }

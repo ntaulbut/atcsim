@@ -5,6 +5,7 @@
 
 [node name="Sprite2d" type="Sprite2D"]
 modulate = Color(0.87451, 0.87451, 0.87451, 1)
+texture_filter = 1
 texture = ExtResource("1_hs4tt")
 script = ExtResource("2_qqnqd")
 
