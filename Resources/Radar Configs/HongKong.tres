@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://dsirfvx5k0wea" path="res://Resources/Waypoints/Hong Kong/LIMES.tres" id="4_7f85l"]
 
 [resource]
-resource_name = "Hiroshima"
+resource_name = "Hong Kong"
 script = ExtResource("1")
 Style = ExtResource("3")
 WidthNm = 60
