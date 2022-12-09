@@ -13,6 +13,7 @@ public partial class HistoryDots : Node2D
 	{
 		_previousPositions = Enumerable.Repeat(Vector2.Zero, 10).ToList();
 		GenerateDots(10);
+		GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
 	}
 
 	private void GenerateDots(int dots)
@@ -32,7 +33,7 @@ public partial class HistoryDots : Node2D
     {
 		for (int i = 0; i < 10; i++)
 		{
-			GetChild<Sprite2D>(i).Position = Simulator.RadarConfig.ScaledPosition(_previousPositions[i], GetViewportRect());
+			GetChild<Sprite2D>(i).Position = Simulator.ScaledPosition(_previousPositions[i], GetViewportRect());
 		}
 	}
 
@@ -48,4 +49,9 @@ public partial class HistoryDots : Node2D
     {
 		MoveDots();
     }
+
+	public void OnScaleChanged()
+	{
+		QueueRedraw();
+	}
 }

@@ -15,7 +15,6 @@ public partial class Waypoints : Node
 			Node node = waypointScene.Instantiate();
 			Waypoint waypoint = (Waypoint)node;
 			waypoint.WaypointData = waypointData;
-			waypoint.RadarConfig = Simulator.RadarConfig;
 			// waypoints.Add(waypointData.ResourceName, waypoint);
 			node.Name = waypointData.ResourceName;
 			AddChild(node);
