@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://654vow41w50u" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
+[ext_resource type="Script" path="res://Scripts/CameraPanAndZoom.cs" id="1_yd50q"]
 [ext_resource type="PackedScene" uid="uid://ciscvqtfauscw" path="res://Scenes/Waypoint.tscn" id="2_xognt"]
-[ext_resource type="Script" path="res://Scripts/CameraPanning.cs" id="3_552js"]
 [ext_resource type="Script" path="res://Scripts/RangeRings.cs" id="3_x4lhn"]
 [ext_resource type="Script" path="res://Scripts/DrawGeography.cs" id="5_6dijo"]
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
@@ -50,10 +50,6 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [node name="Root" type="Node2D"]
-
-[node name="Camera2d" type="Camera2D" parent="."]
-current = true
-script = ExtResource("3_552js")
 
 [node name="Aeroplanes" type="Node" parent="."]
 
@@ -209,5 +205,9 @@ theme = ExtResource("11_f6m0k")
 layout_mode = 2
 text = "Exit"
 script = ExtResource("12_7vxx1")
+
+[node name="Camera2d" type="Camera2D" parent="."]
+current = true
+script = ExtResource("1_yd50q")
 
 [connection signal="pressed" from="CanvasLayer/PanelContainer2/Button" to="CanvasLayer/PanelContainer2/Button" method="OnPressed"]

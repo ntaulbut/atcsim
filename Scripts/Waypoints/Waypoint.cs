@@ -33,7 +33,7 @@ public partial class Waypoint : Sprite2D
     }
 
     public void OnScaleChanged()
-    {
-        QueueRedraw();
-    }
+	{
+		QueueRedraw();
+	}
 }
