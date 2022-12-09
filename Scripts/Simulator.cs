@@ -3,25 +3,15 @@ using System;
 
 public partial class Simulator : Node2D
 {
-    [Export]
-    public RadarConfig RadarConfig;
+    public static RadarConfig RadarConfig;
 
-    public float WindDirection;
-    public float WindSpeed;
-
-	[Signal]
-	public delegate void StartEventHandler(RadarConfig radarConfig);
+    public static float WindDirection;
+    public static float WindSpeed;
 
     public Vector2 ScaledPosition(Vector2 position) // phase this out
     {
         return new Vector2(position.x, -position.y) * RadarConfig.Scale(GetViewportRect());
     }
-
-    public override void _Ready()
-	{
-        RadarConfig = Application.SelectedRadarConfig;
-		EmitSignal("Start", RadarConfig);
-	}
 
     public override void _Process(double delta)
 	{

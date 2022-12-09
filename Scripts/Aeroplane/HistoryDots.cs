@@ -9,18 +9,15 @@ public partial class HistoryDots : Node2D
 	private List<Vector2> _previousPositions = new();
 	private Vector2 _previousPosition;
 
-	private Simulator _simulator;
-
 	public override void _Ready()
 	{
 		_previousPositions = Enumerable.Repeat(Vector2.Zero, 10).ToList();
-		_simulator = GetNode<Simulator>("/root/Simulator");
 		GenerateDots(10);
 	}
 
 	private void GenerateDots(int dots)
     {
-		RadarStyle style = _simulator.RadarConfig.Style;
+		RadarStyle style = Simulator.RadarConfig.Style;
 
 		for (int i = 0; i < dots; i++)
         {
@@ -35,7 +32,7 @@ public partial class HistoryDots : Node2D
     {
 		for (int i = 0; i < 10; i++)
 		{
-			GetChild<Sprite2D>(i).Position = _simulator.RadarConfig.ScaledPosition(_previousPositions[i], GetViewportRect());
+			GetChild<Sprite2D>(i).Position = Simulator.RadarConfig.ScaledPosition(_previousPositions[i], GetViewportRect());
 		}
 	}
 

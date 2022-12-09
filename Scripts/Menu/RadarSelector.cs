@@ -23,7 +23,7 @@ public partial class RadarSelector : VBoxContainer
 
 	public void GoButtonPressed()
     {
-		Application.SelectedRadarConfig = radarConfigs[dropdown.Selected];
+		Simulator.RadarConfig = radarConfigs[dropdown.Selected];
 		GetTree().ChangeSceneToFile(SimulatorScene.ResourcePath);
 	}
 

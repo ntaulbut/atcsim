@@ -28,9 +28,9 @@ self_modulate = Color(0.431373, 0.941176, 0.662745, 1)
 texture_filter = 1
 texture = ExtResource("3_jdja1")
 
-[node name="Leader Line" type="Node2D" parent="Display" node_paths=PackedStringArray("_aeroplaneDisplay")]
+[node name="Leader Line" type="Node2D" parent="Display" node_paths=PackedStringArray("_aeroplane")]
 script = ExtResource("4_hd6fm")
-_aeroplaneDisplay = NodePath("..")
+_aeroplane = NodePath("../..")
 _colour = Color(0.431373, 0.941176, 0.662745, 1)
 
 [node name="Control" type="Control" parent="Display"]
@@ -39,7 +39,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Value Selector" type="PanelContainer" parent="Display/Control"]
-layout_mode = 0
 offset_left = 99.0
 offset_top = -14.0
 offset_right = 168.0
@@ -47,60 +46,56 @@ offset_bottom = 159.0
 theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector"]
-layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 61.0
+offset_bottom = 3.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
-layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer"]
-layout_mode = 2
+offset_right = 50.0
+offset_bottom = 236.0
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "240"
 
 [node name="Heading4" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "230"
 
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "220"
 
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 disabled = true
 text = "210"
 
 [node name="Heading" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 focus_next = NodePath("../Heading6")
 text = "200"
 
 [node name="Heading6" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 focus_next = NodePath("../Heading7")
 focus_previous = NodePath("../Heading")
 text = "190"
@@ -108,43 +103,35 @@ text = "190"
 [node name="Heading7" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "180"
 
 [node name="Heading8" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "170"
 
 [node name="Heading9" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "160"
 
 [node name="Heading10" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "150"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
 visible = false
-layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
-layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2(16, 0)
-layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
 [node name="Value Selector2" type="PanelContainer" parent="Display/Control"]
-layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 94.0
@@ -155,46 +142,41 @@ theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector2"]
 custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 71.0
+offset_bottom = 86.0
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
-layout_mode = 2
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "heading"
 
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "altitude"
 
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "speed"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
 visible = false
-layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
-layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2(16, 0)
-layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
