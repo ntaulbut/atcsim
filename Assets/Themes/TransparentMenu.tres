@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://btud8rm3f1fmk"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://btud8rm3f1fmk"]
 
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="1_foai4"]
 
@@ -38,6 +38,30 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.87451, 0.87451, 0.87451, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weheh"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 4.0
+bg_color = Color(0.321569, 0.321569, 0.321569, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87451, 0.87451, 0.87451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqtjc"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87451, 0.87451, 0.87451, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_11hwu"]
 bg_color = Color(0.101961, 0.113725, 0.121569, 0.74902)
 
@@ -63,6 +87,9 @@ Button/styles/pressed = SubResource("StyleBoxFlat_x5njj")
 LineEdit/font_sizes/font_size = 15
 LineEdit/fonts/font = null
 LineEdit/styles/normal = SubResource("StyleBoxFlat_xdchg")
+OptionButton/font_sizes/font_size = 15
+OptionButton/styles/hover = SubResource("StyleBoxFlat_weheh")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_yqtjc")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_11hwu")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_i6kr2")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_kglqc")
