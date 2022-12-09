@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://654vow41w50u"]
+[gd_scene load_steps=8 format=3 uid="uid://654vow41w50u"]
 
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplane.cs" id="1_3137e"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/AeroplaneDisplay.cs" id="2_uiyre"]
 [ext_resource type="Texture2D" uid="uid://ho4t1c54jdlx" path="res://Assets/Icons/squaredstar.png" id="3_jdja1"]
-[ext_resource type="Script" path="res://Scripts/Aeroplane/HeadingIndicator.cs" id="3_qqyrn"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/LeaderLine.cs" id="4_hd6fm"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="5_yfkyw"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/HistoryDots.cs" id="6_3otf0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlbuf"]
 bg_color = Color(0.937255, 0.937255, 0.937255, 1)
@@ -12,23 +13,25 @@ bg_color = Color(0.937255, 0.937255, 0.937255, 1)
 [node name="Aeroplane" type="Node"]
 script = ExtResource("1_3137e")
 
-[node name="Display" type="Node2D" parent="."]
-z_index = 10
-script = ExtResource("2_uiyre")
-
-[node name="Timer" type="Timer" parent="Display"]
+[node name="DisplayUpdateTimer" type="Timer" parent="."]
 process_mode = 1
 wait_time = 4.0
 autostart = true
+
+[node name="Display" type="Node2D" parent="." node_paths=PackedStringArray("Aeroplane")]
+z_index = 10
+script = ExtResource("2_uiyre")
+Aeroplane = NodePath("..")
 
 [node name="Blip" type="Sprite2D" parent="Display"]
 self_modulate = Color(0.431373, 0.941176, 0.662745, 1)
 texture_filter = 1
 texture = ExtResource("3_jdja1")
 
-[node name="Heading Indicator" type="Node2D" parent="Display"]
-script = ExtResource("3_qqyrn")
-Color = Color(0.431373, 0.941176, 0.662745, 1)
+[node name="Leader Line" type="Node2D" parent="Display" node_paths=PackedStringArray("_aeroplaneDisplay")]
+script = ExtResource("4_hd6fm")
+_aeroplaneDisplay = NodePath("..")
+_colour = Color(0.431373, 0.941176, 0.662745, 1)
 
 [node name="Control" type="Control" parent="Display"]
 visible = false
@@ -36,6 +39,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Value Selector" type="PanelContainer" parent="Display/Control"]
+layout_mode = 0
 offset_left = 99.0
 offset_top = -14.0
 offset_right = 168.0
@@ -43,133 +47,104 @@ offset_bottom = 159.0
 theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector"]
-offset_right = 69.0
-offset_bottom = 173.0
+layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 66.0
-offset_bottom = 170.0
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
-offset_right = 63.0
-offset_bottom = 167.0
+layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer"]
-offset_right = 50.0
-offset_bottom = 236.0
+layout_mode = 2
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_right = 50.0
-offset_bottom = 20.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "240"
 
 [node name="Heading4" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 24.0
-offset_right = 50.0
-offset_bottom = 44.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "230"
 
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 48.0
-offset_right = 50.0
-offset_bottom = 68.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "220"
 
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 72.0
-offset_right = 50.0
-offset_bottom = 92.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 disabled = true
 text = "210"
 
 [node name="Heading" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 96.0
-offset_right = 50.0
-offset_bottom = 116.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 focus_next = NodePath("../Heading6")
 text = "200"
 
 [node name="Heading6" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 120.0
-offset_right = 50.0
-offset_bottom = 140.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 focus_next = NodePath("../Heading7")
 focus_previous = NodePath("../Heading")
 text = "190"
 
 [node name="Heading7" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 144.0
-offset_right = 50.0
-offset_bottom = 164.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "180"
 
 [node name="Heading8" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 168.0
-offset_right = 50.0
-offset_bottom = 188.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "170"
 
 [node name="Heading9" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 192.0
-offset_right = 50.0
-offset_bottom = 212.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "160"
 
 [node name="Heading10" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(50, 0)
-offset_top = 216.0
-offset_right = 50.0
-offset_bottom = 236.0
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 text = "150"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector/MarginContainer/Features"]
 visible = false
-offset_top = 171.0
-offset_right = 77.0
-offset_bottom = 195.0
+layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
-offset_right = 57.0
-offset_bottom = 24.0
+layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector/MarginContainer/Features/Custom Value"]
-custom_minimum_size = Vector2i(16, 0)
-offset_left = 61.0
-offset_right = 77.0
-offset_bottom = 24.0
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
 [node name="Value Selector2" type="PanelContainer" parent="Display/Control"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 94.0
@@ -179,64 +154,55 @@ size_flags_vertical = 0
 theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Control/Value Selector2"]
-custom_minimum_size = Vector2i(70, 0)
-offset_right = 83.0
-offset_bottom = 89.0
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer"]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 80.0
-offset_bottom = 86.0
+layout_mode = 2
 
 [node name="Options" type="VBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
-offset_right = 77.0
-offset_bottom = 83.0
+layout_mode = 2
 
 [node name="Heading5" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(0, 25)
-offset_right = 77.0
-offset_bottom = 25.0
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "heading"
 
 [node name="Heading3" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(0, 25)
-offset_top = 29.0
-offset_right = 77.0
-offset_bottom = 54.0
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "altitude"
 
 [node name="Heading2" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
-custom_minimum_size = Vector2i(0, 25)
-offset_top = 58.0
-offset_right = 77.0
-offset_bottom = 83.0
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "speed"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Control/Value Selector2/MarginContainer/Features"]
 visible = false
-offset_top = 120.0
-offset_right = 77.0
-offset_bottom = 144.0
+layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
-offset_right = 57.0
-offset_bottom = 24.0
+layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Control/Value Selector2/MarginContainer/Features/Custom Value"]
-custom_minimum_size = Vector2i(16, 0)
-offset_left = 61.0
-offset_right = 77.0
-offset_bottom = 24.0
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
-[connection signal="timeout" from="Display/Timer" to="Display" method="DisplayUpdateTimeout"]
+[node name="History Dots" type="Node2D" parent="." node_paths=PackedStringArray("Aeroplane")]
+script = ExtResource("6_3otf0")
+Aeroplane = NodePath("..")
+
+[connection signal="timeout" from="DisplayUpdateTimer" to="Display" method="DisplayUpdateTimeout"]
+[connection signal="timeout" from="DisplayUpdateTimer" to="Display/Leader Line" method="DisplayUpdateTimeout"]
+[connection signal="timeout" from="DisplayUpdateTimer" to="History Dots" method="DisplayUpdateTimeout"]
