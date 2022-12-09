@@ -3,7 +3,7 @@ using System;
 
 public partial class AeroplaneDisplay : Node2D
 {
-    public Aeroplane Aeroplane;
+    [Export] public Aeroplane Aeroplane;
     private Simulator _simulator;
     private Vector2 _displayPositionNm;
 
@@ -14,8 +14,7 @@ public partial class AeroplaneDisplay : Node2D
 
     public override void _Ready()
     {
-        _simulator = GetTree().Root.GetChild<Simulator>(0);
-        Aeroplane = GetParent<Aeroplane>();
+        _simulator = GetNode<Simulator>("/root/Simulator"); // get rid of this (?)
     }
 
     public override void _Process(double delta)
