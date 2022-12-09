@@ -12,13 +12,14 @@ public partial class Simulator : Node2D
 	[Signal]
 	public delegate void StartEventHandler(RadarConfig radarConfig);
 
-    public Vector2 ScaledPosition(Vector2 position)
+    public Vector2 ScaledPosition(Vector2 position) // phase this out
     {
         return new Vector2(position.x, -position.y) * RadarConfig.Scale(GetViewportRect());
     }
 
     public override void _Ready()
 	{
+        RadarConfig = Application.SelectedRadarConfig;
 		EmitSignal("Start", RadarConfig);
 	}
 
