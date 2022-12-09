@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="ATCSim"
-run/main_scene="res://Scenes/Simulator.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Application="*res://Scripts/Application.cs"
 
 [dotnet]
 
