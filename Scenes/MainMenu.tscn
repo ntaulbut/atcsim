@@ -16,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." node_paths=PackedStringArray("dropdown")]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -34,21 +35,16 @@ dropdown = NodePath("OptionButton")
 radarConfigs = [ExtResource("3_g7eik"), ExtResource("4_h0jt7"), ExtResource("5_w7o5i")]
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-offset_right = 120.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "ATC Sim"
 horizontal_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
-offset_top = 30.0
-offset_right = 120.0
-offset_bottom = 47.0
+layout_mode = 2
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-offset_top = 51.0
-offset_right = 120.0
-offset_bottom = 71.0
+layout_mode = 2
 text = "Go"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="VBoxContainer" method="GoButtonPressed"]

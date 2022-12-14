@@ -11,27 +11,22 @@ public partial class HistoryDots : Node2D
 
     public override void _Ready()
     {
-        _previousPositions = Enumerable.Repeat(Vector2.Zero, 10).ToList();
-        GenerateDots(10);
+        //_previousPositions = Enumerable.Repeat(Vector2.Zero, 10).ToList();
         GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
     }
 
-    private void GenerateDots(int dots)
+    private void AddDot()
     {
         RadarStyle style = Simulator.RadarConfig.Style;
-
-        for (int i = 0; i < dots; i++)
-        {
-            Sprite2D dot = new Sprite2D();
-            dot.Texture = style.HistoryDotTexture;
-            dot.Modulate = style.HistoryDotsColourGradient.Sample(i / (float)dots);
-            AddChild(dot);
-        }
+        Sprite2D dot = new Sprite2D();
+        dot.Texture = style.HistoryDotTexture;
+        dot.Modulate = style.HistoryDotsColourGradient.Sample(GetChildCount() / (float)style.HistoryDotsCount);
+        AddChild(dot);
     }
 
-    private void MoveDots()
+    private void UpdateDotsPositions()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < GetChildCount(); i++)
         {
             GetChild<Sprite2D>(i).Position = Simulator.ScaledPosition(_previousPositions[i], GetViewportRect());
         }
@@ -39,15 +34,20 @@ public partial class HistoryDots : Node2D
 
     public void DisplayUpdateTimeout()
     {
-        MoveDots();
+        UpdateDotsPositions();
 
         _previousPosition = Aeroplane.PositionNm;
         _previousPositions.Insert(0, _previousPosition);
+
+        if (GetChildCount() < Simulator.RadarConfig.Style.HistoryDotsCount)
+        {
+            AddDot();
+        }
     }
 
     public override void _Draw()
     {
-        MoveDots();
+        UpdateDotsPositions();
     }
 
     public void OnScaleChanged()

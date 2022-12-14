@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://drrccg1eyxn0d" path="res://Assets/Icons/cross.png" id="4"]
 
 [sub_resource type="Gradient" id="Gradient_mjba3"]
-colors = PackedColorArray(1, 0.278431, 0, 1, 1, 0.278431, 0, 0.305882)
+colors = PackedColorArray(1, 0.278431, 0, 1, 0, 0.835294, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijhvb"]
 bg_color = Color(0, 0, 0.52549, 1)
@@ -24,6 +24,7 @@ VORTexture = ExtResource("2")
 NDBTexture = ExtResource("3")
 CoastlineColour = Color(0.592157, 0.592157, 0.592157, 1)
 LeaderLineColour = Color(0, 0, 0, 0)
+HistoryDotsCount = 20
 HistoryDotTexture = ExtResource("1_22owp")
 HistoryDotsColourGradient = SubResource("Gradient_mjba3")
 TagPanelNormal = SubResource("StyleBoxFlat_ju2at")
