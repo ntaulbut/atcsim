@@ -11,4 +11,6 @@ public partial class RadarStyle : Resource
     [Export] public Color LeaderLineColour;
     [Export] public Texture2D HistoryDotTexture;
     [Export] public Gradient HistoryDotsColourGradient;
+    [Export] public StyleBoxFlat TagPanelNormal;
+    [Export] public StyleBoxFlat TagPanelHovered;
 }

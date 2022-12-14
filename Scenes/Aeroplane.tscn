@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://654vow41w50u"]
+[gd_scene load_steps=12 format=3 uid="uid://654vow41w50u"]
 
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplane.cs" id="1_3137e"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/AeroplaneDisplay.cs" id="2_uiyre"]
@@ -6,9 +6,15 @@
 [ext_resource type="Script" path="res://Scripts/Aeroplane/LeaderLine.cs" id="4_hd6fm"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="5_yfkyw"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/HistoryDots.cs" id="6_3otf0"]
+[ext_resource type="Theme" uid="uid://dm1266nk07iw1" path="res://Assets/Themes/TagTheme.tres" id="6_glqic"]
+[ext_resource type="Script" path="res://Scenes/Tag.cs" id="7_56crv"]
+[ext_resource type="Script" path="res://Scenes/LineEditInputHandler.cs" id="7_n3wvv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlbuf"]
 bg_color = Color(0.937255, 0.937255, 0.937255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8dre"]
+bg_color = Color(0, 0, 0.52549, 1)
 
 [node name="Aeroplane" type="Node"]
 script = ExtResource("1_3137e")
@@ -181,6 +187,67 @@ theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
+[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer")]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("6_glqic")
+script = ExtResource("7_56crv")
+TagDisplay = NodePath("Control")
+TagDisplayPanelContainer = NodePath("Control/PanelContainer")
+
+[node name="Control" type="Control" parent="Display/Tag"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 81.0
+offset_bottom = 44.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Display/Tag/Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k8dre")
+
+[node name="MarginContainer" type="MarginContainer" parent="Display/Tag/Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/MarginContainer"]
+offset_left = 2.0
+offset_right = 78.0
+offset_bottom = 41.0
+
+[node name="Callsign" type="Label" parent="Display/Tag/Control/MarginContainer/VBoxContainer"]
+offset_right = 76.0
+offset_bottom = 18.0
+text = "JAL307"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Display/Tag/Control/MarginContainer/VBoxContainer"]
+offset_top = 18.0
+offset_right = 76.0
+offset_bottom = 36.0
+
+[node name="LineEdit" type="LineEdit" parent="Display/Tag/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+offset_right = 31.0
+offset_bottom = 18.0
+text = "250"
+max_length = 3
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+select_all_on_focus = true
+caret_blink = true
+script = ExtResource("7_n3wvv")
+
 [node name="History Dots" type="Node2D" parent="." node_paths=PackedStringArray("Aeroplane")]
 script = ExtResource("6_3otf0")
 Aeroplane = NodePath("..")
@@ -188,3 +255,4 @@ Aeroplane = NodePath("..")
 [connection signal="timeout" from="DisplayUpdateTimer" to="Display" method="DisplayUpdateTimeout"]
 [connection signal="timeout" from="DisplayUpdateTimer" to="Display/Leader Line" method="DisplayUpdateTimeout"]
 [connection signal="timeout" from="DisplayUpdateTimer" to="History Dots" method="DisplayUpdateTimeout"]
+[connection signal="text_submitted" from="Display/Tag/Control/MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="Display/Tag/Control/MarginContainer/VBoxContainer/HBoxContainer/LineEdit" method="OnSubmitted"]

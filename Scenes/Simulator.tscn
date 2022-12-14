@@ -60,7 +60,7 @@ script = ExtResource("1_yd50q")
 [node name="Aeroplane" parent="Aeroplanes" instance=ExtResource("1_7uaao")]
 TrueAirspeed = 250.0
 PositionNm = Vector2(-10, 0)
-TrueHeading = 90.0
+TrueHeading = 45.0
 
 [node name="Waypoints" type="Node" parent="."]
 script = ExtResource("1_8txqx")
