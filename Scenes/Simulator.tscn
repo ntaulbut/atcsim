@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8ultgoluj5nj"]
+[gd_scene load_steps=15 format=3 uid="uid://8ultgoluj5nj"]
 
 [ext_resource type="PackedScene" uid="uid://654vow41w50u" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scripts/DrawGeography.cs" id="5_6dijo"]
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
 [ext_resource type="Texture2D" uid="uid://dhyfattnrqyt7" path="res://Assets/Icons/play.png" id="7_bdl1e"]
-[ext_resource type="Script" path="res://Scripts/Menu/DebugMenu.cs" id="10_pvfq0"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="11_f6m0k"]
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
 
@@ -145,59 +144,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("7_bdl1e")
 icon_alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 18.0
-offset_top = 16.0
-offset_right = 219.0
-offset_bottom = 128.0
-script = ExtResource("10_pvfq0")
-
-[node name="Container" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
-layout_mode = 2
-
-[node name="WindDirection" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-max_value = 360.0
-tick_count = 5
-ticks_on_borders = true
-
-[node name="WindDirectionLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer"]
-layout_mode = 2
-text = "000"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
-layout_mode = 2
-
-[node name="WindSpeed" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-max_value = 50.0
-tick_count = 6
-ticks_on_borders = true
-
-[node name="WindSpeedLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer2"]
-layout_mode = 2
-text = "000"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/PanelContainer/Container"]
-layout_mode = 2
-
-[node name="Heading" type="HSlider" parent="CanvasLayer/PanelContainer/Container/HBoxContainer3"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-max_value = 360.0
-tick_count = 5
-ticks_on_borders = true
-
-[node name="HeadingLabel" type="Label" parent="CanvasLayer/PanelContainer/Container/HBoxContainer3"]
-layout_mode = 2
-text = "000"
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
 offset_left = 5.0
