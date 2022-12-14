@@ -1,4 +1,5 @@
 using Godot;
+using System.Reflection.Metadata;
 
 public partial class CameraPanAndZoom : Camera2D
 {
@@ -7,7 +8,8 @@ public partial class CameraPanAndZoom : Camera2D
     private Vector2 _initialCameraPosition;
     private Vector2 _initialMousePosition;
 
-    private float _oldZoom = 1f;
+    private const int MaxZoom = 20;
+    private const int MinZoom = -20;
 
     private void SetReference()
     {
@@ -19,25 +21,27 @@ public partial class CameraPanAndZoom : Camera2D
     {
         if (@inputEvent.IsActionPressed("Zoom In"))
         {
-            Simulator.Zoom *= (1f + Simulator.ZoomSpeed);
-            Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
-            // Move the camera to compensate for stretching of distances
-            Position *= Simulator.Zoom / _oldZoom;
-            SetReference();
-            _oldZoom = Simulator.Zoom;
+            if (Simulator.Zoom < MaxZoom)
+            {
+                Simulator.Zoom++;
+                // Move the camera to compensate for stretching of distances
+                Position *= (1f + Simulator.ZoomSpeed);
+                SetReference();
+            }
         }
         else if (@inputEvent.IsActionPressed("Zoom Out"))
         {
-            Simulator.Zoom *= (1f - Simulator.ZoomSpeed);
-            Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
-            // Move the camera to compensate for stretching of distances
-            Position *= Simulator.Zoom / _oldZoom;
-            SetReference();
-            _oldZoom = Simulator.Zoom;
+            if (Simulator.Zoom > MinZoom)
+            {
+                Simulator.Zoom--;
+                // Move the camera to compensate for stretching of distances
+                Position *= (1f - Simulator.ZoomSpeed);
+                SetReference();
+            }
         }
         else if (@inputEvent.IsActionPressed("Reset Camera"))
         {
-            Simulator.Zoom = 1f;
+            Simulator.Zoom = 0;
         }
     }
 

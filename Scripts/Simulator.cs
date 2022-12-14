@@ -8,8 +8,8 @@ public partial class Simulator : Node2D
     public static float WindDirection;
     public static float WindSpeed;
 
-    public static float ZoomSpeed = 0.1f;
-    public static float Zoom = 1f;
+    public static float ZoomSpeed = 0.1f; // Percentage change in zoom level
+    public static int Zoom = 0; // Zoom increment
 
     private static Rect2 _viewportRect;
     private static float _previousScale;
@@ -19,11 +19,12 @@ public partial class Simulator : Node2D
     public static new float Scale(Rect2 viewportRect)
     {
         _viewportRect = viewportRect;
+        float zoomValue = 1f * Mathf.Pow(1 + ZoomSpeed, Zoom);
         return RadarConfig.FixedBy switch
         {
-            RadarConfig.DisplayFixedBy.Width => (viewportRect.Size.x / RadarConfig.WidthNm) * Zoom,
-            RadarConfig.DisplayFixedBy.Height => (viewportRect.Size.y / RadarConfig.HeightNm) * Zoom,
-            RadarConfig.DisplayFixedBy.Compromise => (viewportRect.Size.x / RadarConfig.WidthNm + viewportRect.Size.y / RadarConfig.HeightNm) / 2 * Zoom,
+            RadarConfig.DisplayFixedBy.Width => (viewportRect.Size.x / RadarConfig.WidthNm) * zoomValue,
+            RadarConfig.DisplayFixedBy.Height => (viewportRect.Size.y / RadarConfig.HeightNm) * zoomValue,
+            RadarConfig.DisplayFixedBy.Compromise => (viewportRect.Size.x / RadarConfig.WidthNm + viewportRect.Size.y / RadarConfig.HeightNm) / 2 * zoomValue,
             _ => throw new NotImplementedException()
         };
     }
