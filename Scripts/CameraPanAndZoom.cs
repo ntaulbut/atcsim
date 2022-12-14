@@ -8,6 +8,8 @@ public partial class CameraPanAndZoom : Camera2D
     private Vector2 _initialCameraPosition;
     private Vector2 _initialMousePosition;
 
+    private float _oldZoom = 1f;
+
     private void SetReference()
     {
         _initialMousePosition = GetViewport().GetMousePosition();
@@ -20,15 +22,19 @@ public partial class CameraPanAndZoom : Camera2D
         {
             Simulator.Zoom *= (1f + Simulator.ZoomSpeed);
             Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
-            Position *= (1f + Simulator.ZoomSpeed);
+            // Move the camera to compensate for stretching of distances
+            Position *= Simulator.Zoom / _oldZoom;
             SetReference();
+            _oldZoom = Simulator.Zoom;
         }
         else if (@inputEvent.IsActionPressed("Zoom Out"))
         {
             Simulator.Zoom *= (1f - Simulator.ZoomSpeed);
             Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
-            Position *= (1f - Simulator.ZoomSpeed);
+            // Move the camera to compensate for stretching of distances
+            Position *= Simulator.Zoom / _oldZoom;
             SetReference();
+            _oldZoom = Simulator.Zoom;
         }
         else if (@inputEvent.IsActionPressed("Reset Camera"))
         {
