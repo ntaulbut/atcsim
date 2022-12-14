@@ -14,21 +14,23 @@ public partial class CameraPanAndZoom : Camera2D
         _initialCameraPosition = Position;
     }
 
-    public override void _Input(InputEvent inputEvent)
+    public override void _Input(InputEvent @inputEvent)
     {
-        if (inputEvent.IsActionPressed("Zoom In"))
+        if (@inputEvent.IsActionPressed("Zoom In"))
         {
             Simulator.Zoom *= (1f + Simulator.ZoomSpeed);
+            Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
             Position *= (1f + Simulator.ZoomSpeed);
             SetReference();
         }
-        else if (inputEvent.IsActionPressed("Zoom Out"))
+        else if (@inputEvent.IsActionPressed("Zoom Out"))
         {
             Simulator.Zoom *= (1f - Simulator.ZoomSpeed);
+            Simulator.Zoom = Mathf.Clamp(Simulator.Zoom, 0.1f, 10f);
             Position *= (1f - Simulator.ZoomSpeed);
             SetReference();
         }
-        else if (inputEvent.IsActionPressed("Reset Camera"))
+        else if (@inputEvent.IsActionPressed("Reset Camera"))
         {
             Simulator.Zoom = 1f;
         }
