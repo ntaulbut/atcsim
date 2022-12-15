@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8ultgoluj5nj"]
+[gd_scene load_steps=17 format=3 uid="uid://8ultgoluj5nj"]
 
 [ext_resource type="PackedScene" uid="uid://654vow41w50u" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="11_f6m0k"]
 [ext_resource type="Script" path="res://Scripts/Menu/DebugBarText.cs" id="11_matk1"]
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
+[ext_resource type="Texture2D" uid="uid://drrccg1eyxn0d" path="res://Assets/Icons/cross.png" id="12_apb73"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvim2"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -175,5 +176,19 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 10
 script = ExtResource("11_matk1")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -4.5
+offset_right = 4.5
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_apb73")
 
 [connection signal="pressed" from="CanvasLayer/PanelContainer2/Button" to="CanvasLayer/PanelContainer2/Button" method="OnPressed"]

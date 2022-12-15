@@ -25,7 +25,7 @@ public partial class CameraPanAndZoom : Camera2D
             {
                 Simulator.Zoom++;
                 // Move the camera to compensate for stretching of distances
-                Position *= (1f + Simulator.ZoomSpeed);
+                Position *= 1f + Simulator.ZoomSpeed;
                 SetReference();
             }
         }
@@ -35,7 +35,7 @@ public partial class CameraPanAndZoom : Camera2D
             {
                 Simulator.Zoom--;
                 // Move the camera to compensate for stretching of distances
-                Position *= (1f - Simulator.ZoomSpeed);
+                Position /= 1f + Simulator.ZoomSpeed;
                 SetReference();
             }
         }
