@@ -37,7 +37,7 @@ public partial class HistoryDots : Node2D
         _previousPosition = Aeroplane.PositionNm;
         _previousPositions.Insert(0, _previousPosition);
 
-        if (GetChildCount() < Simulator.RadarConfig.Style.HistoryDotsCount)
+        if (GetChildCount() <= Simulator.RadarConfig.Style.HistoryDotsCount)
         {
             AddDot();
         }
