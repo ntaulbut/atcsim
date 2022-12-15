@@ -34,8 +34,6 @@ public partial class HistoryDots : Node2D
 
     public void DisplayUpdateTimeout()
     {
-        UpdateDotsPositions();
-
         _previousPosition = Aeroplane.PositionNm;
         _previousPositions.Insert(0, _previousPosition);
 
@@ -43,6 +41,8 @@ public partial class HistoryDots : Node2D
         {
             AddDot();
         }
+
+        UpdateDotsPositions();
     }
 
     public override void _Draw()
