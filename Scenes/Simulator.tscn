@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://8ultgoluj5nj"]
+[gd_scene load_steps=16 format=3 uid="uid://8ultgoluj5nj"]
 
 [ext_resource type="PackedScene" uid="uid://654vow41w50u" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
 [ext_resource type="Texture2D" uid="uid://dhyfattnrqyt7" path="res://Assets/Icons/play.png" id="7_bdl1e"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="11_f6m0k"]
+[ext_resource type="Script" path="res://Scripts/Menu/DebugBarText.cs" id="11_matk1"]
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvim2"]
@@ -156,5 +157,23 @@ theme = ExtResource("11_f6m0k")
 layout_mode = 2
 text = "Exit"
 script = ExtResource("12_7vxx1")
+
+[node name="Debug Bar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -16.0
+offset_right = 127.0
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Text" type="Label" parent="CanvasLayer/Debug Bar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 10
+script = ExtResource("11_matk1")
 
 [connection signal="pressed" from="CanvasLayer/PanelContainer2/Button" to="CanvasLayer/PanelContainer2/Button" method="OnPressed"]
