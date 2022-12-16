@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Geo : Godot.Object
+public partial class Geo : Object
 {
     // Average radius of the Earth in nautical miles
     private const float EarthRadiusNm = 3438.175f;

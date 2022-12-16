@@ -1,7 +1,6 @@
 using Godot;
-using System;
 
-public partial class Util : Godot.Object
+public partial class Util : Object
 {
     public static Vector2 HeadingToVector(float heading)
     {
