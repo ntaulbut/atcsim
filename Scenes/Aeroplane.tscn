@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dr6xtiy57xmua"]
+[gd_scene load_steps=13 format=3 uid="uid://dr6xtiy57xmua"]
 
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplane.cs" id="1_3137e"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/AeroplaneDisplay.cs" id="2_dnlrq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://dm1266nk07iw1" path="res://Assets/Themes/TagTheme.tres" id="6_glqic"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag.cs" id="7_jm2lp"]
 [ext_resource type="Script" path="res://Scripts/Menu/LineEditInputHandler.cs" id="8_0lnge"]
+[ext_resource type="Script" path="res://Scripts/Callsign2.cs" id="8_nmc70"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/HistoryDots.cs" id="9_llox6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlbuf"]
@@ -205,21 +206,30 @@ theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
-[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer")]
+[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer", "_innerControlArea")]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("6_glqic")
 script = ExtResource("7_jm2lp")
 TagDisplay = NodePath("Control")
 TagDisplayPanelContainer = NodePath("Control/PanelContainer")
+_innerControlArea = NodePath("Control/Inner Rect")
 
 [node name="Control" type="Control" parent="Display/Tag"]
 layout_mode = 1
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 1.0
-offset_right = 81.0
-offset_bottom = 44.0
+offset_right = 82.0
+offset_bottom = 51.0
+
+[node name="Inner Rect" type="Control" parent="Display/Tag/Control"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 33.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Display/Tag/Control"]
 layout_mode = 1
@@ -244,10 +254,19 @@ theme_override_constants/margin_bottom = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = -3
 
 [node name="Callsign" type="Label" parent="Display/Tag/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "JAL307"
+vertical_alignment = 1
+
+[node name="Callsign2" type="Label" parent="Display/Tag/Control/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_tag")]
+layout_mode = 2
+text = "5321 C 08"
+vertical_alignment = 1
+script = ExtResource("8_nmc70")
+_tag = NodePath("../../../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Display/Tag/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2

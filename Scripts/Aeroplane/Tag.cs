@@ -6,8 +6,9 @@ public partial class Tag : Control
 {
     [Export] private Control TagDisplay;
     [Export] private PanelContainer TagDisplayPanelContainer;
+    [Export] private Control _innerControlArea;
     
-    private bool hovering = false;
+    public bool Hovering = false;
     private Vector2 savedGlobalPosition;
     private bool dragging = false;
     private Vector2 offset;
@@ -19,28 +20,31 @@ public partial class Tag : Control
 
     public override void _Process(double delta)
     {
-        // When dragging, set tag position to mouse position minus offset
+        // When dragging, set tag to mouse position
         if (dragging)
-        {
             TagDisplay.GlobalPosition = GetGlobalMousePosition() - offset;
-        }
 
         // When hovering over the tag but not dragging, freeze its position
-        if (hovering && !dragging)
-        {
+        if (Hovering && !dragging)
             TagDisplay.GlobalPosition = savedGlobalPosition;
-        }
 
         // Detect change in hovering
-        bool nowHovering = TagDisplay.GetRect().HasPoint(GetLocalMousePosition());
+        // Hover over inner rect to start hovering, but must move mouse out of entire
+        // area to stop hovering
+        bool nowHovering;
+        if (Hovering)
+            nowHovering = TagDisplay.GetRect().HasPoint(GetLocalMousePosition());
+        else
+            nowHovering = new Rect2(TagDisplay.Position + _innerControlArea.GetRect().Position, _innerControlArea.GetRect().Size).HasPoint(GetLocalMousePosition());
+            
         // Starting hovering
-        if (!hovering && nowHovering)
+        if (!Hovering && nowHovering)
         {
             TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelHovered);
             savedGlobalPosition = TagDisplay.GlobalPosition;
         }
         // Stopping hovering
-        if (hovering && !nowHovering)
+        if (Hovering && !nowHovering)
         {
             // To account for the tag lagging behind the mouse, always keep background if dragging
             if (!dragging)
@@ -48,7 +52,7 @@ public partial class Tag : Control
                 TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelNormal);
             }
         }
-        hovering = nowHovering;
+        Hovering = nowHovering;
 
         QueueRedraw();
     }
@@ -60,7 +64,8 @@ public partial class Tag : Control
             // Left Mouse Button Pressed
             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed)
             {
-                if (hovering)
+                // When first clicking on the tag, set the offset position of the mouse from the tag origin
+                if (Hovering)
                 {
                     offset = GetGlobalMousePosition() - TagDisplay.GlobalPosition;
                     dragging = true;
@@ -77,6 +82,8 @@ public partial class Tag : Control
 
     public override void _Draw()
     {
+        // Drawing the line from the blip to the tag
+
         Rect2 tagRect = TagDisplay.GetRect();
 
         // Define start and end points as blip position and tag centre
