@@ -54,40 +54,32 @@ public partial class Tag : Control
         }
         Hovering = nowHovering;
 
-        QueueRedraw();
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton eventMouseButton)
+        // When first clicking on the tag, set the offset position of the mouse from the tag origin
+        if (Hovering && Input.IsActionJustPressed("Drag Tag"))
         {
-            // Left Mouse Button Pressed
-            if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed)
-            {
-                // When first clicking on the tag, set the offset position of the mouse from the tag origin
-                if (Hovering)
-                {
-                    offset = GetGlobalMousePosition() - TagDisplay.GlobalPosition;
-                    dragging = true;
-                }
-            }
-            // Left Mouse Button Released
-            if (eventMouseButton.ButtonIndex == MouseButton.Left && !eventMouseButton.Pressed)
-            {
-                dragging = false;
-                savedGlobalPosition = TagDisplay.GlobalPosition;
-            }
-        }       
+            offset = GetGlobalMousePosition() - TagDisplay.GlobalPosition;
+            dragging = true;
+        }
+        if (Input.IsActionJustReleased("Drag Tag"))
+        {
+            dragging = false;
+            savedGlobalPosition = TagDisplay.GlobalPosition;
+        }
+        
+        QueueRedraw();
     }
 
     public override void _Draw()
     {
         // Drawing the line from the blip to the tag
 
-        Rect2 tagRect = TagDisplay.GetRect();
+        // Use the outer rect when hovering and the inner rect when not
+        Rect2 tagRect = Hovering ? TagDisplay.GetRect() : _innerControlArea.GetRect();
+        if (!Hovering)
+            tagRect.Position += TagDisplay.Position;
 
         // Define start and end points as blip position and tag centre
-        Vector2 end = TagDisplay.Position + TagDisplay.Size / 2;
+        Vector2 end = tagRect.GetCenter();
         Vector2 start = Position + Position.DirectionTo(end) * 10;
 
         // Define line from blip to tag centre
@@ -106,9 +98,11 @@ public partial class Tag : Control
 
         // Find the point closest to the centre of the tag
         List<Vector2> points = new List<Vector2> { p_a, p_b, p_c, p_d };
-        Dictionary<float, Vector2> distances = points.ToDictionary(point => point.DistanceSquaredTo(end - end.Normalized() * 0.1f));
+        Dictionary<float, Vector2> distances = points.ToDictionary(point => point.DistanceSquaredTo(end - end.Normalized() * 10f));
 
         // Draw line from start to closest intersection point
-        DrawLine(start, distances[distances.Keys.Min()], Colors.White, 1, true);
+        // Do not draw the line if the tag is too close to the blip
+        if (!tagRect.HasPoint(start))
+            DrawLine(start, distances[distances.Keys.Min()], Colors.White, 1, true);
     }
 }
