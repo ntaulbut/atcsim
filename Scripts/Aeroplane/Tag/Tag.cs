@@ -7,6 +7,8 @@ public partial class Tag : Control
     [Export] private Control TagDisplay;
     [Export] private PanelContainer TagDisplayPanelContainer;
     [Export] private Control _innerControlArea;
+
+    [Export] private Control _headingField;
     
     public bool Hovering = false;
     private Vector2 savedGlobalPosition;
@@ -20,14 +22,6 @@ public partial class Tag : Control
 
     public override void _Process(double delta)
     {
-        // When dragging, set tag to mouse position
-        if (dragging)
-            TagDisplay.GlobalPosition = GetGlobalMousePosition() - offset;
-
-        // When hovering over the tag but not dragging, freeze its position
-        if (Hovering && !dragging)
-            TagDisplay.GlobalPosition = savedGlobalPosition;
-
         // Detect change in hovering
         // Hover over inner rect to start hovering, but must move mouse out of entire
         // area to stop hovering
@@ -36,7 +30,10 @@ public partial class Tag : Control
             nowHovering = TagDisplay.GetRect().HasPoint(GetLocalMousePosition());
         else
             nowHovering = new Rect2(TagDisplay.Position + _innerControlArea.GetRect().Position, _innerControlArea.GetRect().Size).HasPoint(GetLocalMousePosition());
-            
+
+        // Stay hovering if any control in the tag is focussed
+        nowHovering |= new Control[] { _headingField }.Any(control => control.HasFocus());
+
         // Starting hovering
         if (!Hovering && nowHovering)
         {
@@ -54,18 +51,27 @@ public partial class Tag : Control
         }
         Hovering = nowHovering;
 
+        // Dragging
         // When first clicking on the tag, set the offset position of the mouse from the tag origin
         if (Hovering && Input.IsActionJustPressed("Drag Tag"))
         {
-            offset = GetGlobalMousePosition() - TagDisplay.GlobalPosition;
             dragging = true;
+            offset = GetGlobalMousePosition() - TagDisplay.GlobalPosition;
         }
         if (Input.IsActionJustReleased("Drag Tag"))
         {
             dragging = false;
             savedGlobalPosition = TagDisplay.GlobalPosition;
         }
-        
+
+        // When dragging, set tag to mouse position
+        if (dragging)
+            TagDisplay.GlobalPosition = GetGlobalMousePosition() - offset;
+
+        // When hovering over the tag but not dragging, freeze its position
+        // if (Hovering && !dragging)
+        //     TagDisplay.GlobalPosition = savedGlobalPosition;
+
         QueueRedraw();
     }
 

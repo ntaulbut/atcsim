@@ -1,5 +1,12 @@
 using Godot;
 
+public enum TurnDirection
+{
+    Left,
+    Right,
+    Quickest
+}
+
 public partial class Aeroplane : Node, IAeroplane
 {
     public const int SecondsInAnHour = 3600;

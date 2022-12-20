@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dngxjcj4jiobe"]
 
 [ext_resource type="Script" path="res://Scripts/Display/CameraPanAndZoom.cs" id="1_0wnwr"]
-[ext_resource type="PackedScene" uid="uid://dr6xtiy57xmua" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
+[ext_resource type="PackedScene" uid="uid://clwjjcku5camm" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
 [ext_resource type="PackedScene" uid="uid://c8rlwsfy274jn" path="res://Scenes/Waypoint.tscn" id="2_xognt"]
 [ext_resource type="Script" path="res://Scripts/Display/RangeRings.cs" id="5_8phwk"]
@@ -63,14 +63,17 @@ PositionNm = Vector2(-10, 0)
 TrueHeading = 45.0
 
 [node name="Waypoints" type="Node" parent="."]
+editor_description = "Holds waypoint script, waypoints are added as children"
 script = ExtResource("1_8txqx")
 WaypointScene = ExtResource("2_xognt")
 
 [node name="Range Rings" type="Node2D" parent="."]
+editor_description = "Node to hold range ring drawing script"
 script = ExtResource("5_8phwk")
 color = Color(0.247059, 0.247059, 0.247059, 1)
 
 [node name="Geography Drawing" type="Node2D" parent="."]
+editor_description = "Node to hold geography drawing script"
 z_index = -1
 script = ExtResource("6_m27ow")
 
