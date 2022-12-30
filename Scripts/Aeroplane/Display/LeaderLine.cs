@@ -12,7 +12,7 @@ public partial class LeaderLine : Node2D
 
     public override void _Draw()
     {
-        screenVelocity = new Vector2(_aeroplane.Velocity.x, -_aeroplane.Velocity.y);
+        screenVelocity = new Vector2(_aeroplane.GroundVector.x, -_aeroplane.GroundVector.y);
         Vector2 direction = screenVelocity.Normalized();
         Vector2 start = Position + direction * _start;
         Vector2 end = start + direction * _length;

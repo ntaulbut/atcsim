@@ -3,7 +3,7 @@ using System;
 
 public partial class HeadingField : LineEdit
 {
-    [Signal] public delegate void HeadingInputEventHandler(int heading, int turnDirection);
+    [Signal] public delegate void HeadingInstructionEventHandler(int heading, int turnDirection);
 
     private String _text = "";
 
@@ -14,12 +14,24 @@ public partial class HeadingField : LineEdit
         CaretColumn = oldCaretColumn;
     }
 
-    public void OnSubmitted(string newText)
+    public void OnSubmitted(string newText) 
     {
         if (newText.IsValidInt())
         {
-            EmitSignal(nameof(HeadingInput), newText.ToInt(), (int)TurnDirection.Quickest);
+            EmitSignal(nameof(HeadingInstruction), newText.ToInt(), (int)Guidance.TurnDirection.Quickest);
+            Text = newText.PadLeft(3, '0');
         }
+        else if (newText[0] == 'L' && newText.Substring(1).IsValidInt())
+        {
+            EmitSignal(nameof(HeadingInstruction), newText.Substring(1).ToInt(), (int)Guidance.TurnDirection.Left);
+            Text = newText.Substring(1).PadLeft(3, '0');
+        }
+        else if (newText[0] == 'R' && newText.Substring(1).IsValidInt())
+        {
+            EmitSignal(nameof(HeadingInstruction), newText.Substring(1).ToInt(), (int)Guidance.TurnDirection.Right);
+            Text = newText.Substring(1).PadLeft(3, '0');
+        }
+
         ReleaseFocus();
     }
 

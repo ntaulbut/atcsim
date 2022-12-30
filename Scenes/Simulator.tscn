@@ -90,57 +90,78 @@ theme = SubResource("Theme_nax5k")
 theme_override_styles/panel = SubResource("StyleBoxFlat_y0cw7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Top Bar"]
+offset_right = 1152.0
+offset_bottom = 27.0
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="Time" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+offset_right = 83.0
+offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Time"]
+offset_right = 82.0
+offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Time/MarginContainer"]
 offset_left = 7.0
 offset_right = 75.0
-offset_bottom = 23.0
+offset_bottom = 27.0
 size_flags_vertical = 1
 text = "21:40:09"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="View Name" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+offset_left = 83.0
+offset_right = 250.0
+offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/View Name"]
+offset_right = 166.0
+offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/View Name/MarginContainer"]
 offset_left = 7.0
 offset_right = 159.0
-offset_bottom = 23.0
+offset_bottom = 27.0
 size_flags_vertical = 1
 text = "Hiroshima Approach"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Pause3" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+offset_left = 250.0
+offset_right = 585.0
+offset_bottom = 27.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3"]
+offset_right = 334.0
+offset_bottom = 27.0
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3/MarginContainer"]
 offset_left = 7.0
 offset_right = 327.0
-offset_bottom = 23.0
+offset_bottom = 27.0
 size_flags_vertical = 1
 text = "RJOA 151300Z 05003KT CAVOK 18/14 Q1019"
 vertical_alignment = 1
 
 [node name="Pause2" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
+offset_left = 585.0
+offset_right = 615.0
+offset_bottom = 27.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Top Bar/HBoxContainer/Pause2"]
 custom_minimum_size = Vector2(29, 0)
+offset_right = 29.0
+offset_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("7_bdl1e")
