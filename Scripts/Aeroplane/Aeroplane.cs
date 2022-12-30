@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Aeroplane : Node, IAeroplane
 {
-    [Export] public float Altitude { get; set; }
+    [Export] public float TrueAltitude { get; set; }
     [Export] public float TrueAirspeed { get; set; }
     [Export] public Vector2 PositionNm { get; set; }
     [Export] public Vector2 GroundVector { get; set; }

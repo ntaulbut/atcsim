@@ -6,7 +6,7 @@ public partial class DebugText : Label
 
     public override void _Process(double delta)
 	{
-        float height = Aeroplane.Altitude;
+        float height = Aeroplane.TrueAltitude;
         Text = string.Format("TAS: {0}kts\nGS: {1}kts\nT: {2}K/{3}C\nSpeed of Sound: {4}m/s\nMach: {5}\nPress: {6}hPa\nPressAlt: {7}ft",
             Aeroplane.TrueAirspeed,
             Aeroplane.GroundVector.Length(),

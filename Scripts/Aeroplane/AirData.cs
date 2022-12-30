@@ -26,28 +26,28 @@ public class AirData
     public static float SpeedOfSound(float height)
     {
         // height: metres, speed: metres/second
-        return Mathf.Sqrt(gamma * (R / M) * TemperatureAt(height));
+        return Mathf.Sqrt(gamma * (R / M) * Temperature(height));
     }
 
     public static float Mach(float trueAirspeed, float height)
     {
         // https://en.wikipedia.org/wiki/Mach_number#Calculation
         // trueAirspeed: knots, height: metres, returns: metres/second
-        return trueAirspeed * KnotsToMs / SpeedOfSoundAt(height);
+        return trueAirspeed * KnotsToMs / SpeedOfSound(height);
     }
 
     public static float Pressure(float height)
     {
         // https://en.wikipedia.org/wiki/Barometric_formula
         // height: metres, returns: hectopascals
-        return P * Mathf.Pow(TemperatureAt(height) / T, (-g * M) / (R * L)) / 100;
+        return P * Mathf.Pow(Temperature(height) / T, (-g * M) / (R * L)) / 100;
     }
 
     public static float PressureAltitude(float height)
     {
         // https://en.wikipedia.org/wiki/Pressure_altitude
         // height: metres, returns: feet
-        return (1 - Mathf.Pow(PressureAt(height) / 1013.25f, 0.190284f)) * 145366.45f;
+        return (1 - Mathf.Pow(Pressure(height) / 1013.25f, 0.190284f)) * 145366.45f;
     }
 
     public static float IndicatedAltitude(float height, float referencePressure)
