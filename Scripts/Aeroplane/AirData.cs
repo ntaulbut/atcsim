@@ -53,6 +53,6 @@ public class AirData
     public static float IndicatedAltitude(float height, float referencePressure)
     {
         // height: metres, referencePressure: hectopascals, returns: feet
-        return (1 - Mathf.Pow(PressureAt(height) / referencePressure, 0.190284f)) * 145366.45f;
+        return (1 - Mathf.Pow(Pressure(height) / referencePressure, 0.190284f)) * 145366.45f;
     }
 }

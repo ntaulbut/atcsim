@@ -36,7 +36,6 @@ public partial class Aeroplane : Node, IAeroplane
         Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed;
         Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
         GroundVector = airVector + windVector;
-        GD.Print(GroundVector.Length());
         PositionNm += GroundVector / SecondsInAnHour * (float)delta;
     }
 
