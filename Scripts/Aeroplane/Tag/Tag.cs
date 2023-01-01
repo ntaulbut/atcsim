@@ -33,6 +33,8 @@ public partial class Tag : Control
 
         // Stay hovering if any control in the tag is focussed
         nowHovering |= new Control[] { _headingField }.Any(control => control.HasFocus());
+        // Stay hovering if dragging
+        nowHovering |= dragging;
 
         // Starting hovering
         if (!Hovering && nowHovering)
@@ -79,13 +81,14 @@ public partial class Tag : Control
     {
         // Drawing the line from the blip to the tag
 
-        // Use the outer rect when hovering and the inner rect when not
-        Rect2 tagRect = Hovering ? TagDisplay.GetRect() : _innerControlArea.GetRect();
-        if (!Hovering)
-            tagRect.Position += TagDisplay.Position;
+        // Get the inner rect, adjusting its position because its otherwise local to its parent
+        Rect2 innerRect = _innerControlArea.GetRect();
+        innerRect.Position += TagDisplay.Position;
+        // Intersect with the outer rect when hovering and the inner rect when not
+        Rect2 tagRect = Hovering ? TagDisplay.GetRect() : innerRect; 
 
         // Define start and end points as blip position and tag centre
-        Vector2 end = tagRect.GetCenter();
+        Vector2 end = innerRect.GetCenter(); //tagRect.GetCenter();
         Vector2 start = Position + Position.DirectionTo(end) * 10;
 
         // Define line from blip to tag centre
@@ -93,13 +96,13 @@ public partial class Tag : Control
         float c = start.y - m * start.x;
 
         // Calculate intersection points for all four lines
-        float x = tagRect.Position.x;
+        float x = innerRect.Position.x;
         Vector2 p_a = new Vector2(x, m * x + c);
-        float y = tagRect.Position.y;
+        float y = innerRect.Position.y;
         Vector2 p_b = new Vector2((y - c) / m, y);
-        x = tagRect.Position.x + tagRect.Size.x;
+        x = innerRect.Position.x + tagRect.Size.x;
         Vector2 p_c = new Vector2(x, m * x + c);
-        y = tagRect.Position.y + tagRect.Size.y;
+        y = innerRect.Position.y + tagRect.Size.y;
         Vector2 p_d = new Vector2((y - c) / m, y);
 
         // Find the point closest to the centre of the tag
