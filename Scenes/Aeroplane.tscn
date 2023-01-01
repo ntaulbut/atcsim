@@ -47,7 +47,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="Value Selector" type="PanelContainer" parent="Display/Prototype"]
-layout_mode = 0
 offset_left = 99.0
 offset_top = -14.0
 offset_right = 168.0
@@ -55,60 +54,56 @@ offset_bottom = 159.0
 theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Prototype/Value Selector"]
-layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Prototype/Value Selector/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 61.0
+offset_bottom = 3.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Display/Prototype/Value Selector/MarginContainer/Features"]
-layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="Options" type="VBoxContainer" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer"]
-layout_mode = 2
+offset_right = 50.0
+offset_bottom = 236.0
 
 [node name="Heading5" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "240"
 
 [node name="Heading4" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "230"
 
 [node name="Heading3" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "220"
 
 [node name="Heading2" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 disabled = true
 text = "210"
 
 [node name="Heading" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 focus_next = NodePath("../Heading6")
 text = "200"
 
 [node name="Heading6" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 focus_next = NodePath("../Heading7")
 focus_previous = NodePath("../Heading")
 text = "190"
@@ -116,43 +111,35 @@ text = "190"
 [node name="Heading7" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "180"
 
 [node name="Heading8" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "170"
 
 [node name="Heading9" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "160"
 
 [node name="Heading10" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/ScrollContainer/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
 text = "150"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Prototype/Value Selector/MarginContainer/Features"]
 visible = false
-layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Prototype/Value Selector/MarginContainer/Features/Custom Value"]
-layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Prototype/Value Selector/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2(16, 0)
-layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
 [node name="Value Selector2" type="PanelContainer" parent="Display/Prototype"]
-layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 94.0
@@ -163,46 +150,41 @@ theme = ExtResource("5_yfkyw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Display/Prototype/Value Selector2"]
 custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Features" type="VBoxContainer" parent="Display/Prototype/Value Selector2/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 71.0
+offset_bottom = 86.0
 
 [node name="Options" type="VBoxContainer" parent="Display/Prototype/Value Selector2/MarginContainer/Features"]
-layout_mode = 2
 
 [node name="Heading5" type="Button" parent="Display/Prototype/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "heading"
 
 [node name="Heading3" type="Button" parent="Display/Prototype/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "altitude"
 
 [node name="Heading2" type="Button" parent="Display/Prototype/Value Selector2/MarginContainer/Features/Options"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 text = "speed"
 
 [node name="Custom Value" type="HBoxContainer" parent="Display/Prototype/Value Selector2/MarginContainer/Features"]
 visible = false
-layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Display/Prototype/Value Selector2/MarginContainer/Features/Custom Value"]
-layout_mode = 2
 
 [node name="Button" type="Button" parent="Display/Prototype/Value Selector2/MarginContainer/Features/Custom Value"]
 custom_minimum_size = Vector2(16, 0)
-layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
@@ -218,7 +200,7 @@ _innerControlArea = NodePath("Control/Inner Rect")
 _headingField = NodePath("Control/Margins/VBoxContainer/HBoxContainer/Heading Field")
 
 [node name="Control" type="Control" parent="Display/Tag"]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 1.0
@@ -227,7 +209,7 @@ offset_bottom = 51.0
 
 [node name="Inner Rect" type="Control" parent="Display/Tag/Control"]
 editor_description = "The inner area of the tag that is used when not hovering over the tag"
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 1.0
@@ -235,7 +217,6 @@ offset_right = 52.0
 offset_bottom = 33.0
 
 [node name="Panel" type="PanelContainer" parent="Display/Tag/Control"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -244,7 +225,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k8dre")
 
 [node name="Margins" type="MarginContainer" parent="Display/Tag/Control"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -256,19 +236,25 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/Margins"]
-layout_mode = 2
+offset_left = 2.0
+offset_right = 79.0
+offset_bottom = 48.0
 theme_override_constants/separation = -3
 
 [node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer"]
-layout_mode = 2
+offset_right = 77.0
+offset_bottom = 18.0
 text = "JAL307"
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Display/Tag/Control/Margins/VBoxContainer"]
-layout_mode = 2
+offset_top = 15.0
+offset_right = 77.0
+offset_bottom = 33.0
 
-[node name="Heading Field" type="LineEdit" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer"]
-layout_mode = 2
+[node name="Heading Field" type="LineEdit" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("Aeroplane")]
+offset_right = 31.0
+offset_bottom = 18.0
 tooltip_text = "Heading"
 text = "180"
 placeholder_text = "000"
@@ -278,10 +264,10 @@ virtual_keyboard_enabled = false
 select_all_on_focus = true
 caret_blink = true
 script = ExtResource("8_mulg5")
+Aeroplane = NodePath("../../../../../../..")
 
 [node name="OptionButton" type="OptionButton" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer"]
 visible = false
-layout_mode = 2
 item_count = 2
 selected = 0
 popup/item_0/text = "test"
@@ -290,13 +276,16 @@ popup/item_1/text = "game"
 popup/item_1/id = 1
 
 [node name="Callsign2" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("_tag")]
-layout_mode = 2
+offset_top = 30.0
+offset_right = 77.0
+offset_bottom = 48.0
 text = "5321 C 08"
 vertical_alignment = 1
 script = ExtResource("8_nmc70")
 _tag = NodePath("../../../..")
 
 [node name="DebugText" type="PanelContainer" parent="Display"]
+visible = false
 offset_left = -46.0
 offset_top = 25.0
 offset_right = 39.0
@@ -304,7 +293,6 @@ offset_bottom = 120.0
 theme = ExtResource("6_glqic")
 
 [node name="Label" type="Label" parent="Display/DebugText" node_paths=PackedStringArray("Aeroplane")]
-layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 10
 text = "GS: 224kts

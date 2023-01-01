@@ -19,9 +19,18 @@ config/icon="res://icon.svg"
 
 Simulator="*res://Scripts/Simulator.cs"
 
+[display]
+
+window/size/mode=2
+window/vsync/vsync_mode=0
+
 [dotnet]
 
 project/assembly_name="ATCSim"
+
+[editor]
+
+scene/scene_naming=1
 
 [filesystem]
 
@@ -65,6 +74,10 @@ locale/translations=PackedStringArray("res://Assets/Translations/translations.cm
 locale/country_filter=[]
 locale/language_filter=[]
 locale/locale_filter_mode=1
+
+[physics]
+
+common/physics_ticks_per_second=30
 
 [rendering]
 
