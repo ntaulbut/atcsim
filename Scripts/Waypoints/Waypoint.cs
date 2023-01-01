@@ -23,8 +23,16 @@ public partial class Waypoint : Sprite2D
 
         // Calculate position relative to screen centre
         PositionNm = Geo.RelativePositionNm(WaypointData.LatLon, Simulator.RadarConfig.LatLon);
+    }
 
+    public override void _EnterTree()
+    {
         GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
     }
 
     public override void _Draw()

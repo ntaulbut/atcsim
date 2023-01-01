@@ -7,9 +7,14 @@ public partial class RangeRings : Node2D
     [Export] public float RingSpacing = 5;
     [Export] Color color;
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
         GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
     }
 
     public override void _Draw()

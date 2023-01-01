@@ -19,8 +19,16 @@ public partial class DrawGeography : Node2D
             }
             _polyLines.Add(points);
         }
+    }
 
+    public override void _EnterTree()
+    {
         GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
     }
 
     public override void _Draw()

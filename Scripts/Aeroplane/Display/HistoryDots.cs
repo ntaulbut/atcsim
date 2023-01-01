@@ -9,12 +9,6 @@ public partial class HistoryDots : Node2D
     private List<Vector2> _previousPositions = new();
     private Vector2 _previousPosition;
 
-    public override void _Ready()
-    {
-        //_previousPositions = Enumerable.Repeat(Vector2.Zero, 10).ToList();
-        GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
-    }
-
     private void AddDot()
     {
         RadarStyle style = Simulator.RadarConfig.Style;
@@ -43,6 +37,16 @@ public partial class HistoryDots : Node2D
         }
 
         UpdateDotsPositions();
+    }
+
+    public override void _EnterTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
     }
 
     public override void _Draw()
