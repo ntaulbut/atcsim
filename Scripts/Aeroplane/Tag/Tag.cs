@@ -27,9 +27,13 @@ public partial class Tag : Control
         // area to stop hovering
         bool nowHovering;
         if (Hovering)
+        {
             nowHovering = TagDisplay.GetRect().HasPoint(GetLocalMousePosition());
+        }
         else
+        {
             nowHovering = new Rect2(TagDisplay.Position + _innerControlArea.GetRect().Position, _innerControlArea.GetRect().Size).HasPoint(GetLocalMousePosition());
+        }
 
         // Stay hovering if any control in the tag is focussed
         nowHovering |= new Control[] { _headingField }.Any(control => control.HasFocus());
@@ -68,7 +72,9 @@ public partial class Tag : Control
 
         // When dragging, set tag to mouse position
         if (dragging)
+        {
             TagDisplay.GlobalPosition = GetGlobalMousePosition() - offset;
+        }
 
         // When hovering over the tag but not dragging, freeze its position
         // if (Hovering && !dragging)
@@ -110,8 +116,10 @@ public partial class Tag : Control
         Dictionary<float, Vector2> distances = points.ToDictionary(point => point.DistanceSquaredTo(end - end.Normalized() * 10f));
 
         // Draw line from start to closest intersection point
-        // Do not draw the line if the tag is too close to the blip
+        // Do not draw the line if the tag over the blip
         if (!tagRect.HasPoint(start))
+        {
             DrawLine(start, distances[distances.Keys.Min()], Colors.White, 1, true);
+        }
     }
 }

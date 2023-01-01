@@ -22,13 +22,13 @@
 
     public class HeadingSelect : LateralMode
     {
-        private float _selectedHeading;
-        private TurnDirection _turnDirection;
+        public readonly float Heading;
+        public readonly TurnDirection TurnDirection;
 
         private float HeadingDelta(TurnDirection direction)
         {
             // Find the angle in degrees between the aircraft's current heading and the selected heading, assuming a turn in a given direction.
-            float headingDelta = direction == TurnDirection.Left ? _aeroplane.TrueHeading - _selectedHeading : _selectedHeading - _aeroplane.TrueHeading;
+            float headingDelta = direction == TurnDirection.Left ? _aeroplane.TrueHeading - Heading : Heading - _aeroplane.TrueHeading;
             if (headingDelta < 0)
             {
                 headingDelta += 360;
@@ -38,9 +38,9 @@
 
         public override float RollCommand()
         {
-            if (HeadingDelta(_turnDirection) > (_aeroplane.Roll / Aeroplane.RollRate) * _aeroplane.Roll + 0.01f)
+            if (HeadingDelta(TurnDirection) > (_aeroplane.Roll / Aeroplane.RollRate) * _aeroplane.Roll + 0.01f)
             {
-                return _turnDirection == TurnDirection.Right ? Aeroplane.StandardRateTurn : -Aeroplane.StandardRateTurn;
+                return TurnDirection == TurnDirection.Right ? Aeroplane.StandardRateTurn : -Aeroplane.StandardRateTurn;
             }
             else
             {
@@ -51,11 +51,15 @@
         public HeadingSelect(Aeroplane aeroplane, float heading, TurnDirection turnDirection)
         {
             _aeroplane = aeroplane;
-            _selectedHeading = heading;
+            Heading = heading;
             if (turnDirection == TurnDirection.Quickest)
-                _turnDirection = HeadingDelta(TurnDirection.Left) < HeadingDelta(TurnDirection.Right) ? TurnDirection.Left : TurnDirection.Right;
+            {
+                TurnDirection = HeadingDelta(TurnDirection.Left) < HeadingDelta(TurnDirection.Right) ? TurnDirection.Left : TurnDirection.Right;
+            }
             else
-                _turnDirection = turnDirection;
+            {
+                TurnDirection = turnDirection;
+            }
         }
     }
 }
