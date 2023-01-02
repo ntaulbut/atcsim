@@ -4,7 +4,7 @@ using System.Linq;
 
 public partial class DrawGeography : Node2D
 {
-    private List<List<Vector2>> _polyLines = new List<List<Vector2>>();
+    private readonly List<List<Vector2>> _polyLines = new();
 
     public override void _Ready()
     {

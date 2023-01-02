@@ -12,7 +12,7 @@ public partial class HistoryDots : Node2D
     private void AddDot()
     {
         RadarStyle style = Simulator.RadarConfig.Style;
-        Sprite2D dot = new Sprite2D();
+        Sprite2D dot = new();
         dot.Texture = style.HistoryDotTexture;
         dot.Modulate = style.HistoryDotsColourGradient.Sample(GetChildCount() / (float)style.HistoryDotsCount);
         AddChild(dot);
