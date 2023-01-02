@@ -103,23 +103,20 @@ public partial class Tag : Control
 
         // Calculate intersection points for all four lines
         float x = innerRect.Position.x;
-        Vector2 p_a = new Vector2(x, m * x + c);
+        Vector2 p_a = new(x, m * x + c);
         float y = innerRect.Position.y;
-        Vector2 p_b = new Vector2((y - c) / m, y);
+        Vector2 p_b = new((y - c) / m, y);
         x = innerRect.Position.x + tagRect.Size.x;
-        Vector2 p_c = new Vector2(x, m * x + c);
+        Vector2 p_c = new(x, m * x + c);
         y = innerRect.Position.y + tagRect.Size.y;
-        Vector2 p_d = new Vector2((y - c) / m, y);
-
-        // Find the point closest to the centre of the tag
-        List<Vector2> points = new List<Vector2> { p_a, p_b, p_c, p_d };
-        Dictionary<float, Vector2> distances = points.ToDictionary(point => point.DistanceSquaredTo(end - end.Normalized() * 10f));
+        Vector2 p_d = new((y - c) / m, y);
+        List<Vector2> points = new() { p_a, p_b, p_c, p_d };
 
         // Draw line from start to closest intersection point
-        // Do not draw the line if the tag over the blip
+        // Do not draw the line if the tag is over the blip
         if (!tagRect.HasPoint(start))
         {
-            DrawLine(start, distances[distances.Keys.Min()], Colors.White, 1, true);
+            DrawLine(start, points.MinBy(point => point.DistanceSquaredTo(end - end.Normalized() * 10f)), Colors.White, 1, true);
         }
     }
 }
