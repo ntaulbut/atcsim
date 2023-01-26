@@ -18,7 +18,11 @@ public partial class CameraPanAndZoom : Camera2D
 
     public override void _Input(InputEvent @inputEvent)
     {
-        if (@inputEvent.IsActionPressed("Zoom In"))
+        if (inputEvent.IsActionPressed("Pan Camera"))
+        {
+            SetReference();
+        }
+        else if (@inputEvent.IsActionPressed("Zoom In"))
         {
             if (Simulator.Zoom < MaxZoom)
             {
@@ -40,24 +44,15 @@ public partial class CameraPanAndZoom : Camera2D
         }
         else if (@inputEvent.IsActionPressed("Reset Camera"))
         {
+            // Reset position and zoom
             Simulator.Zoom = 0;
+            Position = Vector2.Zero;
+            SetReference();
         }
     }
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("Reset Camera"))
-        {
-            Position = Vector2.Zero;
-            SetReference();
-        }
-
-        // Set reference points for movement
-        if (Input.IsActionJustPressed("Pan Camera"))
-        {
-            SetReference();
-        }
-
         // Move the camera in the opposite direction to mouse movement, from the reference point
         if (Input.IsActionPressed("Pan Camera"))
         {
