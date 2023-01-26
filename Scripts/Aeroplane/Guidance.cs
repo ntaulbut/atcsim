@@ -1,4 +1,6 @@
-﻿namespace Guidance
+﻿using Godot;
+
+namespace Guidance
 {
     public enum TurnDirection
     {
@@ -10,13 +12,40 @@
     public class Mode
     {
         protected Aeroplane _aeroplane;
+
+        public Mode(Aeroplane aeroplane)
+        {
+            _aeroplane = aeroplane;
+        }
     }
 
     public class LateralMode : Mode
     {
+        public LateralMode(Aeroplane aeroplane) : base(aeroplane) { }
+
         public virtual float RollCommand()
         {
             return 0f;
+        }
+
+        public virtual LateralMode NewMode()
+        {
+            return null;
+        }
+    }
+
+    public class VerticalMode : Mode
+    {
+        public VerticalMode(Aeroplane aeroplane) : base(aeroplane) { }
+
+        public virtual float FlightPathAngleCommand()
+        {
+            return 0f;
+        }
+
+        public virtual VerticalMode NewMode()
+        {
+            return null;
         }
     }
 
@@ -48,9 +77,8 @@
             }
         }
 
-        public HeadingSelect(Aeroplane aeroplane, float heading, TurnDirection turnDirection)
+        public HeadingSelect(Aeroplane aeroplane, float heading, TurnDirection turnDirection) : base(aeroplane)
         {
-            _aeroplane = aeroplane;
             Heading = heading;
             if (turnDirection == TurnDirection.Quickest)
             {
@@ -60,6 +88,42 @@
             {
                 TurnDirection = turnDirection;
             }
+        }
+    }
+
+    public class AltitudeHold : VerticalMode
+    {
+        public AltitudeHold(Aeroplane aeroplane) : base(aeroplane) { }
+    }
+
+    public class VerticalSpeed : VerticalMode
+    {
+        public readonly float Altitude;
+        public readonly float VerticalRate;
+
+        public override float FlightPathAngleCommand()
+        {
+            // calculate the flight path angle required to maintain a given vertical speed at the current true airspeed
+            float requiredAngle = Mathf.RadToDeg(Mathf.Asin(VerticalRate * Aeroplane.FeetPerMinuteToKnots / _aeroplane.TrueAirspeed));
+            return _aeroplane.TrueAltitude < Altitude ? requiredAngle : -requiredAngle;
+        }
+
+        public override VerticalMode NewMode()
+        {
+            if (Mathf.Abs(Altitude - _aeroplane.TrueAltitude) < Mathf.Abs(_aeroplane.FlightPathAngle) / Aeroplane.PitchRate * Mathf.Abs(_aeroplane.VerticalSpeed) / 2)
+            {
+                return new AltitudeHold(_aeroplane);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public VerticalSpeed(Aeroplane aeroplane, float altitude, float verticalSpeed) : base(aeroplane)
+        {
+            Altitude = altitude;
+            VerticalRate = verticalSpeed;
         }
     }
 }

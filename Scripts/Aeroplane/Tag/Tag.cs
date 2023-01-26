@@ -9,7 +9,8 @@ public partial class Tag : Control
     [Export] private Control _innerControlArea;
 
     [Export] private Control _headingField;
-    
+    [Export] private Control _altitudeField;
+
     public bool Hovering = false;
     private Vector2 savedGlobalPosition;
     private bool dragging = false;
@@ -36,7 +37,7 @@ public partial class Tag : Control
         }
 
         // Stay hovering if any control in the tag is focussed
-        nowHovering |= new Control[] { _headingField }.Any(control => control.HasFocus());
+        nowHovering |= new Control[] { _headingField, _altitudeField }.Any(control => control.HasFocus());
         // Stay hovering if dragging
         nowHovering |= dragging;
 

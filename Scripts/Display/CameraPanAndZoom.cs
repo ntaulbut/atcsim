@@ -1,5 +1,4 @@
 using Godot;
-using System.Reflection.Metadata;
 
 public partial class CameraPanAndZoom : Camera2D
 {

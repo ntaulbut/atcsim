@@ -1,8 +1,8 @@
 using Godot;
 
-public partial class HeadingField : LineEdit
+public partial class AltitudeField : LineEdit
 {
-    [Signal] public delegate void HeadingInstructionEventHandler(int heading, int turnDirection);
+    [Signal] public delegate void AltitudeInstructionEventHandler(int altitude);
 
     [Export] public Aeroplane Aeroplane;
 
@@ -17,25 +17,10 @@ public partial class HeadingField : LineEdit
 
     public void OnSubmitted(string newText) 
     {
-        // If just a number is entered e.g. 180, 45
         if (newText.IsValidInt())
         {
-            EmitSignal(nameof(HeadingInstruction), newText.ToInt(), (int)Guidance.TurnDirection.Quickest);
+            EmitSignal(nameof(AltitudeInstruction), newText.ToInt() * 100);
             Text = newText.PadLeft(3, '0');
-            _oldText = Text;
-        }
-        // If the first character is L and the rest is a valid number, e.g. L180, L45
-        else if (newText[0] == 'L' && newText.Substring(1).IsValidInt())
-        {
-            EmitSignal(nameof(HeadingInstruction), newText.Substring(1).ToInt(), (int)Guidance.TurnDirection.Left);
-            Text = newText.Substring(1).PadLeft(3, '0');
-            _oldText = Text;
-        }
-        // If the first character is R and the rest is a valid number, e.g. R180, R45
-        else if (newText[0] == 'R' && newText.Substring(1).IsValidInt())
-        {
-            EmitSignal(nameof(HeadingInstruction), newText.Substring(1).ToInt(), (int)Guidance.TurnDirection.Right);
-            Text = newText.Substring(1).PadLeft(3, '0');
             _oldText = Text;
         }
         else
@@ -49,9 +34,9 @@ public partial class HeadingField : LineEdit
 
     public override void _Ready()
     {
-        if (Aeroplane.LateralGuidanceMode is Guidance.HeadingSelect headingSelect)
+        if (Aeroplane.VerticalGuidanceMode is Guidance.VerticalSpeed verticalSpeed)
         {
-            Text = headingSelect.Heading.ToString().PadLeft(3, '0');
+            Text = verticalSpeed.Altitude.ToString().PadLeft(3, '0');
             _oldText = Text;
         }
     }

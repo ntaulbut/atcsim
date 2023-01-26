@@ -58,7 +58,8 @@ script = ExtResource("1_0wnwr")
 [node name="Aeroplanes" type="Node" parent="."]
 
 [node name="Aeroplane" parent="Aeroplanes" instance=ExtResource("1_7uaao")]
-TrueAirspeed = 250.0
+TrueAltitude = 18000.0
+TrueAirspeed = 350.0
 PositionNm = Vector2(-10, 0)
 TrueHeading = 45.0
 
@@ -90,60 +91,48 @@ theme = SubResource("Theme_nax5k")
 theme_override_styles/panel = SubResource("StyleBoxFlat_y0cw7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Top Bar"]
-layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="Time" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Time"]
-layout_mode = 2
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Time/MarginContainer"]
-layout_mode = 2
 size_flags_vertical = 1
 text = "21:40:09"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="View Name" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/View Name"]
-layout_mode = 2
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/View Name/MarginContainer"]
-layout_mode = 2
 size_flags_vertical = 1
 text = "Hiroshima Approach"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Pause3" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3"]
-layout_mode = 2
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_right = 7
 
 [node name="Label" type="Label" parent="CanvasLayer/Top Bar/HBoxContainer/Pause3/MarginContainer"]
-layout_mode = 2
 size_flags_vertical = 1
 text = "RJOA 151300Z 05003KT CAVOK 18/14 Q1019"
 vertical_alignment = 1
 
 [node name="Pause2" type="PanelContainer" parent="CanvasLayer/Top Bar/HBoxContainer"]
-layout_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/Top Bar/HBoxContainer/Pause2"]
 custom_minimum_size = Vector2(29, 0)
-layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("7_bdl1e")
@@ -157,7 +146,6 @@ offset_bottom = 46.0
 theme = ExtResource("11_f6m0k")
 
 [node name="Button" type="Button" parent="CanvasLayer/PanelContainer2"]
-layout_mode = 2
 text = "Exit"
 script = ExtResource("12_7vxx1")
 
@@ -173,7 +161,6 @@ grow_vertical = 0
 size_flags_vertical = 8
 
 [node name="Text" type="Label" parent="CanvasLayer/Debug Bar"]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 10

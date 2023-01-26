@@ -15,8 +15,12 @@ public partial class Callsign2 : Label
 	public override void _Process(double delta)
 	{
 		if (_tag.Hovering)
-			Show();
+		{
+            Show();
+        }
 		else
-			Hide();
+		{
+            Hide();
+        }
 	}
 }
