@@ -9,48 +9,21 @@ namespace Guidance
         Quickest
     }
 
-    public class Mode
+    public interface ILateralMode
     {
-        protected Aeroplane _aeroplane;
-
-        public Mode(Aeroplane aeroplane)
-        {
-            _aeroplane = aeroplane;
-        }
+        float RollCommand() => 0;
+        ILateralMode NewMode() => null;
     }
 
-    public class LateralMode : Mode
+    public interface IVerticalMode
     {
-        public LateralMode(Aeroplane aeroplane) : base(aeroplane) { }
-
-        public virtual float RollCommand()
-        {
-            return 0f;
-        }
-
-        public virtual LateralMode NewMode()
-        {
-            return null;
-        }
+        float FlightPathAngleCommand() => 0;
+        IVerticalMode NewMode() => null;
     }
 
-    public class VerticalMode : Mode
+    public class HeadingSelect : ILateralMode
     {
-        public VerticalMode(Aeroplane aeroplane) : base(aeroplane) { }
-
-        public virtual float FlightPathAngleCommand()
-        {
-            return 0f;
-        }
-
-        public virtual VerticalMode NewMode()
-        {
-            return null;
-        }
-    }
-
-    public class HeadingSelect : LateralMode
-    {
+        private readonly Aeroplane _aeroplane;
         public readonly float Heading;
         public readonly TurnDirection TurnDirection;
 
@@ -65,7 +38,7 @@ namespace Guidance
             return headingDelta;
         }
 
-        public override float RollCommand()
+        public float RollCommand()
         {
             if (HeadingDelta(TurnDirection) > (_aeroplane.Roll / Aeroplane.RollRate) * _aeroplane.Roll + 0.01f)
             {
@@ -77,8 +50,9 @@ namespace Guidance
             }
         }
 
-        public HeadingSelect(Aeroplane aeroplane, float heading, TurnDirection turnDirection) : base(aeroplane)
+        public HeadingSelect(Aeroplane aeroplane, float heading, TurnDirection turnDirection)
         {
+            _aeroplane = aeroplane;
             Heading = heading;
             if (turnDirection == TurnDirection.Quickest)
             {
@@ -91,28 +65,29 @@ namespace Guidance
         }
     }
 
-    public class AltitudeHold : VerticalMode
+    public class AltitudeHold : IVerticalMode
     {
-        public AltitudeHold(Aeroplane aeroplane) : base(aeroplane) { }
+
     }
 
-    public class VerticalSpeed : VerticalMode
+    public class VerticalSpeed : IVerticalMode
     {
+        private readonly Aeroplane _aeroplane;
         public readonly float Altitude;
         public readonly float VerticalRate;
 
-        public override float FlightPathAngleCommand()
+        public float FlightPathAngleCommand()
         {
             // calculate the flight path angle required to maintain a given vertical speed at the current true airspeed
             float requiredAngle = Mathf.RadToDeg(Mathf.Asin(VerticalRate * Aeroplane.FeetPerMinuteToKnots / _aeroplane.TrueAirspeed));
             return _aeroplane.TrueAltitude < Altitude ? requiredAngle : -requiredAngle;
         }
 
-        public override VerticalMode NewMode()
+        public IVerticalMode NewMode()
         {
             if (Mathf.Abs(Altitude - _aeroplane.TrueAltitude) < Mathf.Abs(_aeroplane.FlightPathAngle) / Aeroplane.PitchRate * Mathf.Abs(_aeroplane.VerticalSpeed) / 2)
             {
-                return new AltitudeHold(_aeroplane);
+                return new AltitudeHold();
             }
             else
             {
@@ -120,8 +95,9 @@ namespace Guidance
             }
         }
 
-        public VerticalSpeed(Aeroplane aeroplane, float altitude, float verticalSpeed) : base(aeroplane)
+        public VerticalSpeed(Aeroplane aeroplane, float altitude, float verticalSpeed)
         {
+            _aeroplane = aeroplane;
             Altitude = altitude;
             VerticalRate = verticalSpeed;
         }

@@ -21,8 +21,8 @@ public partial class Aeroplane : Node, IAeroplane
     public float FlightPathAngle = 0; // Deg
 
     // Guidance
-    public Guidance.LateralMode LateralGuidanceMode;
-    public Guidance.VerticalMode VerticalGuidanceMode;
+    public Guidance.ILateralMode LateralGuidanceMode;
+    public Guidance.IVerticalMode VerticalGuidanceMode;
 
     public const int SecondsInAnHour = 3600;
     public const float FeetPerMinuteToKnots = 0.00987473f;
@@ -45,7 +45,7 @@ public partial class Aeroplane : Node, IAeroplane
     public override void _EnterTree()
     {
         LateralGuidanceMode = new Guidance.HeadingSelect(this, TrueHeading, Guidance.TurnDirection.Quickest);
-        VerticalGuidanceMode = new Guidance.AltitudeHold(this);
+        VerticalGuidanceMode = new Guidance.AltitudeHold();
     }
 
     public override void _PhysicsProcess(double delta)
