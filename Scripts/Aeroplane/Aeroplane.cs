@@ -23,6 +23,9 @@ public partial class Aeroplane : Node, IAeroplane
     // Guidance
     public Guidance.ILateralMode LateralGuidanceMode;
     public Guidance.IVerticalMode VerticalGuidanceMode;
+    public Guidance.IArmableVerticalMode ArmedVerticalGuidanceMode;
+    // FCU
+    public float SelectedAltitude;
 
     public const int SecondsInAnHour = 3600;
     public const float FeetPerMinuteToKnots = 0.00987473f;
@@ -39,13 +42,15 @@ public partial class Aeroplane : Node, IAeroplane
 
     private void OnAltitudeInstruction(float altitude)
     {
-        VerticalGuidanceMode = new Guidance.VerticalSpeed(this, altitude, 1900);
+        SelectedAltitude = altitude;
+        VerticalGuidanceMode = new Guidance.VerticalSpeed(this, 1900);
+        ArmedVerticalGuidanceMode = new Guidance.AltitudeHold(this);
     }
 
     public override void _EnterTree()
     {
         LateralGuidanceMode = new Guidance.HeadingSelect(this, TrueHeading, Guidance.TurnDirection.Quickest);
-        VerticalGuidanceMode = new Guidance.AltitudeHold();
+        VerticalGuidanceMode = new Guidance.AltitudeHold(this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -53,11 +58,21 @@ public partial class Aeroplane : Node, IAeroplane
         // Lateral guidance
         LateralGuidanceMode = LateralGuidanceMode.NewMode() ?? LateralGuidanceMode;
         Roll = Mathf.MoveToward(Roll, LateralGuidanceMode.RollCommand(), RollRate * (float)delta);
+
         TrueHeading += Roll * (float)delta;
 
         // Vertical guidance
+        // Activate armed vertical guidance mode if condition is met
+        if (ArmedVerticalGuidanceMode?.Activate() ?? false)
+        {
+            VerticalGuidanceMode = ArmedVerticalGuidanceMode;
+            ArmedVerticalGuidanceMode = null;
+        }
+        // Change vertical guidance mode if the current guidance mode wants
         VerticalGuidanceMode = VerticalGuidanceMode.NewMode() ?? VerticalGuidanceMode;
+        // Change flight path angle towards commanded value (abstraction of pitch)
         FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * (float)delta);
+
         TrueAltitude += VerticalSpeed * (float)delta;
 
         Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));

@@ -34,11 +34,8 @@ public partial class AltitudeField : LineEdit
 
     public override void _Ready()
     {
-        if (Aeroplane.VerticalGuidanceMode is Guidance.VerticalSpeed verticalSpeed)
-        {
-            Text = verticalSpeed.Altitude.ToString().PadLeft(3, '0');
-            _oldText = Text;
-        }
+        Text = Aeroplane.SelectedAltitude.ToString().PadLeft(3, '0');
+        _oldText = Text;
     }
 
     public override void _Input(InputEvent @event)
