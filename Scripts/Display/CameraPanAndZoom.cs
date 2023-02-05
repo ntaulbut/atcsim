@@ -53,6 +53,7 @@ public partial class CameraPanAndZoom : Camera2D
 
     public override void _Process(double delta)
     {
+        // Panning
         // Move the camera in the opposite direction to mouse movement, from the reference point
         if (Input.IsActionPressed("Pan Camera"))
         {
