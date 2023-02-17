@@ -1,15 +1,35 @@
 using Godot;
+using static Geo;
+using static Util;
+
 
 public partial class ExtendedCentrelines : Node2D
 {
+    private Vector2 OppositeNormalPoint(Vector2 start, Vector2 normal, float distance)
+    {
+        return Simulator.ScaledPosition(start + normal * distance, GetViewportRect());
+    }
+
     public override void _Draw()
     {
+        int distanceMarkers = 6;
+        float distanceBetweenMarkers = 2;
+
         foreach (ILSApproach approach in Simulator.RadarConfig.Airports[0].ILSApproaches)
         {
-            Vector2 threshold = Geo.RelativePositionNm(approach.RunwayThresholdLatLon, Simulator.RadarConfig.LatLon);
-            Vector2 direction = Util.HeadingToVector(Util.OppositeHeading(approach.LocaliserHeading));
-            Vector2 end = threshold + direction * 10f;
-            DrawLine(Simulator.ScaledPosition(threshold, GetViewportRect()), Simulator.ScaledPosition(end, GetViewportRect()), Colors.White);
+            Rect2 viewport = GetViewportRect();
+            // main line
+            Vector2 threshold = RelativePositionNm(approach.RunwayThresholdLatLon, Simulator.RadarConfig.LatLon);
+            Vector2 direction = HeadingToVector(OppositeHeading(approach.LocaliserHeading));
+            Vector2 end = threshold + direction * (distanceMarkers - 1) * distanceBetweenMarkers;
+            DrawLine(Simulator.ScaledPosition(threshold, viewport), Simulator.ScaledPosition(end, viewport), Colors.White);
+            // distance markers
+            Vector2 normal = HeadingToVector(Mathf.Wrap(approach.LocaliserHeading + 90, 0, 360));
+            for (int i = 0; i < distanceMarkers; i++)
+            {
+                Vector2 point = threshold + direction * i * distanceBetweenMarkers;
+                DrawLine(OppositeNormalPoint(point, normal, -0.25f), OppositeNormalPoint(point, normal, 0.25f), Colors.White);
+            }
         }
     }
 
