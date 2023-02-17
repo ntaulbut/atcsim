@@ -12,11 +12,11 @@ public partial class LeaderLine : Node2D
 
     public override void _Draw()
     {
-        screenVelocity = new Vector2(_aeroplane.GroundVector.x, -_aeroplane.GroundVector.y);
+        screenVelocity = new Vector2(_aeroplane.GroundVector.X, -_aeroplane.GroundVector.Y);
         Vector2 direction = screenVelocity.Normalized();
         Vector2 start = Position + direction * _start;
         Vector2 end = start + direction * _length;
-        DrawLine(start, end, _colour, 1, true);
+        DrawLine(start, end, _colour, -1, true);
     }
 
     public override void _Process(double delta)
@@ -31,7 +31,7 @@ public partial class LeaderLine : Node2D
 
     public override void _Ready()
     {
-        if (_colour.a < 0.1)
+        if (_colour.A < 0.1)
         {
             GD.PrintErr("Warning: Leader Line Transparent!");
         }

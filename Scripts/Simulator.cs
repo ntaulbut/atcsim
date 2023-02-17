@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class Simulator : Node2D
+public partial class Simulator : Node
 {
     public static RadarConfig RadarConfig;
 
@@ -16,22 +17,22 @@ public partial class Simulator : Node2D
 
     [Signal] public delegate void ScaleChangedEventHandler();
 
-    public static new float Scale(Rect2 viewportRect)
+    public static float Scale(Rect2 viewportRect)
     {
         _viewportRect = viewportRect;
-        float zoomValue = 1f * Mathf.Pow(1 + ZoomSpeed, Zoom);
+        float zoomValue = Mathf.Pow(1 + ZoomSpeed, Zoom);
         return RadarConfig.FixedBy switch
         {
-            RadarConfig.DisplayFixedBy.Width => (viewportRect.Size.x / RadarConfig.WidthNm) * zoomValue,
-            RadarConfig.DisplayFixedBy.Height => (viewportRect.Size.y / RadarConfig.HeightNm) * zoomValue,
-            RadarConfig.DisplayFixedBy.Compromise => (viewportRect.Size.x / RadarConfig.WidthNm + viewportRect.Size.y / RadarConfig.HeightNm) / 2 * zoomValue,
+            RadarConfig.DisplayFixedBy.Width => (viewportRect.Size.X / RadarConfig.WidthNm) * zoomValue,
+            RadarConfig.DisplayFixedBy.Height => (viewportRect.Size.Y / RadarConfig.HeightNm) * zoomValue,
+            RadarConfig.DisplayFixedBy.Compromise => (viewportRect.Size.X / RadarConfig.WidthNm + viewportRect.Size.Y / RadarConfig.HeightNm) / 2 * zoomValue,
             _ => throw new NotImplementedException()
         };
     }
 
     public static Vector2 ScaledPosition(Vector2 position, Rect2 viewportRect)
     {
-        return new Vector2(position.x, -position.y) * Scale(viewportRect);
+        return new Vector2(position.X, -position.Y) * Scale(viewportRect);
     }
 
     public override void _Process(double delta)

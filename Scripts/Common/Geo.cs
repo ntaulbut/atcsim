@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Geo : Object
+public class Geo
 {
     // Average radius of the Earth in nautical miles
     private const float EarthRadiusNm = 3438.175f;
@@ -29,11 +29,11 @@ public partial class Geo : Object
 
     public static Vector2 RelativePositionNm(Vector2 position, Vector2 relativeTo)
     {
-        float horizontalComponent = GetDistanceNm(relativeTo.x, relativeTo.y, relativeTo.x, position.y);
-        horizontalComponent = position.y < relativeTo.y ? -horizontalComponent : horizontalComponent;
+        float horizontalComponent = GetDistanceNm(relativeTo.X, relativeTo.Y, relativeTo.X, position.Y);
+        horizontalComponent = position.Y < relativeTo.Y ? -horizontalComponent : horizontalComponent;
 
-        float verticalComponent = GetDistanceNm(relativeTo.x, position.y, position.x, position.y);
-        verticalComponent = position.x < relativeTo.x ? -verticalComponent : verticalComponent;
+        float verticalComponent = GetDistanceNm(relativeTo.X, position.Y, position.X, position.Y);
+        verticalComponent = position.X < relativeTo.X ? -verticalComponent : verticalComponent;
 
         return new Vector2(horizontalComponent, verticalComponent);
     }

@@ -99,17 +99,17 @@ public partial class Tag : Control
         Vector2 start = Position + Position.DirectionTo(end) * 10;
 
         // Define line from blip to tag centre
-        float m = (start.y - end.y) / (start.x - end.x);
-        float c = start.y - m * start.x;
+        float m = (start.Y - end.Y) / (start.X - end.X);
+        float c = start.Y - m * start.X;
 
         // Calculate intersection points for all four lines
-        float x = innerRect.Position.x;
+        float x = innerRect.Position.X;
         Vector2 p_a = new(x, m * x + c);
-        float y = innerRect.Position.y;
+        float y = innerRect.Position.Y;
         Vector2 p_b = new((y - c) / m, y);
-        x = innerRect.Position.x + tagRect.Size.x;
+        x = innerRect.Position.X + tagRect.Size.X;
         Vector2 p_c = new(x, m * x + c);
-        y = innerRect.Position.y + tagRect.Size.y;
+        y = innerRect.Position.Y + tagRect.Size.Y;
         Vector2 p_d = new((y - c) / m, y);
         List<Vector2> points = new() { p_a, p_b, p_c, p_d };
 
@@ -117,7 +117,7 @@ public partial class Tag : Control
         // Do not draw the line if the tag is over the blip
         if (!tagRect.HasPoint(start))
         {
-            DrawLine(start, points.MinBy(point => point.DistanceSquaredTo(end - end.Normalized() * 10f)), Colors.White, 1, true);
+            DrawLine(start, points.MinBy(point => point.DistanceSquaredTo(end - end.Normalized() * 10f)), Colors.White, -1, true);
         }
     }
 }
