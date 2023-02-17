@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chob1g3lbc4la"
-path="res://.godot/imported/optionbuttonarrow.png-70a7f25b856002c4851f0c7403f3f952.ctex"
+uid="uid://cihsrqeksasdw"
+path="res://.godot/imported/radiochecked.png-35f295dc5302f22e57b20ef0918b74a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/optionbuttonarrow.png"
-dest_files=["res://.godot/imported/optionbuttonarrow.png-70a7f25b856002c4851f0c7403f3f952.ctex"]
+source_file="res://Assets/Icons/Menu/radiochecked.png"
+dest_files=["res://.godot/imported/radiochecked.png-35f295dc5302f22e57b20ef0918b74a1.ctex"]
 
 [params]
 

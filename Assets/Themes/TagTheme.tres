@@ -1,7 +1,9 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dm1266nk07iw1"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://ctrnsnvikpvge"]
 
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="1_frxk1"]
-[ext_resource type="Texture2D" uid="uid://chob1g3lbc4la" path="res://Assets/Icons/optionbuttonarrow.png" id="2_voekf"]
+[ext_resource type="Texture2D" uid="uid://chob1g3lbc4la" path="res://Assets/Icons/Menu/optionbuttonarrow.png" id="2_7omc4"]
+[ext_resource type="Texture2D" uid="uid://cihsrqeksasdw" path="res://Assets/Icons/Menu/radiochecked.png" id="3_gxmrf"]
+[ext_resource type="Texture2D" uid="uid://b5m7khwxd6nqu" path="res://Assets/Icons/Menu/radiounchecked.png" id="4_ay4fj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxdr7"]
 bg_color = Color(0, 0, 0, 0)
@@ -39,6 +41,17 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dmu4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpmsn"]
+bg_color = Color(0, 0.580392, 0.52549, 1)
+
 [resource]
 Label/constants/line_spacing = 0
 Label/font_sizes/font_size = 13
@@ -53,9 +66,15 @@ OptionButton/colors/font_color = Color(1, 1, 1, 1)
 OptionButton/constants/h_separation = 6
 OptionButton/font_sizes/font_size = 13
 OptionButton/fonts/font = ExtResource("1_frxk1")
-OptionButton/icons/arrow = ExtResource("2_voekf")
+OptionButton/icons/arrow = ExtResource("2_7omc4")
 OptionButton/styles/focus = SubResource("StyleBoxFlat_dsvu2")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_2wtq8")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_jv61r")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_odbly")
+PopupMenu/font_sizes/font_size = 13
+PopupMenu/fonts/font = ExtResource("1_frxk1")
+PopupMenu/icons/radio_checked = ExtResource("3_gxmrf")
+PopupMenu/icons/radio_unchecked = ExtResource("4_ay4fj")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_5dmu4")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_mpmsn")
 VBoxContainer/constants/separation = 0

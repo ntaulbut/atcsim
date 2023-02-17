@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2jp8lopejbi4"
-path="res://.godot/imported/pause.png-ec36e54db136161b1a8feacabceb1dbb.ctex"
+uid="uid://chob1g3lbc4la"
+path="res://.godot/imported/optionbuttonarrow.png-57fd7eab902ecd59f1e356a71061c60d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/pause.png"
-dest_files=["res://.godot/imported/pause.png-ec36e54db136161b1a8feacabceb1dbb.ctex"]
+source_file="res://Assets/Icons/Menu/optionbuttonarrow.png"
+dest_files=["res://.godot/imported/optionbuttonarrow.png-57fd7eab902ecd59f1e356a71061c60d.ctex"]
 
 [params]
 
