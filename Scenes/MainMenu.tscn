@@ -2,10 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="1_p3716"]
 [ext_resource type="Script" path="res://Scripts/Menu/RadarSelector.cs" id="2_kn5io"]
-[ext_resource type="Resource" uid="uid://cysmq5rno6g2x" path="res://Resources/Radar Configs/Hiroshima.tres" id="3_g7eik"]
-[ext_resource type="PackedScene" uid="uid://dngxjcj4jiobe" path="res://Scenes/Simulator.tscn" id="3_q3d1q"]
-[ext_resource type="Resource" uid="uid://c415e65kyqrbc" path="res://Resources/Radar Configs/HongKong.tres" id="4_h0jt7"]
-[ext_resource type="Resource" uid="uid://dp0v87njxy6jv" path="res://Resources/Radar Configs/Samos.tres" id="5_w7o5i"]
+[ext_resource type="PackedScene" uid="uid://djegjgecoh36o" path="res://Scenes/Simulator.tscn" id="3_ukynq"]
+[ext_resource type="Resource" uid="uid://cysmq5rno6g2x" path="res://Resources/Radar Configs/Hiroshima.tres" id="4_5nc7n"]
+[ext_resource type="Resource" uid="uid://c415e65kyqrbc" path="res://Resources/Radar Configs/HongKong.tres" id="5_6bwkd"]
+[ext_resource type="Resource" uid="uid://dp0v87njxy6jv" path="res://Resources/Radar Configs/Samos.tres" id="6_ear4c"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." node_paths=PackedStringArray("dropdown")]
-anchors_preset = 8
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -29,26 +29,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_p3716")
 script = ExtResource("2_kn5io")
-SimulatorScene = ExtResource("3_q3d1q")
+SimulatorScene = ExtResource("3_ukynq")
 dropdown = NodePath("OptionButton")
-radarConfigs = [ExtResource("3_g7eik"), ExtResource("4_h0jt7"), ExtResource("5_w7o5i")]
+radarConfigs = Array[Resource]([ExtResource("4_5nc7n"), ExtResource("5_6bwkd"), ExtResource("6_ear4c")])
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-offset_right = 120.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "ATC Sim"
 horizontal_alignment = 1
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
-offset_top = 30.0
-offset_right = 120.0
-offset_bottom = 47.0
+layout_mode = 2
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-offset_top = 51.0
-offset_right = 120.0
-offset_bottom = 71.0
+layout_mode = 2
 text = "Go"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="VBoxContainer" method="GoButtonPressed"]

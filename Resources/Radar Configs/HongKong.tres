@@ -9,6 +9,7 @@
 [resource]
 resource_name = "Hong Kong"
 script = ExtResource("1")
+Airports = null
 Style = ExtResource("3")
 WidthNm = 60
 HeightNm = 100

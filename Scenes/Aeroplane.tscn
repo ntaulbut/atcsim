@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://ho4t1c54jdlx" path="res://Assets/Icons/squaredstar.png" id="3_jdja1"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/LeaderLine.cs" id="4_pncg7"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="5_yfkyw"]
-[ext_resource type="Theme" uid="uid://dm1266nk07iw1" path="res://Assets/Themes/TagTheme.tres" id="6_glqic"]
+[ext_resource type="Theme" uid="uid://ctrnsnvikpvge" path="res://Assets/Themes/TagTheme.tres" id="6_glqic"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/Tag.cs" id="7_8lfr1"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/HeadingField.cs" id="8_mulg5"]
-[ext_resource type="Script" path="res://Scripts/Callsign2.cs" id="8_nmc70"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AltitudeLabel.cs" id="9_2b4s2"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/HistoryDots.cs" id="9_llox6"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AltitudeField.cs" id="9_pur43"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/DebugText.cs" id="10_hx38u"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/ApproachSelector.cs" id="11_c3vk4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlbuf"]
 bg_color = Color(0.937255, 0.937255, 0.937255, 1)
@@ -213,16 +213,17 @@ theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
-[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer", "_innerControlArea", "_headingField", "_altitudeField")]
+[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer", "_innerControlArea", "_headingField", "_altitudeField", "_approachSelector")]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("6_glqic")
 script = ExtResource("7_8lfr1")
 TagDisplay = NodePath("Control")
-TagDisplayPanelContainer = NodePath("Control/Panel")
+TagDisplayPanelContainer = NodePath("Control/Background")
 _innerControlArea = NodePath("Control/Inner Rect")
 _headingField = NodePath("Control/Margins/VBoxContainer/HBoxContainer/Heading Field")
 _altitudeField = NodePath("Control/Margins/VBoxContainer/HBoxContainer/Altitude Field")
+_approachSelector = NodePath("Control/Margins/VBoxContainer/Approach Selector")
 
 [node name="Control" type="Control" parent="Display/Tag"]
 layout_mode = 1
@@ -230,18 +231,18 @@ anchors_preset = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 103.0
-offset_bottom = 51.0
+offset_bottom = 59.0
 
 [node name="Inner Rect" type="Control" parent="Display/Tag/Control"]
 editor_description = "The inner area of the tag that is used when not hovering over the tag"
 layout_mode = 1
 anchors_preset = 0
 offset_left = 1.0
-offset_top = 1.0
-offset_right = 86.0
+offset_top = 3.0
+offset_right = 84.0
 offset_bottom = 33.0
 
-[node name="Panel" type="PanelContainer" parent="Display/Tag/Control"]
+[node name="Background" type="PanelContainer" parent="Display/Tag/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -264,7 +265,6 @@ theme_override_constants/margin_bottom = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/Margins"]
 layout_mode = 2
-theme_override_constants/separation = -3
 
 [node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer"]
 layout_mode = 2
@@ -291,19 +291,19 @@ select_all_on_focus = true
 script = ExtResource("8_mulg5")
 Aeroplane = NodePath("../../../../../../..")
 
-[node name="AltitudeLabel" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("Aeroplane", "_arrowLabel")]
+[node name="Altitude Label" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("Aeroplane", "_arrowLabel")]
 layout_mode = 2
 tooltip_text = "Altitude"
 mouse_filter = 1
 text = "180"
 script = ExtResource("9_2b4s2")
 Aeroplane = NodePath("../../../../../../..")
-_arrowLabel = NodePath("../VerticalSpeedLabel")
+_arrowLabel = NodePath("../Vertical Speed Label")
 _upArrowChar = "↑"
 _downArrowChar = "↓"
 _arrowFPMDeadzone = 50
 
-[node name="VerticalSpeedLabel" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer"]
+[node name="Vertical Speed Label" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(3, 0)
 layout_mode = 2
 tooltip_text = "Vertical Direction"
@@ -326,13 +326,15 @@ select_all_on_focus = true
 script = ExtResource("9_pur43")
 Aeroplane = NodePath("../../../../../../..")
 
-[node name="Callsign2" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("_tag")]
+[node name="Approach Selector" type="OptionButton" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("Aeroplane", "_tag")]
 layout_mode = 2
-tooltip_text = "Dummy Text"
-mouse_filter = 1
-text = "5321 C 08"
-vertical_alignment = 1
-script = ExtResource("8_nmc70")
+size_flags_horizontal = 0
+item_count = 1
+selected = 0
+popup/item_0/text = "Unset"
+popup/item_0/id = 0
+script = ExtResource("11_c3vk4")
+Aeroplane = NodePath("../../../../../..")
 _tag = NodePath("../../../..")
 
 [node name="DebugText" type="PanelContainer" parent="Display"]
@@ -357,7 +359,7 @@ Aeroplane = NodePath("../../..")
 script = ExtResource("9_llox6")
 Aeroplane = NodePath("..")
 
-[connection signal="timeout" from="ADS-B 2Hz" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/AltitudeLabel" method="ADSB2HzTimeout"]
+[connection signal="timeout" from="ADS-B 2Hz" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Label" method="ADSB2HzTimeout"]
 [connection signal="timeout" from="DisplayUpdateTimer" to="Display" method="DisplayUpdateTimeout"]
 [connection signal="timeout" from="DisplayUpdateTimer" to="Display/Leader Line" method="DisplayUpdateTimeout"]
 [connection signal="timeout" from="DisplayUpdateTimer" to="History Dots" method="DisplayUpdateTimeout"]
@@ -367,3 +369,6 @@ Aeroplane = NodePath("..")
 [connection signal="AltitudeInstruction" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="." method="OnAltitudeInstruction"]
 [connection signal="text_changed" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" method="OnChanged"]
 [connection signal="text_submitted" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" method="OnSubmitted"]
+[connection signal="ApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="." method="OnApproachInstruction"]
+[connection signal="CancelApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="." method="OnCancelApproachInstruction"]
+[connection signal="item_selected" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" method="OnItemSelected"]

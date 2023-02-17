@@ -2,6 +2,7 @@ using Godot;
 
 public partial class RadarConfig : Resource
 {
+    [Export] public Airport[] Airports;
     public enum DisplayFixedBy {Width, Height, Compromise}
     [Export] public RadarStyle Style;
     [Export] public int WidthNm = 60;

@@ -1,83 +1,134 @@
 using Godot;
+using Guidance;
+using System.Collections.Generic;
 
 public partial class Aeroplane : Node, IAeroplane
 {
-    [Export] public float TrueAltitude { get; set; }
-    [Export] public float TrueAirspeed { get; set; }
-    [Export] public Vector2 PositionNm { get; set; }
-    [Export] public Vector2 GroundVector { get; set; }
-    private float _heading;
-    [Export] public float TrueHeading
+	[Export] public float TrueAltitude { get; set; }
+	[Export] public float TrueAirspeed { get; set; }
+	[Export] public Vector2 PositionNm { get; set; }
+	[Export] public Vector2 GroundVector { get; set; }
+	private float _heading;
+	[Export] public float TrueHeading
+	{
+		get => _heading;
+		set => _heading = Mathf.Wrap(value, 0, 360);
+	}
+	public float VerticalSpeed {
+		get => TrueAirspeed * Mathf.Sin(Mathf.DegToRad(FlightPathAngle)) * KnotsToFeetPerSecond; // feet/s
+	}
+
+	// Flight
+	public float Roll = 0; // Deg/s
+	public float FlightPathAngle = 0; // Deg
+
+	// Guidance
+	public ILateralMode LateralGuidanceMode;
+	public IVerticalMode VerticalGuidanceMode;
+	public List<IArmableLateralMode> ArmedLateralGuidanceModes = new();
+	public List<IArmableVerticalMode> ArmedVerticalGuidanceModes = new();
+	// FCU
+	public float SelectedAltitude;
+	public float SelectedHeading;
+	public ILSApproach Approach;
+
+	// Constants
+	public const int SecondsInAnHour = 3600;
+	public const float StandardRateTurn = 3f; // Deg/s/s
+	public const float RollRate = 0.5f; // Deg/s/s
+	public const float PitchRate = 0.17f; // Deg/s
+	// Unit conversions
+	public const float FeetPerMinuteToKnots = 0.00987473f;
+	public const float KnotsToFeetPerSecond = 1.68781f;
+	public const float NauticalMilesToFeet = 6076.115f;
+
+    private void OnHeadingInstruction(int heading, int turnDirection)
     {
-        get => _heading;
-        set => _heading = Mathf.Wrap(value, 0, 360);
-    }
-    public float VerticalSpeed {
-        get => TrueAirspeed * Mathf.Sin(Mathf.DegToRad(FlightPathAngle)) * KnotsToFeetPerSecond; // feet/s
-    }
+		SelectedHeading = heading;
+		LateralGuidanceMode = new HeadingSelect(this, (TurnDirection)turnDirection);
+	}
 
-    // Flight
-    public float Roll = 0; // Deg/s
-    public float FlightPathAngle = 0; // Deg
+	private void OnAltitudeInstruction(float altitude)
+	{
+		SelectedAltitude = altitude;
+		VerticalGuidanceMode = new VerticalSpeed(this, 1900);
+		if (ArmedVerticalGuidanceModes.Find(mode => mode is AltitudeHold) is null)
+			ArmedVerticalGuidanceModes.Add(new AltitudeHold(this));
+	}
 
-    // Guidance
-    public Guidance.ILateralMode LateralGuidanceMode;
-    public Guidance.IVerticalMode VerticalGuidanceMode;
-    public Guidance.IArmableVerticalMode ArmedVerticalGuidanceMode;
-    // FCU
-    public float SelectedAltitude;
+	private void OnApproachInstruction(int approach_index)
+	{
+		Approach = Simulator.RadarConfig.Airports[0].ILSApproaches[approach_index];
+		ArmedLateralGuidanceModes.Add(new Localiser(this));
+		ArmedVerticalGuidanceModes.Add(new Glideslope(this));
+		GD.Print("Cleared ", Approach.ResourceName, " approach!");
+	}
 
-    public const int SecondsInAnHour = 3600;
-    public const float FeetPerMinuteToKnots = 0.00987473f;
-    public const float KnotsToFeetPerSecond = 1.68781f;
+	private void OnCancelApproachInstruction()
+	{
+		GD.Print("Approach cancelled");
+		Approach = null;
+		if (VerticalGuidanceMode is Glideslope)
+		{
+			VerticalGuidanceMode = new VerticalSpeed(this, 2500);
+			ArmedVerticalGuidanceModes.Add(new AltitudeHold(this));
 
-    public const float StandardRateTurn = 3f; // Deg/s/s
-    public const float RollRate = 0.5f; // Deg/s/s
-    public const float PitchRate = 0.17f; // Deg/s
-
-    private void OnHeadingInstruction(float heading, int turnDirection)
-    {
-        LateralGuidanceMode = new Guidance.HeadingSelect(this, heading, (Guidance.TurnDirection)turnDirection);
-    }
-
-    private void OnAltitudeInstruction(float altitude)
-    {
-        SelectedAltitude = altitude;
-        VerticalGuidanceMode = new Guidance.VerticalSpeed(this, 1900);
-        ArmedVerticalGuidanceMode = new Guidance.AltitudeHold(this);
-    }
+			SelectedHeading = 180;
+			LateralGuidanceMode = new HeadingSelect(this, TurnDirection.Quickest);
+		}
+		else
+		{
+			ArmedLateralGuidanceModes.RemoveAll(mode => mode is Localiser);
+			ArmedVerticalGuidanceModes.RemoveAll(mode => mode is Glideslope);
+		}
+	}
 
     public override void _EnterTree()
-    {
-        LateralGuidanceMode = new Guidance.HeadingSelect(this, TrueHeading, Guidance.TurnDirection.Quickest);
-        VerticalGuidanceMode = new Guidance.AltitudeHold(this);
-    }
+	{
+		LateralGuidanceMode = new HeadingSelect(this, TurnDirection.Quickest);
+		SelectedHeading = TrueHeading;
+		VerticalGuidanceMode = new AltitudeHold(this);
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        // Lateral guidance
-        LateralGuidanceMode = LateralGuidanceMode.NewMode() ?? LateralGuidanceMode;
-        Roll = Mathf.MoveToward(Roll, LateralGuidanceMode.RollCommand(), RollRate * (float)delta);
+	public override void _PhysicsProcess(double delta)
+	{
+		// Lateral guidance
+		// Activate armed lateral guidance mode if condition is met
+		for (int i = 0; i < ArmedLateralGuidanceModes.Count; i++)
+		{
+			IArmableLateralMode lateralMode = ArmedLateralGuidanceModes[i];
+			if (lateralMode?.Activate() ?? false)
+			{
+				LateralGuidanceMode = lateralMode;
+				ArmedLateralGuidanceModes.Remove(lateralMode);
+			}
+		}
+		LateralGuidanceMode = LateralGuidanceMode.NewMode() ?? LateralGuidanceMode;
+		Roll = Mathf.MoveToward(Roll, LateralGuidanceMode.RollCommand((float)delta), RollRate * (float)delta);
 
-        TrueHeading += Roll * (float)delta;
+		TrueHeading += Roll * (float)delta;
 
-        // Vertical guidance
-        // Activate armed vertical guidance mode if condition is met
-        if (ArmedVerticalGuidanceMode?.Activate() ?? false)
-        {
-            VerticalGuidanceMode = ArmedVerticalGuidanceMode;
-            ArmedVerticalGuidanceMode = null;
-        }
-        // Change vertical guidance mode if the current guidance mode wants
-        VerticalGuidanceMode = VerticalGuidanceMode.NewMode() ?? VerticalGuidanceMode;
-        // Change flight path angle towards commanded value (abstraction of pitch)
-        FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * (float)delta);
+		// Vertical guidance
+		// Activate armed vertical guidance mode if condition is met
+		for(int i = 0; i < ArmedVerticalGuidanceModes.Count; i++)
+		{
+			IArmableVerticalMode verticalMode = ArmedVerticalGuidanceModes[i];
+			if (verticalMode?.Activate() ?? false)
+			{
+				VerticalGuidanceMode = verticalMode;
+				ArmedVerticalGuidanceModes.Remove(verticalMode);
+			}
+		}
+		// Change vertical guidance mode if the current guidance mode wants
+		VerticalGuidanceMode = VerticalGuidanceMode.NewMode() ?? VerticalGuidanceMode;
+		// Change flight path angle towards commanded value (abstraction of pitch)
+		FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * (float)delta);
 
-        TrueAltitude += VerticalSpeed * (float)delta;
+		TrueAltitude += VerticalSpeed * (float)delta;
 
-        Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));
-        Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
-        GroundVector = airVector + windVector;
-        PositionNm += GroundVector / SecondsInAnHour * (float)delta;
-    }
+		Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));
+		Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
+		GroundVector = airVector + windVector;
+		PositionNm += GroundVector / SecondsInAnHour * (float)delta;
+	}
 }

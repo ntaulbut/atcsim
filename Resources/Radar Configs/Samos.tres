@@ -7,6 +7,7 @@
 [resource]
 resource_name = "Samos"
 script = ExtResource("1")
+Airports = null
 Style = ExtResource("3")
 WidthNm = 110
 HeightNm = 50

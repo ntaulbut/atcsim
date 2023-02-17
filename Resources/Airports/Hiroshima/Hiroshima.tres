@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ctadnkxvo86v1"]
+
+[ext_resource type="Resource" uid="uid://bgkawc0rnvx3d" path="res://Resources/Airports/Hiroshima/ILS Approaches/10.tres" id="1_di0k7"]
+[ext_resource type="Script" path="res://Scripts/Resources/Airport.cs" id="1_o7cp3"]
+
+[resource]
+script = ExtResource("1_o7cp3")
+ILSApproaches = [ExtResource("1_di0k7")]

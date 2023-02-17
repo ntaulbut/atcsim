@@ -49,11 +49,8 @@ public partial class HeadingField : LineEdit
 
     public override void _Ready()
     {
-        if (Aeroplane.LateralGuidanceMode is Guidance.HeadingSelect headingSelect)
-        {
-            Text = headingSelect.Heading.ToString().PadLeft(3, '0');
-            _oldText = Text;
-        }
+        Text = Aeroplane.SelectedHeading.ToString().PadLeft(3, '0');
+        _oldText = Text;
     }
 
     public override void _Input(InputEvent @event)
