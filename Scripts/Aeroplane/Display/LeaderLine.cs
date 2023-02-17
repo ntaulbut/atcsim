@@ -35,5 +35,6 @@ public partial class LeaderLine : Node2D
         {
             GD.PrintErr("Warning: Leader Line Transparent!");
         }
+        QueueRedraw();
     }
 }

@@ -26,7 +26,7 @@ public partial class HistoryDots : Node2D
         }
     }
 
-    public void DisplayUpdateTimeout()
+    private void Update()
     {
         _previousPosition = Aeroplane.PositionNm;
         _previousPositions.Insert(0, _previousPosition);
@@ -39,14 +39,14 @@ public partial class HistoryDots : Node2D
         UpdateDotsPositions();
     }
 
-    public override void _EnterTree()
+    public void DisplayUpdateTimeout()
     {
-        GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+        Update();
     }
 
-    public override void _ExitTree()
+    public override void _Ready()
     {
-        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
+        Update();
     }
 
     public override void _Draw()
@@ -57,5 +57,15 @@ public partial class HistoryDots : Node2D
     public void OnScaleChanged()
     {
         QueueRedraw();
+    }
+
+    public override void _EnterTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged += OnScaleChanged;
+    }
+
+    public override void _ExitTree()
+    {
+        GetNode<Simulator>("/root/Simulator").ScaleChanged -= OnScaleChanged;
     }
 }
