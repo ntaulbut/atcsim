@@ -130,5 +130,15 @@ public partial class Aeroplane : Node, IAeroplane
 		Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
 		GroundVector = airVector + windVector;
 		PositionNm += GroundVector / SecondsInAnHour * (float)delta;
+
+		// Remove the aeroplane if it lands
+		if (VerticalGuidanceMode is Glideslope && TrueAltitude < Approach.GlideslopeElevation + 50)
+		{
+			QueueFree();
+		}
+		else if (TrueAltitude < 0)
+		{
+			QueueFree();
+		}
 	}
 }
