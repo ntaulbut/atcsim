@@ -18,12 +18,12 @@ public partial class ExtendedCentrelines : Node2D
         foreach (ILSApproach approach in Simulator.RadarConfig.Airports[0].ILSApproaches)
         {
             Rect2 viewport = GetViewportRect();
-            // main line
+			// Main line
             Vector2 threshold = RelativePositionNm(approach.RunwayThresholdLatLon, Simulator.RadarConfig.LatLon);
             Vector2 direction = HeadingToVector(OppositeHeading(approach.LocaliserHeading));
             Vector2 end = threshold + direction * (distanceMarkers - 1) * distanceBetweenMarkers;
             DrawLine(Simulator.ScaledPosition(threshold, viewport), Simulator.ScaledPosition(end, viewport), Colors.White);
-            // distance markers
+			// Distance markers
             Vector2 normal = HeadingToVector(Mathf.Wrap(approach.LocaliserHeading + 90, 0, 360));
             for (int i = 0; i < distanceMarkers; i++)
             {

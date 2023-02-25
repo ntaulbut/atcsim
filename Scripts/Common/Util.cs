@@ -5,7 +5,7 @@ public class Util
     public static Vector2 HeadingToVector(float heading)
     {
         // Take a heading between 0-360 degrees and convert it to a normalized vector in that direction
-        Vector2 quadrant = new Vector2(1, 1);
+        Vector2 quadrant = new(1, 1);
         float theta = heading;
         if (heading > 270)
         {
@@ -27,6 +27,7 @@ public class Util
 
     public static float Bearing(Vector2 from, Vector2 to)
     {
+        // Calculate the absolute bearing from one point to another
         float theta = Mathf.RadToDeg(Mathf.Asin(Mathf.Abs(from.X - to.X) / from.DistanceTo(to)));
         if (Mathf.Sign(from.X - to.X) == 1)
         {

@@ -12,7 +12,9 @@ public partial class LeaderLine : Node2D
 
     public override void _Draw()
     {
+        // Invert the y-axis of the aeroplane's movement because the display uses an inverted y-axis
         screenVelocity = new Vector2(_aeroplane.GroundVector.X, -_aeroplane.GroundVector.Y);
+        // Draw the line
         Vector2 direction = screenVelocity.Normalized();
         Vector2 start = Position + direction * _start;
         Vector2 end = start + direction * _length;

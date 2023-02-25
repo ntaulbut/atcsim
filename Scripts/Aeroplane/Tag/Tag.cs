@@ -19,6 +19,7 @@ public partial class Tag : Control
 
     public override void _Ready()
     {
+        // Set tag background to the default
         TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelNormal);
     }
 
@@ -42,18 +43,18 @@ public partial class Tag : Control
         // Stay hovering if dragging
         nowHovering |= dragging;
 
-        // Starting hovering
+        // On starting hovering
         if (!Hovering && nowHovering)
         {
+            // Set tag background
             TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelHovered);
+            // Note the current tag position on the screen
             savedGlobalPosition = TagDisplay.GlobalPosition;
         }
-        // Stopping hovering
+        // On stopping hovering
         if (Hovering && !nowHovering)
         {
-            // To account for the tag lagging behind the mouse, always keep background if dragging
-            if (!dragging)
-            {
+            // Set tag background
                 TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelNormal);
             }
         }
@@ -89,7 +90,7 @@ public partial class Tag : Control
     {
         // Drawing the line from the blip to the tag
 
-        // Get the inner rect, adjusting its position because its otherwise local to its parent
+        // Get the inner rect, adjusting its position because it's otherwise local to its parent
         Rect2 innerRect = _innerControlArea.GetRect();
         innerRect.Position += TagDisplay.Position;
         // Intersect with the outer rect when hovering and the inner rect when not

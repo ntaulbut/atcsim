@@ -10,6 +10,7 @@ public partial class AltitudeField : LineEdit
 
     public void OnChanged(string newText)
     {
+		// Make all text entered uppercase, preserving the position of the caret
         int oldCaretColumn = CaretColumn;
         Text = newText.ToUpper();
         CaretColumn = oldCaretColumn;
@@ -17,6 +18,7 @@ public partial class AltitudeField : LineEdit
 
     public void OnSubmitted(string newText) 
     {
+		// If the text entered is a valid integer, send an instruction using that value
         if (newText.IsValidInt())
         {
             EmitSignal(nameof(AltitudeInstruction), newText.ToInt() * 100);
@@ -34,7 +36,7 @@ public partial class AltitudeField : LineEdit
 
     public override void _Ready()
     {
-        Text = Aeroplane.SelectedAltitude.ToString().PadLeft(3, '0');
+		// Set the text to the initial selected altitude
         _oldText = Text;
     }
 

@@ -15,11 +15,14 @@ public partial class ApproachSelector : OptionButton
         // If selecting an approach, send approach instruction, otherwise send cancel approach instruction
         if (index != 0)
         {
+            // If selecting an approach (the unset/cancel option will be index 0),
+            // send the approach instruction with selected index
             EmitSignal(nameof(ApproachInstruction), index - 1);
             SetItemText(0, "Cancel");
         }
         else
         {
+            // If the cancel option was selected, send the cancel approach instruction
             EmitSignal(nameof(CancelApproachInstruction));
             SetItemText(0, "Unset");
         }

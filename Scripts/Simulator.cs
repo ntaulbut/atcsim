@@ -19,6 +19,7 @@ public partial class Simulator : Node
 
     public static float Scale(Rect2 viewportRect)
     {
+        // Calculate the scale based on the initial view size and the zoom level
         _viewportRect = viewportRect;
         float zoomValue = Mathf.Pow(1 + ZoomSpeed, Zoom);
         return RadarConfig.FixedBy switch
@@ -39,6 +40,7 @@ public partial class Simulator : Node
     {
         if (RadarConfig is not null)
         {
+            // Emit signal if scale has changed (for many reasons)
             float scale = Scale(_viewportRect);
             if (scale != _previousScale)
             {

@@ -17,6 +17,8 @@ public class Geo
 
     public static float GetDistanceNm(float latitude, float longitude, float otherLatitude, float otherLongitude)
     {
+        // Get the distance in nautical miles between two points
+
         // Convert to radians
         float lat = Mathf.DegToRad(latitude);
         float lon = Mathf.DegToRad(longitude);
@@ -29,6 +31,8 @@ public class Geo
 
     public static Vector2 RelativePositionNm(Vector2 position, Vector2 relativeTo)
     {
+        // Get the position in nautical miles of a point relative to another
+
         float horizontalComponent = GetDistanceNm(relativeTo.X, relativeTo.Y, relativeTo.X, position.Y);
         horizontalComponent = position.Y < relativeTo.Y ? -horizontalComponent : horizontalComponent;
 

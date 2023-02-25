@@ -87,6 +87,7 @@ namespace Guidance
             // command a standard rate turn in the appropriate direction
             if (HeadingDelta(TurnDirection) > (_aeroplane.Roll / Aeroplane.RollRate) * _aeroplane.Roll + 0.01f)
             {
+                // Command a standard rate turn in the appropriate direction
                 return TurnDirection == TurnDirection.Right ? Aeroplane.StandardRateTurn : -Aeroplane.StandardRateTurn;
             }
             else

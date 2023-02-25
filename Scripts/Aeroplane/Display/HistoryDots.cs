@@ -11,15 +11,20 @@ public partial class HistoryDots : Node2D
 
     private void AddDot()
     {
+        // Instantiate a new dot sprite with the relevant style
         RadarStyle style = Simulator.RadarConfig.Style;
-        Sprite2D dot = new();
-        dot.Texture = style.HistoryDotTexture;
-        dot.Modulate = style.HistoryDotsColourGradient.Sample(GetChildCount() / (float)style.HistoryDotsCount);
+        Sprite2D dot = new()
+        {
+            Texture = style.HistoryDotTexture,
+            // Pick a colour from the given gradient depending on its position in the series of dots
+            Modulate = style.HistoryDotsColourGradient.Sample(GetChildCount() / (float)style.HistoryDotsCount)
+        };
         AddChild(dot);
     }
 
     private void UpdateDotsPositions()
     {
+        // Update the position of all the dots
         for (int i = 0; i < GetChildCount(); i++)
         {
             GetChild<Sprite2D>(i).Position = Simulator.ScaledPosition(_previousPositions[i], GetViewportRect());
@@ -28,9 +33,11 @@ public partial class HistoryDots : Node2D
 
     private void Update()
     {
+        // Keep track of previous positions of the aircraft
         _previousPosition = Aeroplane.PositionNm;
         _previousPositions.Insert(0, _previousPosition);
 
+        // As there are more previous positions, introduce more dots up to the maximum
         if (GetChildCount() <= Simulator.RadarConfig.Style.HistoryDotsCount)
         {
             AddDot();

@@ -20,8 +20,7 @@ public partial class RangeRings : Node2D
     public override void _Draw()
     {
         GD.Print("Drawing range rings");
-        //Vector2 PositionNm = Geo.RelativePositionNm(new Vector2((float)34.436, (float)132.919), Session.RadarConfig.LatLon);
-        //Position = Session.ScaledPosition(PositionNm, GetViewportRect());
+        // Draw the specified number of rings starting with the minimum radius and increasing by the given spacing
         for (int i = 0; i < NumberOfRings; i++)
         {
             float radius = (MinRadius + i * RingSpacing) * Simulator.Scale(GetViewportRect());

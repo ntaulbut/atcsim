@@ -68,16 +68,18 @@ public partial class Aeroplane : Node, IAeroplane
 	{
 		GD.Print("Approach cancelled");
 		Approach = null;
-		if (VerticalGuidanceMode is Glideslope)
+		// If currently on the approach
 		{
+			// Climb to selected altitude
 			VerticalGuidanceMode = new VerticalSpeed(this, 2500);
 			ArmedVerticalGuidanceModes.Add(new AltitudeHold(this));
-
+			// Maintain current heading
 			SelectedHeading = 180;
 			LateralGuidanceMode = new HeadingSelect(this, TurnDirection.Quickest);
 		}
 		else
 		{
+			// Disarm approach modes
 			ArmedLateralGuidanceModes.RemoveAll(mode => mode is Localiser);
 			ArmedVerticalGuidanceModes.RemoveAll(mode => mode is Glideslope);
 		}
@@ -93,7 +95,7 @@ public partial class Aeroplane : Node, IAeroplane
 	public override void _PhysicsProcess(double delta)
 	{
 		// Lateral guidance
-		// Activate armed lateral guidance mode if condition is met
+		// Activate armed lateral guidance modes if condition is met
 		for (int i = 0; i < ArmedLateralGuidanceModes.Count; i++)
 		{
 			IArmableLateralMode lateralMode = ArmedLateralGuidanceModes[i];
@@ -103,13 +105,14 @@ public partial class Aeroplane : Node, IAeroplane
 				ArmedLateralGuidanceModes.Remove(lateralMode);
 			}
 		}
+		// Change lateral guidance mode if the current mode requests
 		LateralGuidanceMode = LateralGuidanceMode.NewMode() ?? LateralGuidanceMode;
-		Roll = Mathf.MoveToward(Roll, LateralGuidanceMode.RollCommand((float)delta), RollRate * (float)delta);
+		// Move roll towards the commanded value
 
 		TrueHeading += Roll * (float)delta;
 
 		// Vertical guidance
-		// Activate armed vertical guidance mode if condition is met
+		// Activate armed vertical guidance modes if condition is met
 		for(int i = 0; i < ArmedVerticalGuidanceModes.Count; i++)
 		{
 			IArmableVerticalMode verticalMode = ArmedVerticalGuidanceModes[i];
@@ -119,13 +122,16 @@ public partial class Aeroplane : Node, IAeroplane
 				ArmedVerticalGuidanceModes.Remove(verticalMode);
 			}
 		}
-		// Change vertical guidance mode if the current guidance mode wants
+		// Change vertical guidance mode if the current mode requests
 		VerticalGuidanceMode = VerticalGuidanceMode.NewMode() ?? VerticalGuidanceMode;
-		// Change flight path angle towards commanded value (abstraction of pitch)
+		// Move flight path angle towards commanded value
 		FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * (float)delta);
 
 		TrueAltitude += VerticalSpeed * (float)delta;
 
+		// Move speed towards selected speed
+		// Update altitude
+		// Update position
 		Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));
 		Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
 		GroundVector = airVector + windVector;

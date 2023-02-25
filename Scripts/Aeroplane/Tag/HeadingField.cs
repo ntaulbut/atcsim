@@ -10,6 +10,7 @@ public partial class HeadingField : LineEdit
 
     public void OnChanged(string newText)
     {
+		// Make all text entered uppercase, preserving the position of the caret
         int oldCaretColumn = CaretColumn;
         Text = newText.ToUpper();
         CaretColumn = oldCaretColumn;
