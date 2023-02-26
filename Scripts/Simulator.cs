@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class Simulator : Node
 {
     public static RadarConfig RadarConfig;
+    public static List<ILSApproach> EnabledILSApproaches = new();
     public static Runway DepartureRunway;
     public static Dictionary<string, Waypoint> Waypoints = new();
 

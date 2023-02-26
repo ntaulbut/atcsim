@@ -49,8 +49,8 @@ public partial class Aeroplane : Node, IAeroplane
 	public const float KnotsToFeetPerSecond = 1.68781f;
 	public const float NauticalMilesToFeet = 6076.115f;
 
-    private void OnHeadingInstruction(int heading, int turnDirection)
-    {
+	private void OnHeadingInstruction(int heading, int turnDirection)
+	{
 		SelectedHeading = heading;
 		LateralGuidanceMode = new HeadingSelect(this, (TurnDirection)turnDirection);
 	}
@@ -71,7 +71,7 @@ public partial class Aeroplane : Node, IAeroplane
 
 	private void OnApproachInstruction(int approach_index)
 	{
-		Approach = Simulator.RadarConfig.Airports[0].ILSApproaches[approach_index];
+		Approach = Simulator.EnabledILSApproaches[approach_index];
 		ArmedLateralGuidanceModes.Add(new Localiser(this));
 		ArmedVerticalGuidanceModes.Add(new Glideslope(this));
 		GD.Print("Cleared ", Approach.ResourceName, " approach!");
@@ -153,8 +153,6 @@ public partial class Aeroplane : Node, IAeroplane
 		// Move flight path angle towards commanded value
 		FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * delta);
 
-		TrueAltitude += VerticalSpeed * (float)delta;
-
 		// Move speed towards selected speed
 		TrueAirspeed = Mathf.MoveToward(TrueAirspeed, SelectedSpeed, SpeedChangeRate * delta);
 		// Update altitude
@@ -183,9 +181,9 @@ public partial class Aeroplane : Node, IAeroplane
 				{
 					Exit();
 				}
+			}
 		}
 	}
-}
 
 	public override void _PhysicsProcess(double delta)
 	{

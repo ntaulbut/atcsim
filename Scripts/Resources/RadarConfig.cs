@@ -2,6 +2,7 @@ using Godot;
 
 public partial class RadarConfig : Resource
 {
+    [Export] public float MagneticVariation;
     [Export] public Airport[] Airports;
     [Export] public EntryPoint[] EntryPoints;
     [Export] public string[] Callsigns;
