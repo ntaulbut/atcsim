@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class Simulator : Node
 {
     public static RadarConfig RadarConfig;
+    public static Dictionary<string, Waypoint> Waypoints = new();
 
     public static float WindDirection;
     public static float WindSpeed;

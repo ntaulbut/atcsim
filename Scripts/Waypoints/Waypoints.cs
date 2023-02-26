@@ -10,6 +10,7 @@ public partial class Waypoints : Node
     public override void _Ready()
     {
         PackedScene waypointScene = GD.Load<PackedScene>(WaypointScene.ResourcePath);
+        Simulator.Waypoints.Clear();
         // Add all the waypoints for the radar config to the scene
         foreach (WaypointData waypointData in Simulator.RadarConfig.Waypoints)
         {
@@ -19,6 +20,8 @@ public partial class Waypoints : Node
             // waypoints.Add(waypointData.ResourceName, waypoint);
             node.Name = waypointData.ResourceName;
             AddChild(node);
+            // Register waypoint
+            Simulator.Waypoints.Add(waypointData.ResourceName, waypoint);
         }
     }
 }

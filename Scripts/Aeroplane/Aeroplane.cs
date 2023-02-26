@@ -32,6 +32,7 @@ public partial class Aeroplane : Node, IAeroplane
 	public float SelectedHeading;
 	public int SelectedSpeed;
 	public ILSApproach Approach;
+	public Waypoint TargetedWaypoint;
 
 	// Constants
 	public const int SecondsInAnHour = 3600;
@@ -50,7 +51,13 @@ public partial class Aeroplane : Node, IAeroplane
 		LateralGuidanceMode = new HeadingSelect(this, (TurnDirection)turnDirection);
 	}
 
-	private void OnAltitudeInstruction(float altitude)
+	private void OnDirectInstruction(string waypointName)
+	{
+		TargetedWaypoint = Simulator.Waypoints[waypointName];
+		LateralGuidanceMode = new Direct(this);
+	}
+
+	private void OnAltitudeInstruction(int altitude)
 	{
 		SelectedAltitude = altitude;
 		VerticalGuidanceMode = new VerticalSpeed(this, 1900);
