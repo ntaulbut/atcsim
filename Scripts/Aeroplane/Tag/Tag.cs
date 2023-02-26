@@ -49,7 +49,14 @@ public partial class Tag : Control
         if (!Hovering && nowHovering)
         {
             // Set tag background
-            TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelHovered);
+            if (_aeroplane.IsDeparture)
+            {
+                TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelHoveredDeparture);
+            }
+            else
+            {
+                TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelHovered);
+            }
             // Note the current tag position on the screen
             savedGlobalPosition = TagDisplay.GlobalPosition;
         }
@@ -57,8 +64,7 @@ public partial class Tag : Control
         if (Hovering && !nowHovering)
         {
             // Set tag background
-                TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelNormal);
-            }
+            TagDisplayPanelContainer.AddThemeStyleboxOverride("panel", Simulator.RadarConfig.Style.TagPanelNormal);
         }
         Hovering = nowHovering;
 

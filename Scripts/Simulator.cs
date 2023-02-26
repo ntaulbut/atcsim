@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class Simulator : Node
 {
     public static RadarConfig RadarConfig;
+    public static Runway DepartureRunway;
     public static Dictionary<string, Waypoint> Waypoints = new();
 
     public static float WindDirection;
@@ -16,7 +17,8 @@ public partial class Simulator : Node
     private static Rect2 _viewportRect;
     private static float _previousScale;
 
-    [Signal] public delegate void ScaleChangedEventHandler();
+    [Signal]
+    public delegate void ScaleChangedEventHandler();
 
     public static float Scale(Rect2 viewportRect)
     {

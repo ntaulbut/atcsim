@@ -1,9 +1,12 @@
 using Godot;
 using Guidance;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class Aeroplane : Node, IAeroplane
 {
+	[Export] public string Callsign { get; set; }
 	[Export] public float TrueAltitude { get; set; }
 	[Export] public float TrueAirspeed { get; set; }
 	[Export] public Vector2 PositionNm { get; set; }
@@ -17,6 +20,7 @@ public partial class Aeroplane : Node, IAeroplane
 	public float VerticalSpeed {
 		get => TrueAirspeed * Mathf.Sin(Mathf.DegToRad(FlightPathAngle)) * KnotsToFeetPerSecond; // feet/s
 	}
+	public bool IsDeparture;
 
 	// Flight
 	public float Roll = 0; // Deg/s
@@ -28,8 +32,8 @@ public partial class Aeroplane : Node, IAeroplane
 	public List<IArmableLateralMode> ArmedLateralGuidanceModes = new();
 	public List<IArmableVerticalMode> ArmedVerticalGuidanceModes = new();
 	// FCU
-	public float SelectedAltitude;
-	public float SelectedHeading;
+	public int SelectedAltitude;
+	public int SelectedHeading;
 	public int SelectedSpeed;
 	public ILSApproach Approach;
 	public Waypoint TargetedWaypoint;
@@ -78,13 +82,13 @@ public partial class Aeroplane : Node, IAeroplane
 		GD.Print("Approach cancelled");
 		Approach = null;
 		// If currently on the approach
+		if (VerticalGuidanceMode is Glideslope || LateralGuidanceMode is Localiser)
 		{
 			// Climb to selected altitude
 			VerticalGuidanceMode = new VerticalSpeed(this, 2500);
 			ArmedVerticalGuidanceModes.Add(new AltitudeHold(this));
 			// Maintain current heading
-			SelectedHeading = 180;
-			LateralGuidanceMode = new HeadingSelect(this, TurnDirection.Quickest);
+			LateralGuidanceMode = new HeadingHold();
 		}
 		else
 		{
@@ -98,10 +102,22 @@ public partial class Aeroplane : Node, IAeroplane
 	{
 		SelectedSpeed = speed;
 	}
-		VerticalGuidanceMode = new AltitudeHold(this);
+
+	public override void _Ready()
+	{
+		Random random = new();
+		Callsign = Simulator.RadarConfig.Callsigns[random.Next(0, Simulator.RadarConfig.Callsigns.Length - 1)] + random.Next(1, 999).ToString().PadLeft(3, '0');
+
+		PhysicsUpdate(0.01f);
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public void Exit()
+	{
+		QueueFree();
+		GetParent<Aeroplanes>().PlayAeroplaneExitAudio();
+	}
+
+	private void PhysicsUpdate(float delta)
 	{
 		// Lateral guidance
 		// Activate armed lateral guidance modes if condition is met
@@ -117,12 +133,13 @@ public partial class Aeroplane : Node, IAeroplane
 		// Change lateral guidance mode if the current mode requests
 		LateralGuidanceMode = LateralGuidanceMode.NewMode() ?? LateralGuidanceMode;
 		// Move roll towards the commanded value
+		Roll = Mathf.MoveToward(Roll, LateralGuidanceMode.RollCommand(delta), RollRate * delta);
 
-		TrueHeading += Roll * (float)delta;
+		TrueHeading += Roll * delta;
 
 		// Vertical guidance
 		// Activate armed vertical guidance modes if condition is met
-		for(int i = 0; i < ArmedVerticalGuidanceModes.Count; i++)
+		for (int i = 0; i < ArmedVerticalGuidanceModes.Count; i++)
 		{
 			IArmableVerticalMode verticalMode = ArmedVerticalGuidanceModes[i];
 			if (verticalMode?.Activate() ?? false)
@@ -134,27 +151,44 @@ public partial class Aeroplane : Node, IAeroplane
 		// Change vertical guidance mode if the current mode requests
 		VerticalGuidanceMode = VerticalGuidanceMode.NewMode() ?? VerticalGuidanceMode;
 		// Move flight path angle towards commanded value
-		FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * (float)delta);
+		FlightPathAngle = Mathf.MoveToward(FlightPathAngle, VerticalGuidanceMode.FlightPathAngleCommand(), PitchRate * delta);
 
 		TrueAltitude += VerticalSpeed * (float)delta;
 
 		// Move speed towards selected speed
 		TrueAirspeed = Mathf.MoveToward(TrueAirspeed, SelectedSpeed, SpeedChangeRate * delta);
 		// Update altitude
+		TrueAltitude += VerticalSpeed * delta;
 		// Update position
 		Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));
 		Vector2 windVector = Util.HeadingToVector(Simulator.WindDirection) * Simulator.WindSpeed;
 		GroundVector = airVector + windVector;
-		PositionNm += GroundVector / SecondsInAnHour * (float)delta;
+		PositionNm += GroundVector / SecondsInAnHour * delta;
 
 		// Remove the aeroplane if it lands
 		if (VerticalGuidanceMode is Glideslope && TrueAltitude < Approach.GlideslopeElevation + 50)
 		{
-			QueueFree();
+			Exit();
 		}
 		else if (TrueAltitude < 0)
 		{
-			QueueFree();
+			Exit();
 		}
+		// Remove the aeroplane if it reaches an exit point
+		if (IsDeparture && LateralGuidanceMode is Direct)
+		{
+			if (Simulator.RadarConfig.ExitPoints.Contains(TargetedWaypoint.WaypointData))
+			{
+				if (PositionNm.DistanceSquaredTo(TargetedWaypoint.PositionNm) < 0.01f)
+				{
+					Exit();
+				}
+		}
+	}
+}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		PhysicsUpdate((float)delta);
 	}
 }

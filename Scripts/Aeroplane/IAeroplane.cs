@@ -2,6 +2,7 @@
 
 public interface IAeroplane
 {
+    public string Callsign { get; set; }
     public float TrueAltitude { get; set; }
     public float TrueAirspeed { get; set; }
     public float TrueHeading { get; set; }

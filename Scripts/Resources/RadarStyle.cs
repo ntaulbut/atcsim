@@ -14,4 +14,5 @@ public partial class RadarStyle : Resource
     [Export] public Gradient HistoryDotsColourGradient;
     [Export] public StyleBoxFlat TagPanelNormal;
     [Export] public StyleBoxFlat TagPanelHovered;
+    [Export] public StyleBoxFlat TagPanelHoveredDeparture;
 }
