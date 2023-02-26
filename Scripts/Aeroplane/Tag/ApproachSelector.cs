@@ -12,7 +12,6 @@ public partial class ApproachSelector : OptionButton
     {
         ReleaseFocus();
 
-        // If selecting an approach, send approach instruction, otherwise send cancel approach instruction
         if (index != 0)
         {
             // If selecting an approach (the unset/cancel option will be index 0),
@@ -28,15 +27,28 @@ public partial class ApproachSelector : OptionButton
         }
     }
 
-    public override void _Ready()
+    public void Populate()
     {
-        Hide();
-
-        // Populate the dropdown with the available approaches
-        foreach (ILSApproach approach in Simulator.RadarConfig.Airports[0].ILSApproaches)
+        // Remove all existing dropdown items apart from the first
+        Clear();
+        AddItem("Unset");
+        // Add dropdown items for enabled approaches
+        foreach (ILSApproach approach in Simulator.EnabledILSApproaches)
         {
             AddItem(approach.ResourceName);
         }
+    }
+
+    public void OnEnabledApproachesChanged()
+    {
+        Populate();
+    }
+
+    public override void _Ready()
+    {
+        Hide();
+        Populate();
+        GetNode<EnabledApproachesMenu>("/root/Root/CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu").EnabledApproachesChanged += OnEnabledApproachesChanged;
     }
 
     public override void _Process(double delta)

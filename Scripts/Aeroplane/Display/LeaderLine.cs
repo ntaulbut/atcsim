@@ -21,17 +21,12 @@ public partial class LeaderLine : Node2D
         DrawLine(start, end, _colour, -1, true);
     }
 
-    public override void _Process(double delta)
+    public void DisplayUpdateTimeout()
     {
         QueueRedraw();
     }
 
-    public void DisplayUpdateTimeout()
-    {
-        // screenVelocity = new Vector2(_aeroplaneDisplay.Aeroplane.Velocity.x, -_aeroplaneDisplay.Aeroplane.Velocity.y);
-    }
-
-    public override void _Ready()
+    public void OnAeroplaneReady()
     {
         if (_colour.A < 0.1)
         {
