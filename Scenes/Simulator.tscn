@@ -1,17 +1,24 @@
-[gd_scene load_steps=17 format=3 uid="uid://djegjgecoh36o"]
+[gd_scene load_steps=24 format=3 uid="uid://cx4vmu54h4qci"]
 
 [ext_resource type="Script" path="res://Scripts/Display/CameraPanAndZoom.cs" id="1_0wnwr"]
-[ext_resource type="PackedScene" uid="uid://clwjjcku5camm" path="res://Scenes/Aeroplane.tscn" id="1_7uaao"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
+[ext_resource type="AudioStream" uid="uid://c37vxt8m04x5o" path="res://Assets/Audio/handoff_accept.wav" id="2_72ufw"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplanes.cs" id="2_whjog"]
 [ext_resource type="PackedScene" uid="uid://c8rlwsfy274jn" path="res://Scenes/Waypoint.tscn" id="2_xognt"]
 [ext_resource type="Script" path="res://Scripts/Display/RangeRings.cs" id="5_8phwk"]
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
 [ext_resource type="Script" path="res://Scripts/Display/DrawGeography.cs" id="6_m27ow"]
 [ext_resource type="Script" path="res://Scripts/Display/ExtendedCentrelines.cs" id="7_bq47w"]
 [ext_resource type="Texture2D" uid="uid://dhyfattnrqyt7" path="res://Assets/Icons/Menu/play.png" id="9_cp57b"]
+[ext_resource type="Theme" uid="uid://btnes6aw08gr7" path="res://Assets/Themes/GameplayMenuTheme.tres" id="10_tbhka"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="11_f6m0k"]
+[ext_resource type="Script" path="res://Scripts/Menu/EnabledApproachesMenu.cs" id="11_i00e8"]
 [ext_resource type="Script" path="res://Scripts/Menu/DebugBarText.cs" id="11_matk1"]
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
+[ext_resource type="Script" path="res://Scripts/Menu/PauseButton.cs" id="15_mvyec"]
+[ext_resource type="Script" path="res://Scripts/Menu/Timescale.cs" id="16_ag0kc"]
+[ext_resource type="Script" path="res://Scripts/Menu/DeparturesSelection.cs" id="18_rxc0r"]
+[ext_resource type="AudioStream" uid="uid://cse87g7c1a4pt" path="res://Assets/Audio/handoff_request.wav" id="20_lgpnu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvim2"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -55,18 +62,27 @@ border_color = Color(1, 1, 1, 1)
 [node name="Camera2d" type="Camera2D" parent="."]
 script = ExtResource("1_0wnwr")
 
-[node name="Aeroplanes" type="Node" parent="."]
+[node name="Aeroplane Entry Timer" type="Timer" parent="."]
+wait_time = 90.0
+autostart = true
 
-[node name="Aeroplane" parent="Aeroplanes" instance=ExtResource("1_7uaao")]
-TrueAltitude = 3600.0
-TrueAirspeed = 180.0
-PositionNm = Vector2(-10, -2.2)
-TrueHeading = 120.0
+[node name="Aeroplane Enter Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_72ufw")
+volume_db = -14.0
+
+[node name="Aeroplane Exit Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_lgpnu")
+volume_db = -14.0
 
 [node name="Waypoints" type="Node" parent="."]
 editor_description = "Holds waypoint script, waypoints are added as children"
 script = ExtResource("1_8txqx")
 WaypointScene = ExtResource("2_xognt")
+
+[node name="Aeroplanes" type="Node" parent="." node_paths=PackedStringArray("AeroplaneEnterAudio", "AeroplaneExitAudio")]
+script = ExtResource("2_whjog")
+AeroplaneEnterAudio = NodePath("../Aeroplane Enter Audio")
+AeroplaneExitAudio = NodePath("../Aeroplane Exit Audio")
 
 [node name="Range Rings" type="Node2D" parent="."]
 editor_description = "Node to hold range ring drawing script"
@@ -153,17 +169,62 @@ mouse_default_cursor_shape = 2
 icon = ExtResource("9_cp57b")
 icon_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 5.0
+[node name="Enabled Approaches Menu Container" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -48.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+theme = ExtResource("10_tbhka")
+
+[node name="Enabled Approaches Menu" type="VBoxContainer" parent="CanvasLayer/Enabled Approaches Menu Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = -5
+script = ExtResource("11_i00e8")
+
+[node name="Label" type="Label" parent="CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu"]
+layout_mode = 2
+text = "Approaches"
+
+[node name="TestCheckBox" type="CheckBox" parent="CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu"]
+visible = false
+layout_mode = 2
+text = "Test"
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 6.0
 offset_top = 6.0
-offset_right = 67.0
-offset_bottom = 46.0
+offset_right = 148.0
+offset_bottom = 53.0
+
+[node name="Exit Button" type="PanelContainer" parent="CanvasLayer/Buttons"]
+layout_mode = 2
 theme = ExtResource("11_f6m0k")
 
-[node name="Button" type="Button" parent="CanvasLayer/PanelContainer2"]
+[node name="Button" type="Button" parent="CanvasLayer/Buttons/Exit Button"]
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 text = "Exit"
 script = ExtResource("12_7vxx1")
+
+[node name="Pause Button" type="PanelContainer" parent="CanvasLayer/Buttons"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme = ExtResource("11_f6m0k")
+
+[node name="Button" type="Button" parent="CanvasLayer/Buttons/Pause Button"]
+layout_mode = 2
+toggle_mode = true
+text = "Pause"
+script = ExtResource("15_mvyec")
 
 [node name="Debug Bar" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -181,6 +242,55 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 10
+text = "text"
 script = ExtResource("11_matk1")
 
-[connection signal="pressed" from="CanvasLayer/PanelContainer2/Button" to="CanvasLayer/PanelContainer2/Button" method="OnPressed"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 102.0
+offset_top = -44.0
+offset_right = 303.0
+offset_bottom = -25.0
+grow_vertical = 0
+theme = ExtResource("10_tbhka")
+
+[node name="Timescale editor" type="HSlider" parent="CanvasLayer/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+step = 2.0
+value = 1.0
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("16_ag0kc")
+
+[node name="Departures selection" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme = ExtResource("10_tbhka")
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Departures selection"]
+layout_mode = 2
+text = "Departures"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Departures selection"]
+layout_mode = 2
+fit_to_longest_item = false
+script = ExtResource("18_rxc0r")
+
+[connection signal="timeout" from="Aeroplane Entry Timer" to="Aeroplanes" method="EnterAeroplane"]
+[connection signal="EnabledApproachesChanged" from="CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu" to="Extended Centrelines" method="OnEnabledApproachesChanged"]
+[connection signal="pressed" from="CanvasLayer/Buttons/Exit Button/Button" to="CanvasLayer/Buttons/Exit Button/Button" method="OnPressed"]
+[connection signal="toggled" from="CanvasLayer/Buttons/Pause Button/Button" to="CanvasLayer/Buttons/Pause Button/Button" method="OnToggled"]
+[connection signal="value_changed" from="CanvasLayer/PanelContainer/Timescale editor" to="CanvasLayer/PanelContainer/Timescale editor" method="OnValueChanged"]
+[connection signal="item_selected" from="CanvasLayer/Departures selection/OptionButton" to="CanvasLayer/Departures selection/OptionButton" method="OnItemSelected"]
