@@ -30,6 +30,7 @@ public partial class Aeroplane : Node, IAeroplane
 	// FCU
 	public float SelectedAltitude;
 	public float SelectedHeading;
+	public int SelectedSpeed;
 	public ILSApproach Approach;
 
 	// Constants
@@ -37,6 +38,7 @@ public partial class Aeroplane : Node, IAeroplane
 	public const float StandardRateTurn = 3f; // Deg/s/s
 	public const float RollRate = 0.5f; // Deg/s/s
 	public const float PitchRate = 0.17f; // Deg/s
+	public const float SpeedChangeRate = 1f; // knots/s
 	// Unit conversions
 	public const float FeetPerMinuteToKnots = 0.00987473f;
 	public const float KnotsToFeetPerSecond = 1.68781f;
@@ -85,10 +87,10 @@ public partial class Aeroplane : Node, IAeroplane
 		}
 	}
 
-    public override void _EnterTree()
+	private void OnSpeedInstruction(int speed)
 	{
-		LateralGuidanceMode = new HeadingSelect(this, TurnDirection.Quickest);
-		SelectedHeading = TrueHeading;
+		SelectedSpeed = speed;
+	}
 		VerticalGuidanceMode = new AltitudeHold(this);
 	}
 
@@ -130,6 +132,7 @@ public partial class Aeroplane : Node, IAeroplane
 		TrueAltitude += VerticalSpeed * (float)delta;
 
 		// Move speed towards selected speed
+		TrueAirspeed = Mathf.MoveToward(TrueAirspeed, SelectedSpeed, SpeedChangeRate * delta);
 		// Update altitude
 		// Update position
 		Vector2 airVector = Util.HeadingToVector(TrueHeading) * TrueAirspeed * Mathf.Cos(Mathf.Abs(Mathf.DegToRad(FlightPathAngle)));

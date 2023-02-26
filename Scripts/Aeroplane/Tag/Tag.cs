@@ -4,11 +4,13 @@ using System.Linq;
 
 public partial class Tag : Control
 {
+    [Export] private Aeroplane _aeroplane;
     [Export] private Control TagDisplay;
     [Export] private PanelContainer TagDisplayPanelContainer;
     [Export] private Control _innerControlArea;
 
     [Export] private Control _headingField;
+    [Export] private Control _speedField;
     [Export] private Control _altitudeField;
     [Export] private Control _approachSelector;
 
@@ -39,7 +41,7 @@ public partial class Tag : Control
         }
 
         // Stay hovering if any control in the tag is focussed
-        nowHovering |= new Control[] { _headingField, _altitudeField, _approachSelector }.Any(control => control.HasFocus());
+        nowHovering |= new Control[] { _headingField, _altitudeField, _approachSelector, _speedField }.Any(control => control.HasFocus());
         // Stay hovering if dragging
         nowHovering |= dragging;
 

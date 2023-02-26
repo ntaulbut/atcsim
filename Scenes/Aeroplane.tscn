@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AltitudeField.cs" id="9_pur43"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/DebugText.cs" id="10_hx38u"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/ApproachSelector.cs" id="11_c3vk4"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/SpeedField.cs" id="12_5tqse"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlbuf"]
 bg_color = Color(0.937255, 0.937255, 0.937255, 1)
@@ -23,6 +24,8 @@ bg_color = Color(0, 0, 0.52549, 1)
 [node name="Aeroplane" type="Node"]
 process_mode = 1
 script = ExtResource("1_3137e")
+Callsign = "ABC123"
+TrueAirspeed = 250.0
 
 [node name="ADS-B 2Hz" type="Timer" parent="."]
 wait_time = 0.5
@@ -213,15 +216,17 @@ theme_override_colors/font_color = Color(0.0901961, 0.0980392, 0.105882, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_mlbuf")
 text = ">"
 
-[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("TagDisplay", "TagDisplayPanelContainer", "_innerControlArea", "_headingField", "_altitudeField", "_approachSelector")]
+[node name="Tag" type="Control" parent="Display" node_paths=PackedStringArray("_aeroplane", "TagDisplay", "TagDisplayPanelContainer", "_innerControlArea", "_headingField", "_speedField", "_altitudeField", "_approachSelector")]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("6_glqic")
 script = ExtResource("7_8lfr1")
+_aeroplane = NodePath("../..")
 TagDisplay = NodePath("Control")
 TagDisplayPanelContainer = NodePath("Control/Background")
 _innerControlArea = NodePath("Control/Inner Rect")
 _headingField = NodePath("Control/Margins/VBoxContainer/HBoxContainer/Heading Field")
+_speedField = NodePath("Control/Margins/VBoxContainer/HBoxContainer2/Speed Field")
 _altitudeField = NodePath("Control/Margins/VBoxContainer/HBoxContainer/Altitude Field")
 _approachSelector = NodePath("Control/Margins/VBoxContainer/Approach Selector")
 
@@ -266,13 +271,15 @@ theme_override_constants/margin_bottom = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/Margins"]
 layout_mode = 2
 
-[node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer"]
+[node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("Aeroplane")]
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Callsign"
 mouse_filter = 1
-text = "JAL307"
+text = "ABC123"
 vertical_alignment = 1
+script = ExtResource("8_kendr")
+Aeroplane = NodePath("../../../../../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Display/Tag/Control/Margins/VBoxContainer"]
 layout_mode = 2
@@ -326,7 +333,25 @@ select_all_on_focus = true
 script = ExtResource("9_pur43")
 Aeroplane = NodePath("../../../../../../..")
 
-[node name="Approach Selector" type="OptionButton" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("Aeroplane", "_tag")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Display/Tag/Control/Margins/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Speed Field" type="LineEdit" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("_aeroplane", "_tag")]
+layout_mode = 2
+tooltip_text = "Assigned Speed"
+focus_next = NodePath("../Altitude Field")
+placeholder_text = "000"
+max_length = 3
+expand_to_text_length = true
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+select_all_on_focus = true
+script = ExtResource("12_5tqse")
+_aeroplane = NodePath("../../../../../../..")
+_tag = NodePath("../../../../..")
+
+[node name="Approach Selector" type="OptionButton" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("Aeroplane", "_tag")]
 layout_mode = 2
 size_flags_horizontal = 0
 item_count = 1
@@ -334,8 +359,8 @@ selected = 0
 popup/item_0/text = "Unset"
 popup/item_0/id = 0
 script = ExtResource("11_c3vk4")
-Aeroplane = NodePath("../../../../../..")
-_tag = NodePath("../../../..")
+Aeroplane = NodePath("../../../../../../..")
+_tag = NodePath("../../../../..")
 
 [node name="DebugText" type="PanelContainer" parent="Display"]
 visible = false
@@ -369,6 +394,8 @@ Aeroplane = NodePath("..")
 [connection signal="AltitudeInstruction" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="." method="OnAltitudeInstruction"]
 [connection signal="text_changed" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" method="OnChanged"]
 [connection signal="text_submitted" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" method="OnSubmitted"]
-[connection signal="ApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="." method="OnApproachInstruction"]
-[connection signal="CancelApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="." method="OnCancelApproachInstruction"]
-[connection signal="item_selected" from="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" to="Display/Tag/Control/Margins/VBoxContainer/Approach Selector" method="OnItemSelected"]
+[connection signal="SpeedInstruction" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Speed Field" to="." method="OnSpeedInstruction"]
+[connection signal="text_submitted" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Speed Field" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Speed Field" method="OnSubmitted"]
+[connection signal="ApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Approach Selector" to="." method="OnApproachInstruction"]
+[connection signal="CancelApproachInstruction" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Approach Selector" to="." method="OnCancelApproachInstruction"]
+[connection signal="item_selected" from="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Approach Selector" to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Approach Selector" method="OnItemSelected"]
