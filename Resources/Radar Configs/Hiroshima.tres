@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=24 format=3 uid="uid://cysmq5rno6g2x"]
+[gd_resource type="Resource" load_steps=25 format=3 uid="uid://bnpq8lepoy84r"]
 
 [ext_resource type="Script" path="res://Scripts/Resources/RadarConfig.cs" id="1"]
 [ext_resource type="Resource" uid="uid://ctadnkxvo86v1" path="res://Resources/Airports/Hiroshima/Hiroshima.tres" id="1_5f1ke"]
 [ext_resource type="Resource" uid="uid://bvy8tn6ypifto" path="res://Resources/Geo Data/HiroshimaCoast.tres" id="1_wl5s2"]
+[ext_resource type="Resource" uid="uid://umu6kmolke8i" path="res://Resources/Airports/Hiroshima/Entry Points/AMURO.tres" id="2_6sk82"]
 [ext_resource type="Resource" uid="uid://d1savjm7ch8xb" path="res://Resources/Waypoints/Japan/Hiroshima/AMURO.tres" id="2_ncp3i"]
 [ext_resource type="Resource" uid="uid://sw8wyjrpelk7" path="res://Resources/Radar Styles/Japan.tres" id="3"]
 [ext_resource type="Resource" uid="uid://blk1wkmiv481d" path="res://Resources/Waypoints/Japan/Hiroshima/AXELA.tres" id="3_w1ku0"]
@@ -27,11 +28,15 @@
 [resource]
 resource_name = "Hiroshima"
 script = ExtResource("1")
+MagneticVariation = -7.93
 Airports = [ExtResource("1_5f1ke")]
+EntryPoints = Array[Resource]([ExtResource("2_6sk82")])
+Callsigns = PackedStringArray("JAL", "ANA", "IBX", "SJO", "CAL")
 Style = ExtResource("3")
 WidthNm = 60
 HeightNm = 60
 FixedBy = 1
-LatLon = Vector2(34.485, 132.919)
+LatLon = Vector2(34.435, 132.919)
 GeoLines = ExtResource("1_wl5s2")
 Waypoints = [ExtResource("2_ncp3i"), ExtResource("3_w1ku0"), ExtResource("4_vf8ts"), ExtResource("5_t72vi"), ExtResource("6_s7c4g"), ExtResource("7_ia0io"), ExtResource("8_c1ahc"), ExtResource("9_rq8ew"), ExtResource("10_w44ov"), ExtResource("11_dogve"), ExtResource("12_4wfq0"), ExtResource("13_dukfb"), ExtResource("14_3n2y4"), ExtResource("15_8kll1"), ExtResource("16_2f6cu"), ExtResource("17_uo4yb"), ExtResource("18_s620m"), ExtResource("19_wphit"), ExtResource("22_nwsk7")]
+ExitPoints = null

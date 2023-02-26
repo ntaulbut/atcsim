@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://drk87b7f682va"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_fj3ku"]
+
+[resource]
+resource_name = "SPL"
+script = ExtResource("1_fj3ku")
+Basis = 1
+LatLon = Vector2(52.332, 4.75)

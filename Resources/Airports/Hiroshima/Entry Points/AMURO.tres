@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://umu6kmolke8i"]
+
+[ext_resource type="Resource" uid="uid://d1savjm7ch8xb" path="res://Resources/Waypoints/Japan/Hiroshima/AMURO.tres" id="1_akt7o"]
+[ext_resource type="Script" path="res://Scripts/Resources/EntryPoint.cs" id="2_4ksbk"]
+
+[resource]
+script = ExtResource("2_4ksbk")
+Waypoint = ExtResource("1_akt7o")
+Level = 80
+Heading = 221

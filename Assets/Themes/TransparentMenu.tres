@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://btud8rm3f1fmk"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://btud8rm3f1fmk"]
 
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="1_foai4"]
+[ext_resource type="FontFile" uid="uid://3ee1nsg7m85g" path="res://Assets/Fonts/NotoSans-Regular.ttf" id="2_gtmiq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt100"]
 bg_color = Color(0.937255, 0.937255, 0.937255, 1)
@@ -21,7 +22,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_myp5c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f21hu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5njj"]
 bg_color = Color(0, 0, 0, 1)
@@ -77,20 +84,22 @@ bg_color = Color(0.678431, 0.678431, 0.678431, 1)
 [resource]
 Button/colors/font_color = Color(0.937255, 0.937255, 0.937255, 1)
 Button/colors/font_disabled_color = Color(0.101961, 0.113725, 0.121569, 1)
-Button/font_sizes/font_size = 14
+Button/font_sizes/font_size = 12
 Button/fonts/font = ExtResource("1_foai4")
 Button/styles/disabled = SubResource("StyleBoxFlat_mt100")
 Button/styles/focus = SubResource("StyleBoxFlat_b72en")
 Button/styles/hover = SubResource("StyleBoxFlat_gsk5s")
-Button/styles/normal = SubResource("StyleBoxEmpty_myp5c")
+Button/styles/normal = SubResource("StyleBoxFlat_f21hu")
 Button/styles/pressed = SubResource("StyleBoxFlat_x5njj")
-LineEdit/font_sizes/font_size = 15
+LineEdit/font_sizes/font_size = 12
 LineEdit/fonts/font = null
 LineEdit/styles/normal = SubResource("StyleBoxFlat_xdchg")
-OptionButton/font_sizes/font_size = 15
+OptionButton/font_sizes/font_size = 12
 OptionButton/styles/hover = SubResource("StyleBoxFlat_weheh")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_yqtjc")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_11hwu")
+RichTextLabel/font_sizes/normal_font_size = 14
+RichTextLabel/fonts/normal_font = ExtResource("2_gtmiq")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_i6kr2")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_kglqc")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_c5rcv")

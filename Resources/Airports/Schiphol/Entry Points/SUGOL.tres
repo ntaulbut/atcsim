@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c7k8m8w3f18w6"]
+
+[ext_resource type="Resource" uid="uid://dw0unuw3ea2bj" path="res://Resources/Waypoints/Netherlands/Schiphol/SUGOL.tres" id="1_f8et7"]
+[ext_resource type="Resource" uid="uid://drk87b7f682va" path="res://Resources/Waypoints/Netherlands/Schiphol/SPL.tres" id="1_xwg8x"]
+[ext_resource type="Script" path="res://Scripts/Resources/EntryPoint.cs" id="2_oxbl5"]
+
+[resource]
+script = ExtResource("2_oxbl5")
+Waypoint = ExtResource("1_f8et7")
+Direct = ExtResource("1_xwg8x")
+Level = 70
+Heading = 111

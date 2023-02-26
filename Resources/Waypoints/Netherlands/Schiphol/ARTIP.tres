@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d2b6t56thep2a"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_8mjfg"]
+
+[resource]
+resource_name = "ARTIP"
+script = ExtResource("1_8mjfg")
+Basis = 0
+LatLon = Vector2(52.511, 5.569)

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=21 format=3 uid="uid://crfywvmi2sy32"]
+
+[ext_resource type="Resource" uid="uid://diyra6f7ibwrr" path="res://Resources/Airports/Schiphol/ILS Approaches/06.tres" id="1_m4dyx"]
+[ext_resource type="Script" path="res://Scripts/Resources/Airport.cs" id="2_mivd0"]
+[ext_resource type="Resource" uid="uid://dc2ngyr0so815" path="res://Resources/Airports/Schiphol/ILS Approaches/18C.tres" id="2_y8t54"]
+[ext_resource type="Resource" uid="uid://4paf448p7kth" path="res://Resources/Airports/Schiphol/ILS Approaches/18R.tres" id="3_8cmlh"]
+[ext_resource type="Resource" uid="uid://cg1ev4eqtn78b" path="res://Resources/Airports/Schiphol/ILS Approaches/22.tres" id="4_owkv8"]
+[ext_resource type="Resource" uid="uid://g8u8a8ferkq" path="res://Resources/Airports/Schiphol/ILS Approaches/27.tres" id="5_32hs1"]
+[ext_resource type="Resource" uid="uid://cg68akm3qfrb5" path="res://Resources/Airports/Schiphol/ILS Approaches/36C.tres" id="6_088uu"]
+[ext_resource type="Resource" uid="uid://xag1el8kt52s" path="res://Resources/Airports/Schiphol/ILS Approaches/36R.tres" id="7_83j7t"]
+[ext_resource type="Resource" uid="uid://chmn3jyta12sr" path="res://Resources/Airports/Schiphol/Runways/04.tres" id="8_41gnu"]
+[ext_resource type="Resource" uid="uid://bh084f3ne2q0j" path="res://Resources/Airports/Schiphol/Runways/06.tres" id="9_6cma5"]
+[ext_resource type="Resource" uid="uid://bdrxnh5nhnnwk" path="res://Resources/Airports/Schiphol/Runways/09.tres" id="10_j2c2k"]
+[ext_resource type="Resource" uid="uid://c0dnh0r23acgd" path="res://Resources/Airports/Schiphol/Runways/18C.tres" id="11_kch6t"]
+[ext_resource type="Resource" uid="uid://dyh6qc6128845" path="res://Resources/Airports/Schiphol/Runways/18L.tres" id="12_0fb1h"]
+[ext_resource type="Resource" uid="uid://calf77a1kquac" path="res://Resources/Airports/Schiphol/Runways/18R.tres" id="13_pexs7"]
+[ext_resource type="Resource" uid="uid://cap4ygbux7lft" path="res://Resources/Airports/Schiphol/Runways/22.tres" id="14_rx710"]
+[ext_resource type="Resource" uid="uid://c1kfuulqg2d4r" path="res://Resources/Airports/Schiphol/Runways/24.tres" id="15_3c8v0"]
+[ext_resource type="Resource" uid="uid://d2olarudla4c5" path="res://Resources/Airports/Schiphol/Runways/27.tres" id="16_eeys0"]
+[ext_resource type="Resource" uid="uid://clk8sffilntok" path="res://Resources/Airports/Schiphol/Runways/36C.tres" id="17_kol3g"]
+[ext_resource type="Resource" uid="uid://c4v0hwc0se6ql" path="res://Resources/Airports/Schiphol/Runways/36L.tres" id="18_fjuie"]
+[ext_resource type="Resource" uid="uid://stox28qgpw73" path="res://Resources/Airports/Schiphol/Runways/36R.tres" id="19_pkpr1"]
+
+[resource]
+script = ExtResource("2_mivd0")
+ILSApproaches = [ExtResource("2_y8t54"), ExtResource("6_088uu"), ExtResource("3_8cmlh"), ExtResource("7_83j7t"), ExtResource("1_m4dyx"), ExtResource("4_owkv8"), ExtResource("5_32hs1")]
+Runways = Array[Resource]([ExtResource("8_41gnu"), ExtResource("14_rx710"), ExtResource("9_6cma5"), ExtResource("15_3c8v0"), ExtResource("10_j2c2k"), ExtResource("16_eeys0"), ExtResource("11_kch6t"), ExtResource("17_kol3g"), ExtResource("12_0fb1h"), ExtResource("19_pkpr1"), ExtResource("13_pexs7"), ExtResource("18_fjuie")])

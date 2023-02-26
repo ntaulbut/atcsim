@@ -1,0 +1,44 @@
+[gd_resource type="Resource" load_steps=27 format=3 uid="uid://bvg2mrfw0rh6u"]
+
+[ext_resource type="Resource" uid="uid://crfywvmi2sy32" path="res://Resources/Airports/Schiphol/Schiphol.tres" id="1_43a44"]
+[ext_resource type="Resource" uid="uid://bvmkcb5dh87tf" path="res://Resources/Geo Data/NetherlandsCoast.tres" id="2_b8nhy"]
+[ext_resource type="Resource" uid="uid://bp8m3i7scyjp1" path="res://Resources/Airports/Schiphol/Entry Points/ARTIP.tres" id="2_ml3om"]
+[ext_resource type="Resource" uid="uid://b24bta1amnfw4" path="res://Resources/Airports/Schiphol/Entry Points/RIVER.tres" id="3_ga6up"]
+[ext_resource type="Resource" uid="uid://c7k8m8w3f18w6" path="res://Resources/Airports/Schiphol/Entry Points/SUGOL.tres" id="4_8qktn"]
+[ext_resource type="Resource" uid="uid://dw0unuw3ea2bj" path="res://Resources/Waypoints/Netherlands/Schiphol/SUGOL.tres" id="4_lqoad"]
+[ext_resource type="Resource" uid="uid://cxuahqk7ninw4" path="res://Resources/Waypoints/Netherlands/Schiphol/SPY.tres" id="5_3135f"]
+[ext_resource type="Resource" uid="uid://sw8wyjrpelk7" path="res://Resources/Radar Styles/Japan.tres" id="5_rcrgc"]
+[ext_resource type="Resource" uid="uid://drk87b7f682va" path="res://Resources/Waypoints/Netherlands/Schiphol/SPL.tres" id="6_x6ys2"]
+[ext_resource type="Resource" uid="uid://dco0r4ctyj2w4" path="res://Resources/Waypoints/Netherlands/Schiphol/PAM.tres" id="7_b6kn1"]
+[ext_resource type="Resource" uid="uid://d2b6t56thep2a" path="res://Resources/Waypoints/Netherlands/Schiphol/ARTIP.tres" id="8_oe0s7"]
+[ext_resource type="Resource" uid="uid://couobf7s671xu" path="res://Resources/Waypoints/Netherlands/Schiphol/RIVER.tres" id="9_xuuwy"]
+[ext_resource type="Resource" uid="uid://brueahhc3ct2e" path="res://Resources/Waypoints/Netherlands/Schiphol/SIDNI.tres" id="13_b25og"]
+[ext_resource type="Resource" uid="uid://c7t2kd64q2lcl" path="res://Resources/Waypoints/Netherlands/Schiphol/OSRON.tres" id="14_4wt0e"]
+[ext_resource type="Resource" uid="uid://q0ngc28wp06n" path="res://Resources/Waypoints/Netherlands/Schiphol/PEVOS.tres" id="15_xqnsk"]
+[ext_resource type="Resource" uid="uid://datli7pyq25m7" path="res://Resources/Waypoints/Netherlands/Schiphol/TIDVO.tres" id="16_p37ts"]
+[ext_resource type="Resource" uid="uid://bpw3fmsy6eofk" path="res://Resources/Waypoints/Netherlands/Schiphol/NEWCO.tres" id="17_jw44k"]
+[ext_resource type="Resource" uid="uid://lguawg8ombro" path="res://Resources/Waypoints/Netherlands/Schiphol/OLGAX.tres" id="18_ldjcq"]
+[ext_resource type="Resource" uid="uid://b85dtkx5tmans" path="res://Resources/Waypoints/Netherlands/Schiphol/WINJA.tres" id="19_eqm8a"]
+[ext_resource type="Resource" uid="uid://clur2l8xynnh1" path="res://Resources/Waypoints/Netherlands/Schiphol/NIRSI.tres" id="20_o7vyf"]
+[ext_resource type="Resource" uid="uid://d262f4bpc5pup" path="res://Resources/Waypoints/Netherlands/Schiphol/NETOM.tres" id="21_r0vn0"]
+[ext_resource type="Resource" uid="uid://dojdl88dx3318" path="res://Resources/Waypoints/Netherlands/Schiphol/PORWA.tres" id="22_0ppy0"]
+[ext_resource type="Resource" uid="uid://b6kq1i2nibj6i" path="res://Resources/Waypoints/Netherlands/Schiphol/LOPIK.tres" id="23_50peu"]
+[ext_resource type="Resource" uid="uid://cqfy2h6lr78fe" path="res://Resources/Waypoints/Netherlands/Schiphol/BERGI.tres" id="24_1a07e"]
+[ext_resource type="Script" path="res://Scripts/Resources/RadarConfig.cs" id="25_gsyo3"]
+[ext_resource type="Resource" uid="uid://bisfqqv75wwl" path="res://Resources/Waypoints/Netherlands/Schiphol/ANDIK.tres" id="25_mfsre"]
+
+[resource]
+resource_name = "Schiphol"
+script = ExtResource("25_gsyo3")
+MagneticVariation = 2.0
+Airports = [ExtResource("1_43a44")]
+EntryPoints = Array[Resource]([ExtResource("4_8qktn"), ExtResource("2_ml3om"), ExtResource("3_ga6up")])
+Callsigns = PackedStringArray("KLM", "BAW", "AEE", "EIN", "ACA", "AMC", "AFR", "KAL", "AAL", "BTI", "CAL", "AUA", "CPA", "DLH", "EZY", "UAE", "EWG", "FIN", "SWR", "GIA", "NOZ", "SAS", "RYR", "SIA", "TAP", "TRA", "TFL", "THY", "VLG")
+Style = ExtResource("5_rcrgc")
+WidthNm = 60
+HeightNm = 70
+FixedBy = 1
+LatLon = Vector2(52.3, 4.765)
+GeoLines = ExtResource("2_b8nhy")
+Waypoints = Array[Resource]([ExtResource("4_lqoad"), ExtResource("5_3135f"), ExtResource("6_x6ys2"), ExtResource("7_b6kn1"), ExtResource("8_oe0s7"), ExtResource("9_xuuwy"), ExtResource("13_b25og"), ExtResource("14_4wt0e"), ExtResource("15_xqnsk"), ExtResource("16_p37ts"), ExtResource("17_jw44k"), ExtResource("18_ldjcq"), ExtResource("19_eqm8a"), ExtResource("20_o7vyf"), ExtResource("21_r0vn0"), ExtResource("22_0ppy0"), ExtResource("23_50peu"), ExtResource("24_1a07e"), ExtResource("25_mfsre")])
+ExitPoints = Array[Resource]([ExtResource("23_50peu"), ExtResource("24_1a07e"), ExtResource("25_mfsre")])

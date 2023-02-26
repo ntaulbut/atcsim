@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dco0r4ctyj2w4"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_ibxsx"]
+
+[resource]
+resource_name = "PAM"
+script = ExtResource("1_ibxsx")
+Basis = 1
+LatLon = Vector2(52.335, 5.092)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dc2ngyr0so815"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/ILSApproach.cs" id="1_civn3"]
+
+[resource]
+resource_name = "ILS 18C"
+script = ExtResource("1_civn3")
+GlideslopeElevation = -12
+GlideslopeLatLon = Vector2(52.329, 4.738)
+GlideslopeAngle = 3.0
+LocaliserLatLon = Vector2(52.3, 4.737)
+LocaliserHeading = 183.22
+RunwayThresholdLatLon = Vector2(52.331, 4.74)

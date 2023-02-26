@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cqfy2h6lr78fe"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_3bheq"]
+
+[resource]
+resource_name = "BERGI"
+script = ExtResource("1_3bheq")
+Basis = 0
+LatLon = Vector2(52.749, 4.359)

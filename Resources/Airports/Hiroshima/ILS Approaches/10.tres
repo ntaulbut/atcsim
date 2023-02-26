@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/Resources/ILSApproach.cs" id="1_ltjyg"]
 
 [resource]
-resource_name = "ILS RWY 10"
+resource_name = "ILS 10"
 script = ExtResource("1_ltjyg")
 GlideslopeElevation = 1072
 GlideslopeLatLon = Vector2(34.435, 132.907)
 GlideslopeAngle = 3.0
 LocaliserLatLon = Vector2(34.436, 132.939)
-LocaliserHeading = 90.0
+LocaliserHeading = 97.93
 RunwayThresholdLatLon = Vector2(34.436, 132.903)

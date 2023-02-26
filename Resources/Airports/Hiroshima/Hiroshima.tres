@@ -6,3 +6,4 @@
 [resource]
 script = ExtResource("1_o7cp3")
 ILSApproaches = [ExtResource("1_di0k7")]
+Runways = null

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c7t2kd64q2lcl"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_1fwgw"]
+
+[resource]
+resource_name = "OSRON"
+script = ExtResource("1_1fwgw")
+Basis = 0
+LatLon = Vector2(52.206, 4.522)

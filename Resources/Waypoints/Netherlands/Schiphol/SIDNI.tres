@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://brueahhc3ct2e"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_wn6ty"]
+
+[resource]
+resource_name = "SIDNI"
+script = ExtResource("1_wn6ty")
+Basis = 0
+LatLon = Vector2(52.487, 4.754)

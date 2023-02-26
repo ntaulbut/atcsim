@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cap4ygbux7lft"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Runway.cs" id="1_ttu6d"]
+
+[resource]
+resource_name = "22"
+script = ExtResource("1_ttu6d")
+ThresholdLatLon = Vector2(52.314, 4.803)
+TrueBearing = 221.27
+Length = 2020.0
+Elevation = -13.7

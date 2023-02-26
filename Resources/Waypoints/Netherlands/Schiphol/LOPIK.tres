@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b6kq1i2nibj6i"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_3eqp1"]
+
+[resource]
+resource_name = "LOPIK"
+script = ExtResource("1_3eqp1")
+Basis = 0
+LatLon = Vector2(51.931, 5.129)

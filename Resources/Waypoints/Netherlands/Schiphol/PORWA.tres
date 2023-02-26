@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dojdl88dx3318"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_kc8sa"]
+
+[resource]
+resource_name = "PORWA"
+script = ExtResource("1_kc8sa")
+Basis = 0
+LatLon = Vector2(52.066, 4.116)

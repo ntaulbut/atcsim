@@ -7,7 +7,10 @@
 [resource]
 resource_name = "Samos"
 script = ExtResource("1")
+MagneticVariation = 0.0
 Airports = null
+EntryPoints = null
+Callsigns = PackedStringArray()
 Style = ExtResource("3")
 WidthNm = 110
 HeightNm = 50

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://xag1el8kt52s"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/ILSApproach.cs" id="1_acyc2"]
+
+[resource]
+resource_name = "ILS 36R"
+script = ExtResource("1_acyc2")
+GlideslopeElevation = -11
+GlideslopeLatLon = Vector2(52.294, 4.776)
+GlideslopeAngle = 3.0
+LocaliserLatLon = Vector2(52.324, 4.78)
+LocaliserHeading = 3.25
+RunwayThresholdLatLon = Vector2(52.291, 4.777)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bisfqqv75wwl"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_cujqh"]
+
+[resource]
+resource_name = "ANDIK"
+script = ExtResource("1_cujqh")
+Basis = 0
+LatLon = Vector2(52.739, 5.271)

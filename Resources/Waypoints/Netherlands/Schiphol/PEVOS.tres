@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://q0ngc28wp06n"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_dvt3a"]
+
+[resource]
+resource_name = "PEVOS"
+script = ExtResource("1_dvt3a")
+Basis = 0
+LatLon = Vector2(52.516, 4.726)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://qj5jtcq7p8ku"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/WaypointData.cs" id="1_s0x8m"]
+
+[resource]
+resource_name = "ALINA"
+script = ExtResource("1_s0x8m")
+Basis = 0
+LatLon = Vector2(52.564, 4.761)
