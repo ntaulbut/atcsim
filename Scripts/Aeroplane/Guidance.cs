@@ -171,7 +171,6 @@ namespace Guidance
 			float bearing = Util.Bearing(_aeroplane.PositionNm, locPosition);
 			float angularDeviation = approach.LocaliserHeading - bearing;
 			float deviation = Mathf.Sin(Mathf.DegToRad(angularDeviation)) * distance;
-			GD.Print(deviation);
 			return deviation;
 		}
 

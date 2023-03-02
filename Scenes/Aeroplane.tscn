@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://snkvedq41wsd"]
+[gd_scene load_steps=19 format=3 uid="uid://snkvedq41wsd"]
 
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplane.cs" id="1_3137e"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/AeroplaneDisplay.cs" id="2_dnlrq"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/CallsignLabel.cs" id="8_kendr"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/HeadingField.cs" id="8_mulg5"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AltitudeLabel.cs" id="9_2b4s2"]
+[ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AssignedExitPointLabel.cs" id="9_b70n5"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/HistoryDots.cs" id="9_llox6"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Tag/AltitudeField.cs" id="9_pur43"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Display/DebugText.cs" id="10_hx38u"]
@@ -236,7 +237,7 @@ layout_mode = 1
 anchors_preset = 0
 offset_left = 1.0
 offset_top = 1.0
-offset_right = 103.0
+offset_right = 101.0
 offset_bottom = 59.0
 
 [node name="Inner Rect" type="Control" parent="Display/Tag/Control"]
@@ -259,11 +260,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_k8dre")
 
 [node name="Margins" type="MarginContainer" parent="Display/Tag/Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 94.0
+offset_bottom = 56.0
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 2
@@ -272,7 +270,11 @@ theme_override_constants/margin_bottom = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Display/Tag/Control/Margins"]
 layout_mode = 2
 
-[node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer" node_paths=PackedStringArray("Aeroplane")]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Display/Tag/Control/Margins/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Callsign" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("Aeroplane")]
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Callsign"
@@ -280,7 +282,17 @@ mouse_filter = 1
 text = "ABC123"
 vertical_alignment = 1
 script = ExtResource("8_kendr")
-Aeroplane = NodePath("../../../../../..")
+Aeroplane = NodePath("../../../../../../..")
+
+[node name="Assigned Exit Point" type="Label" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("Aeroplane", "_tag")]
+layout_mode = 2
+tooltip_text = "Assigned exit point"
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.741176, 0.741176, 0.741176, 1)
+text = "WAYPT"
+script = ExtResource("9_b70n5")
+Aeroplane = NodePath("../../../../../../..")
+_tag = NodePath("../../../../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Display/Tag/Control/Margins/VBoxContainer"]
 layout_mode = 2
@@ -324,6 +336,7 @@ clip_text = true
 layout_mode = 2
 tooltip_text = "Assigned Altitude
 "
+focus_next = NodePath("../../HBoxContainer2/Speed Field")
 focus_previous = NodePath("../Heading Field")
 theme_override_colors/font_color = Color(0.741176, 0.741176, 0.741176, 1)
 placeholder_text = "000"
@@ -341,7 +354,8 @@ theme_override_constants/separation = 0
 [node name="Speed Field" type="LineEdit" parent="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("_aeroplane", "_tag")]
 layout_mode = 2
 tooltip_text = "Assigned Speed"
-focus_next = NodePath("../Altitude Field")
+focus_next = NodePath("../Approach Selector")
+focus_previous = NodePath("../../HBoxContainer/Altitude Field")
 placeholder_text = "000"
 max_length = 3
 expand_to_text_length = true
@@ -386,7 +400,8 @@ script = ExtResource("9_llox6")
 Aeroplane = NodePath("..")
 
 [connection signal="ready" from="." to="Display/Leader Line" method="OnAeroplaneReady"]
-[connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/Callsign" method="OnAeroplaneReady"]
+[connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer3/Callsign" method="OnAeroplaneReady"]
+[connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer3/Assigned Exit Point" method="OnAeroplaneReady"]
 [connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Heading Field" method="OnAeroplaneReady"]
 [connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer/Altitude Field" method="OnAeroplaneReady"]
 [connection signal="ready" from="." to="Display/Tag/Control/Margins/VBoxContainer/HBoxContainer2/Speed Field" method="OnAeroplaneReady"]

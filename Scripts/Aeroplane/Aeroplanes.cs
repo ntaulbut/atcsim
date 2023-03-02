@@ -6,15 +6,15 @@ using System.Linq;
 
 public partial class Aeroplanes : Node
 {
-    private const float MetresToNauticalMiles = 0.0005399568f;
-    [Export] public AudioStreamPlayer AeroplaneEnterAudio;
-    [Export] public AudioStreamPlayer AeroplaneExitAudio;
+	private const float MetresToNauticalMiles = 0.0005399568f;
+	[Export] public AudioStreamPlayer AeroplaneEnterAudio;
+	[Export] public AudioStreamPlayer AeroplaneExitAudio;
 
-    private EntryPoint lastEntryPointUsed = null;
+	private EntryPoint lastEntryPointUsed = null;
 
-	private float timeSinceLastDeparture = 110;
+	private float timeSinceLastDeparture;
 
-    public void EnterAeroplane()
+	public void EnterAeroplane()
 	{
 		// Arrivals
 
@@ -33,24 +33,24 @@ public partial class Aeroplanes : Node
 			Aeroplane aeroplane = (Aeroplane)node;
 			aeroplane.TrueAltitude = entryPoint.Level * 100;
 			aeroplane.TrueHeading = entryPoint.Heading + radarConfig.MagneticVariation;
-            aeroplane.PositionNm = Geo.RelativePositionNm(entryPoint.Waypoint.LatLon, radarConfig.LatLon);
-            // Set up guidance
-            if (entryPoint.Direct is not null)
+			aeroplane.PositionNm = Geo.RelativePositionNm(entryPoint.Waypoint.LatLon, radarConfig.LatLon);
+			// Set up guidance
+			if (entryPoint.Direct is not null)
 			{
 				aeroplane.TargetedWaypoint = Simulator.Waypoints[entryPoint.Direct.ResourceName];
 				aeroplane.LateralGuidanceMode = new Direct(aeroplane);
-            }
-            else
-            {
-                aeroplane.SelectedHeading = (int)aeroplane.TrueHeading;
-                aeroplane.LateralGuidanceMode = new HeadingHold();
-            }
-            aeroplane.SelectedAltitude = (int)aeroplane.TrueAltitude;
-            aeroplane.VerticalGuidanceMode = new AltitudeHold(aeroplane);
-            aeroplane.SelectedSpeed = (int)aeroplane.TrueAirspeed;
-            AddChild(node);
-            // Play sound
-            AeroplaneEnterAudio.Play();
+			}
+			else
+			{
+				aeroplane.SelectedHeading = (int)aeroplane.TrueHeading;
+				aeroplane.LateralGuidanceMode = new HeadingHold();
+			}
+			aeroplane.SelectedAltitude = (int)aeroplane.TrueAltitude;
+			aeroplane.VerticalGuidanceMode = new AltitudeHold(aeroplane);
+			aeroplane.SelectedSpeed = (int)aeroplane.TrueAirspeed;
+			AddChild(node);
+			// Play sound
+			AeroplaneEnterAudio.Play();
 		}
 		else
 		{
@@ -60,45 +60,51 @@ public partial class Aeroplanes : Node
 
 	public override void _Process(double delta)
 	{
-		// Departures
+        // Departures
 
-		if (timeSinceLastDeparture > 180)
+        Random random = new();
+        RadarConfig radarConfig = Simulator.RadarConfig;
+
+        if (timeSinceLastDeparture > 120)
 		{
 			Runway runway = Simulator.DepartureRunway;
-            // Add an aeroplane on takeoff
-            Node node = GD.Load<PackedScene>("res://Scenes/Aeroplane.tscn").Instantiate();
-            Aeroplane aeroplane = (Aeroplane)node;
+			// Add an aeroplane on takeoff
+			Node node = GD.Load<PackedScene>("res://Scenes/Aeroplane.tscn").Instantiate();
+			Aeroplane aeroplane = (Aeroplane)node;
 			aeroplane.IsDeparture = true;
 			aeroplane.TrueAltitude = runway.Elevation + 1000;
 			aeroplane.FlightPathAngle = 6;
 			aeroplane.TrueHeading = runway.TrueBearing;
-            // Position at runway end
-            Vector2 threshold = Geo.RelativePositionNm(runway.ThresholdLatLon, Simulator.RadarConfig.LatLon);
-            aeroplane.PositionNm = threshold + Util.HeadingToVector(runway.TrueBearing) * runway.Length * MetresToNauticalMiles;
+			// Position at runway end
+			Vector2 threshold = Geo.RelativePositionNm(runway.ThresholdLatLon, Simulator.RadarConfig.LatLon);
+			aeroplane.PositionNm = threshold + Util.HeadingToVector(runway.TrueBearing) * runway.Length * MetresToNauticalMiles;
 			aeroplane.TrueAirspeed = 200;
 			// Set up guidance
 			aeroplane.SelectedSpeed = 250;
-            aeroplane.SelectedHeading = (int)aeroplane.TrueHeading;
-            aeroplane.LateralGuidanceMode = new HeadingHold();
+			aeroplane.SelectedHeading = (int)aeroplane.TrueHeading;
+			aeroplane.LateralGuidanceMode = new HeadingHold();
 			aeroplane.SelectedAltitude = 5000;
 			aeroplane.VerticalGuidanceMode = new VerticalSpeed(aeroplane, 2500);
 			aeroplane.ArmedVerticalGuidanceModes.Add(new AltitudeHold(aeroplane));
-            AddChild(node);
-            // Play sound
-            AeroplaneEnterAudio.Play();
-            // Reset timer
-            timeSinceLastDeparture = 0;
-        }
+            // Assign exit point
+            List<WaypointData> exitPoints = radarConfig.ExitPoints.ToList();
+			aeroplane.AssignedExitPoint = Simulator.Waypoints[exitPoints[random.Next(0, exitPoints.Count)].ResourceName];
+			AddChild(node);
+			// Play sound
+			AeroplaneEnterAudio.Play();
+			// Reset timer
+			timeSinceLastDeparture = 0;
+		}
 
 		timeSinceLastDeparture += (float)delta;
 	}
 
-    public void PlayAeroplaneExitAudio()
-    {
-        AeroplaneExitAudio.Play();
-    }
+	public void PlayAeroplaneExitAudio()
+	{
+		AeroplaneExitAudio.Play();
+	}
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		EnterAeroplane();
 	}

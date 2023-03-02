@@ -20,7 +20,9 @@ public partial class Aeroplane : Node, IAeroplane
 	public float VerticalSpeed {
 		get => TrueAirspeed * Mathf.Sin(Mathf.DegToRad(FlightPathAngle)) * KnotsToFeetPerSecond; // feet/s
 	}
+	// For departures
 	public bool IsDeparture;
+	public Waypoint AssignedExitPoint;
 
 	// Flight
 	public float Roll = 0; // Deg/s
@@ -172,10 +174,10 @@ public partial class Aeroplane : Node, IAeroplane
 		{
 			Exit();
 		}
-		// Remove the aeroplane if it reaches an exit point
+		// Remove the aeroplane if it reaches its assigned exit point
 		if (IsDeparture && LateralGuidanceMode is Direct)
 		{
-			if (Simulator.RadarConfig.ExitPoints.Contains(TargetedWaypoint.WaypointData))
+			if (TargetedWaypoint == AssignedExitPoint)
 			{
 				if (PositionNm.DistanceSquaredTo(TargetedWaypoint.PositionNm) < 0.01f)
 				{
