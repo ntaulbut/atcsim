@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cx4vmu54h4qci"]
+[gd_scene load_steps=25 format=3 uid="uid://cx4vmu54h4qci"]
 
 [ext_resource type="Script" path="res://Scripts/Display/CameraPanAndZoom.cs" id="1_0wnwr"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" path="res://Scripts/Menu/DebugBarText.cs" id="11_matk1"]
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
 [ext_resource type="Script" path="res://Scripts/Menu/PauseButton.cs" id="15_mvyec"]
-[ext_resource type="Script" path="res://Scripts/Menu/Timescale.cs" id="16_ag0kc"]
 [ext_resource type="Script" path="res://Scripts/Menu/InfoDisplay.cs" id="18_6w2f1"]
 [ext_resource type="Script" path="res://Scripts/Menu/DeparturesSelection.cs" id="18_rxc0r"]
 [ext_resource type="AudioStream" uid="uid://cse87g7c1a4pt" path="res://Assets/Audio/handoff_request.wav" id="20_lgpnu"]
@@ -271,28 +270,6 @@ theme_override_font_sizes/font_size = 10
 text = "text"
 script = ExtResource("11_matk1")
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 101.0
-offset_top = -25.0
-offset_right = 302.0
-offset_bottom = -6.0
-grow_vertical = 0
-theme = ExtResource("10_tbhka")
-
-[node name="Timescale editor" type="HSlider" parent="CanvasLayer/PanelContainer"]
-clip_contents = true
-layout_mode = 2
-min_value = 1.0
-max_value = 20.0
-step = 2.0
-value = 1.0
-tick_count = 11
-ticks_on_borders = true
-script = ExtResource("16_ag0kc")
-
 [node name="Departures selection" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -319,5 +296,4 @@ script = ExtResource("18_rxc0r")
 [connection signal="EnabledApproachesChanged" from="CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu" to="Extended Centrelines" method="OnEnabledApproachesChanged"]
 [connection signal="pressed" from="CanvasLayer/Buttons/Exit Button/Button" to="CanvasLayer/Buttons/Exit Button/Button" method="OnPressed"]
 [connection signal="toggled" from="CanvasLayer/Buttons/Pause Button/Button" to="CanvasLayer/Buttons/Pause Button/Button" method="OnToggled"]
-[connection signal="value_changed" from="CanvasLayer/PanelContainer/Timescale editor" to="CanvasLayer/PanelContainer/Timescale editor" method="OnValueChanged"]
 [connection signal="item_selected" from="CanvasLayer/Departures selection/OptionButton" to="CanvasLayer/Departures selection/OptionButton" method="OnItemSelected"]
