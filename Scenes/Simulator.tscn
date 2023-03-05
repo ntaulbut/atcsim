@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cx4vmu54h4qci"]
+[gd_scene load_steps=26 format=3 uid="uid://cx4vmu54h4qci"]
 
 [ext_resource type="Script" path="res://Scripts/Display/CameraPanAndZoom.cs" id="1_0wnwr"]
 [ext_resource type="Script" path="res://Scripts/Waypoints/Waypoints.cs" id="1_8txqx"]
 [ext_resource type="AudioStream" uid="uid://c37vxt8m04x5o" path="res://Assets/Audio/handoff_accept.wav" id="2_72ufw"]
 [ext_resource type="Script" path="res://Scripts/Aeroplane/Aeroplanes.cs" id="2_whjog"]
 [ext_resource type="PackedScene" uid="uid://c8rlwsfy274jn" path="res://Scenes/Waypoint.tscn" id="2_xognt"]
+[ext_resource type="Script" path="res://Scripts/Weather.cs" id="4_kadoo"]
 [ext_resource type="Script" path="res://Scripts/Display/RangeRings.cs" id="5_8phwk"]
 [ext_resource type="FontFile" uid="uid://b73m88ho6mgfv" path="res://Assets/Fonts/NotoSansMono-Regular.ttf" id="5_l65i5"]
 [ext_resource type="Script" path="res://Scripts/Display/DrawGeography.cs" id="6_m27ow"]
@@ -17,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Menu/ExitButton.cs" id="12_7vxx1"]
 [ext_resource type="Script" path="res://Scripts/Menu/PauseButton.cs" id="15_mvyec"]
 [ext_resource type="Script" path="res://Scripts/Menu/Timescale.cs" id="16_ag0kc"]
+[ext_resource type="Script" path="res://Scripts/Menu/InfoDisplay.cs" id="18_6w2f1"]
 [ext_resource type="Script" path="res://Scripts/Menu/DeparturesSelection.cs" id="18_rxc0r"]
 [ext_resource type="AudioStream" uid="uid://cse87g7c1a4pt" path="res://Assets/Audio/handoff_request.wav" id="20_lgpnu"]
 
@@ -62,6 +64,10 @@ border_color = Color(1, 1, 1, 1)
 [node name="Camera2d" type="Camera2D" parent="."]
 script = ExtResource("1_0wnwr")
 
+[node name="METAR Update Timer" type="Timer" parent="."]
+wait_time = 300.0
+autostart = true
+
 [node name="Aeroplane Entry Timer" type="Timer" parent="."]
 wait_time = 90.0
 autostart = true
@@ -73,6 +79,10 @@ volume_db = -14.0
 [node name="Aeroplane Exit Audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_lgpnu")
 volume_db = -14.0
+
+[node name="Weather" type="Node" parent="."]
+script = ExtResource("4_kadoo")
+WeatherChangeRate = 1.0
 
 [node name="Waypoints" type="Node" parent="."]
 editor_description = "Holds waypoint script, waypoints are added as children"
@@ -226,6 +236,22 @@ toggle_mode = true
 text = "Pause"
 script = ExtResource("15_mvyec")
 
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Buttons"]
+layout_mode = 2
+theme = ExtResource("11_f6m0k")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Buttons/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_right = 9
+
+[node name="Label" type="Label" parent="CanvasLayer/Buttons/PanelContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "info..."
+vertical_alignment = 1
+script = ExtResource("18_6w2f1")
+
 [node name="Debug Bar" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 2
@@ -288,6 +314,7 @@ layout_mode = 2
 fit_to_longest_item = false
 script = ExtResource("18_rxc0r")
 
+[connection signal="timeout" from="METAR Update Timer" to="Weather" method="OnMETARUpdateTimeout"]
 [connection signal="timeout" from="Aeroplane Entry Timer" to="Aeroplanes" method="EnterAeroplane"]
 [connection signal="EnabledApproachesChanged" from="CanvasLayer/Enabled Approaches Menu Container/Enabled Approaches Menu" to="Extended Centrelines" method="OnEnabledApproachesChanged"]
 [connection signal="pressed" from="CanvasLayer/Buttons/Exit Button/Button" to="CanvasLayer/Buttons/Exit Button/Button" method="OnPressed"]

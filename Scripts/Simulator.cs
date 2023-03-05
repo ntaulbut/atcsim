@@ -53,9 +53,4 @@ public partial class Simulator : Node
             _previousScale = scale;
         }
     }
-
-    public override void _Ready()
-    {
-        
-    }
 }

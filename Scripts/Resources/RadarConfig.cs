@@ -4,6 +4,7 @@ public partial class RadarConfig : Resource
 {
     [Export] public float MagneticVariation;
     [Export] public Airport[] Airports;
+    [Export] public string PrimaryICAOCode;
     [Export] public EntryPoint[] EntryPoints;
     [Export] public string[] Callsigns;
     public enum DisplayFixedBy {Width, Height, Compromise}

@@ -32,6 +32,7 @@ resource_name = "Schiphol"
 script = ExtResource("25_gsyo3")
 MagneticVariation = 2.0
 Airports = [ExtResource("1_43a44")]
+PrimaryICAOCode = "EKVG"
 EntryPoints = Array[Resource]([ExtResource("4_8qktn"), ExtResource("2_ml3om"), ExtResource("3_ga6up")])
 Callsigns = PackedStringArray("KLM", "BAW", "AEE", "EIN", "ACA", "AMC", "AFR", "KAL", "AAL", "BTI", "CAL", "AUA", "CPA", "DLH", "EZY", "UAE", "EWG", "FIN", "SWR", "GIA", "NOZ", "SAS", "RYR", "SIA", "TAP", "TRA", "TFL", "THY", "VLG")
 Style = ExtResource("5_rcrgc")
