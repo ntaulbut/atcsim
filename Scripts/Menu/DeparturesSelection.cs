@@ -10,6 +10,11 @@ public partial class DeparturesSelection : OptionButton
 		foreach (Runway runway in Simulator.RadarConfig.Airports[0].Runways)
 		{
 			AddItem(runway.ResourceName);
+
+			if (runway.ResourceName == "")
+			{
+				GD.PushWarning("Runway doesn't have a name.");
+			}
 		}
 	}
 

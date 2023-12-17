@@ -23,15 +23,12 @@ public class METAR
 
     private async Task PopulateFromAWC()
     {
-        XDocument metarDocument = await "https://aviationweather.gov/adds/dataserver_current/httpparam"
+        XDocument metarDocument = await "https://aviationweather.gov/api/data/metar"
             .SetQueryParams(new
             {
-                datasource = "metars",
-                requesttype = "retrieve",
                 format = "xml",
-                hoursbeforenow = "24",
-                mostrecent = "true",
-                stationstring = Station
+                hours = "1",
+                ids = Station
             })
             .GetXDocumentAsync();
         XElement metar = metarDocument.Element("response").Element("data").Element("METAR");
