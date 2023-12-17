@@ -2,7 +2,6 @@ using Godot;
 using Guidance;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class Aeroplane : Node, IAeroplane
 {
