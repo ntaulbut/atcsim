@@ -1,9 +1,11 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ctadnkxvo86v1"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://ctadnkxvo86v1"]
 
 [ext_resource type="Resource" uid="uid://bgkawc0rnvx3d" path="res://Resources/Airports/Hiroshima/ILS Approaches/10.tres" id="1_di0k7"]
 [ext_resource type="Script" path="res://Scripts/Resources/Airport.cs" id="1_o7cp3"]
+[ext_resource type="Resource" uid="uid://c44evhyu4gjhu" path="res://Resources/Airports/Hiroshima/Runways/10.tres" id="2_nlxvg"]
+[ext_resource type="Resource" uid="uid://m4pjaugl80cl" path="res://Resources/Airports/Hiroshima/Runways/28.tres" id="3_wmiql"]
 
 [resource]
 script = ExtResource("1_o7cp3")
 ILSApproaches = [ExtResource("1_di0k7")]
-Runways = null
+Runways = Array[Resource]([ExtResource("2_nlxvg"), ExtResource("3_wmiql")])
