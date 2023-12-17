@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://qsjpswn00trx"]
+[gd_scene load_steps=9 format=3 uid="uid://qsjpswn00trx"]
 
 [ext_resource type="Theme" uid="uid://btnes6aw08gr7" path="res://Assets/Themes/GameplayMenuTheme.tres" id="1_koinu"]
 [ext_resource type="Theme" uid="uid://btud8rm3f1fmk" path="res://Assets/Themes/TransparentMenu.tres" id="1_p3716"]
 [ext_resource type="Script" path="res://Scripts/Menu/RadarSelector.cs" id="2_kn5io"]
 [ext_resource type="PackedScene" uid="uid://cx4vmu54h4qci" path="res://Scenes/Simulator.tscn" id="3_ukynq"]
+[ext_resource type="Resource" uid="uid://bnpq8lepoy84r" path="res://Resources/Radar Configs/Hiroshima.tres" id="6_5u620"]
+[ext_resource type="Resource" uid="uid://c415e65kyqrbc" path="res://Resources/Radar Configs/HongKong.tres" id="7_438nn"]
 [ext_resource type="Resource" uid="uid://bvg2mrfw0rh6u" path="res://Resources/Radar Configs/Schiphol.tres" id="7_kqae7"]
+[ext_resource type="Resource" uid="uid://dp0v87njxy6jv" path="res://Resources/Radar Configs/Samos.tres" id="8_4yb06"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -37,7 +40,7 @@ theme_override_constants/separation = 10
 script = ExtResource("2_kn5io")
 SimulatorScene = ExtResource("3_ukynq")
 dropdown = NodePath("OptionButton")
-radarConfigs = Array[Resource]([ExtResource("7_kqae7")])
+radarConfigs = Array[Resource]([ExtResource("7_kqae7"), ExtResource("6_5u620"), ExtResource("7_438nn"), ExtResource("8_4yb06")])
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
