@@ -266,8 +266,11 @@ size_flags_vertical = 8
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+auto_translate = false
+localize_numeral_system = false
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 10
-text = "text"
+text = "debug text"
 script = ExtResource("11_matk1")
 
 [node name="Departures selection" type="VBoxContainer" parent="CanvasLayer"]
